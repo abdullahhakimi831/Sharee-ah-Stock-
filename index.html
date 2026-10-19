@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sharee'ah Stock Tracker</title>
+  <meta name="description" content="Track your investments and income with Shariah compliance screening and live stock prices.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='none' stroke='%230ca30c' stroke-width='6'/></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>Sharee'ah Stock Tracker</h1>
+        <p class="tagline">Halal investing, tracked live</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" class="tab active" data-tab="portfolio" aria-selected="true">Portfolio</button>
+      <button role="tab" class="tab" data-tab="income" aria-selected="false">Income &amp; Zakat</button>
+      <button role="tab" class="tab" data-tab="screener" aria-selected="false">Screener</button>
+      <button role="tab" class="tab" data-tab="settings" aria-selected="false">Settings</button>
+    </nav>
+    <div class="feed-status" id="feedStatus"><span class="dot"></span><span class="text">Demo prices</span></div>
+  </header>
+
+  <main>
+    <!-- ================= PORTFOLIO ================= -->
+    <section class="panel active" id="tab-portfolio" role="tabpanel">
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-label">Total invested</span><span class="kpi-value" id="kpiInvested">$0.00</span></div>
+        <div class="kpi"><span class="kpi-label">Current value</span><span class="kpi-value" id="kpiValue">$0.00</span><span class="kpi-sub" id="kpiDay"></span></div>
+        <div class="kpi"><span class="kpi-label">Total profit / loss</span><span class="kpi-value" id="kpiPL">$0.00</span><span class="kpi-sub" id="kpiPLPct"></span></div>
+        <div class="kpi"><span class="kpi-label">Shariah compliant</span><span class="kpi-value" id="kpiHalal">-</span><span class="kpi-sub" id="kpiHalalSub">of portfolio value</span></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>Portfolio allocation</h2>
+            <div class="seg-toggle" role="group" aria-label="Group allocation by">
+              <button class="active" data-group="holding">By stock</button>
+              <button data-group="status">By compliance</button>
+            </div>
+          </div>
+          <div class="donut-wrap">
+            <div id="allocChart" class="chart"></div>
+            <ul id="allocLegend" class="legend"></ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Add an investment</h2>
+          <form id="addForm" class="form" autocomplete="off">
+            <label>Stock ticker
+              <input id="fSymbol" name="symbol" placeholder="e.g. AAPL" required maxlength="12" list="tickerList">
+              <datalist id="tickerList"></datalist>
+            </label>
+            <div id="fPreview" class="preview" hidden></div>
+            <div class="row">
+              <label>Amount invested ($)
+                <input id="fAmount" name="amount" type="number" min="0.01" step="0.01" placeholder="1000" required>
+              </label>
+              <label>Buy price per share ($)
+                <input id="fPrice" name="price" type="number" min="0.0001" step="0.0001" placeholder="current price">
+              </label>
+            </div>
+            <label>Purchase date
+              <input id="fDate" name="date" type="date">
+            </label>
+            <div id="fWarn" class="warn" hidden></div>
+            <button type="submit" class="btn primary">Add to portfolio</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Holdings</h2>
+          <div class="legend-inline">
+            <span class="pill halal">✓ Halal</span>
+            <span class="pill doubtful">! Doubtful</span>
+            <span class="pill haram">✕ Not compliant</span>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="holdings">
+            <thead>
+              <tr>
+                <th>Stock</th><th>Shariah</th><th class="num">Live price</th><th class="num">Today</th>
+                <th class="num">Shares</th><th class="num">Invested</th><th class="num">Value</th>
+                <th class="num">Profit / loss</th><th class="num">Weight</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody"></tbody>
+          </table>
+        </div>
+        <p class="empty" id="holdingsEmpty">No investments yet. Add your first one above.</p>
+      </div>
+    </section>
+
+    <!-- ================= INCOME ================= -->
+    <section class="panel" id="tab-income" role="tabpanel" hidden>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-label">Total income</span><span class="kpi-value" id="incTotal">$0.00</span></div>
+        <div class="kpi"><span class="kpi-label">This month</span><span class="kpi-value" id="incMonth">$0.00</span></div>
+        <div class="kpi"><span class="kpi-label">Dividends</span><span class="kpi-value" id="incDiv">$0.00</span></div>
+        <div class="kpi"><span class="kpi-label">To purify (give to charity)</span><span class="kpi-value" id="incPurify">$0.00</span><span class="kpi-sub">impermissible share of dividends</span></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2>Log income</h2>
+          <form id="incForm" class="form" autocomplete="off">
+            <div class="row">
+              <label>Source
+                <input id="iSource" placeholder="e.g. Salary, Business, AAPL dividend" required>
+              </label>
+              <label>Category
+                <select id="iCat">
+                  <option>Salary</option><option>Business</option><option value="Dividend">Dividend</option>
+                  <option>Capital gain</option><option>Rental</option><option>Other</option>
+                </select>
+              </label>
+            </div>
+            <label id="iSymWrap" hidden>Dividend from
+              <select id="iSym"></select>
+            </label>
+            <div class="row">
+              <label>Amount ($)
+                <input id="iAmount" type="number" min="0.01" step="0.01" required>
+              </label>
+              <label>Date
+                <input id="iDate" type="date" required>
+              </label>
+            </div>
+            <button type="submit" class="btn primary">Add income</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>Zakat calculator</h2>
+          <form id="zakatForm" class="form" autocomplete="off">
+            <div class="row">
+              <label>Cash &amp; savings ($)
+                <input id="zCash" type="number" min="0" step="0.01" value="0">
+              </label>
+              <label>Gold &amp; silver value ($)
+                <input id="zGold" type="number" min="0" step="0.01" value="0">
+              </label>
+            </div>
+            <div class="row">
+              <label>Debts due now ($)
+                <input id="zDebt" type="number" min="0" step="0.01" value="0">
+              </label>
+              <label>Nisab threshold ($)
+                <input id="zNisab" type="number" min="0" step="0.01" value="6000" title="Value of 85g of gold (or 595g of silver) today">
+              </label>
+            </div>
+            <label class="check"><input type="checkbox" id="zStocks" checked> Include portfolio value (<span id="zStockVal">$0.00</span>)</label>
+          </form>
+          <div class="zakat-result">
+            <div><span class="kpi-label">Zakatable wealth</span><span id="zWealth" class="big">$0.00</span></div>
+            <div><span class="kpi-label">Zakat due (2.5%)</span><span id="zDue" class="big accent">$0.00</span></div>
+          </div>
+          <p class="hint" id="zNote">Set nisab to today's value of 85g of gold. Zakat applies once wealth above nisab has been held for one lunar year.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Income history</h2>
+        <div class="table-scroll">
+          <table class="holdings">
+            <thead><tr><th>Date</th><th>Source</th><th>Category</th><th class="num">Amount</th><th class="num">To purify</th><th></th></tr></thead>
+            <tbody id="incBody"></tbody>
+          </table>
+        </div>
+        <p class="empty" id="incEmpty">No income logged yet.</p>
+      </div>
+    </section>
+
+    <!-- ================= SCREENER ================= -->
+    <section class="panel" id="tab-screener" role="tabpanel" hidden>
+      <div class="card">
+        <h2>Check any stock</h2>
+        <form id="screenForm" class="form inline" autocomplete="off">
+          <input id="sSymbol" placeholder="Ticker, e.g. NVDA" list="tickerList" required>
+          <button class="btn primary" type="submit">Screen</button>
+        </form>
+        <div class="filters" id="screenFilters" role="group" aria-label="Filter by status">
+          <button class="active" data-f="all">All</button>
+          <button data-f="halal">✓ Halal</button>
+          <button data-f="doubtful">! Doubtful</button>
+          <button data-f="haram">✕ Not compliant</button>
+        </div>
+        <div class="screen-grid" id="screenGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section class="panel" id="tab-settings" role="tabpanel" hidden>
+      <div class="card narrow">
+        <h2>Live price connection</h2>
+        <p>Live prices come from <a href="https://finnhub.io/register" target="_blank" rel="noopener">Finnhub</a>. Create a free account, copy your API key and paste it below. Without a key the dashboard shows simulated demo prices.</p>
+        <form id="keyForm" class="form inline" autocomplete="off">
+          <input id="apiKey" type="password" placeholder="Finnhub API key">
+          <button class="btn primary" type="submit">Save &amp; connect</button>
+          <button class="btn" type="button" id="clearKey">Use demo</button>
+        </form>
+        <p class="hint">Your key is stored only in this browser (localStorage).</p>
+      </div>
+      <div class="card narrow">
+        <h2>Your data</h2>
+        <p>Holdings and income are saved in this browser. Export a backup to move them to another device.</p>
+        <div class="btn-row">
+          <button class="btn" id="exportBtn">Export backup</button>
+          <label class="btn">Import backup<input type="file" id="importFile" accept="application/json" hidden></label>
+          <button class="btn danger" id="resetBtn">Delete all data</button>
+        </div>
+      </div>
+      <div class="card narrow">
+        <h2>How screening works</h2>
+        <p>Each stock is checked against two screens, following AAOIFI-style standards:</p>
+        <ol>
+          <li><strong>Business screen</strong> - the core business must not be riba (interest-based finance), alcohol, music &amp; entertainment, gambling, tobacco, pork, or conventional insurance.</li>
+          <li><strong>Financial screen</strong> - impermissible revenue under 5%, interest-bearing debt and cash each under ~33% of market cap.</li>
+        </ol>
+        <p>Compliant stocks with a small impermissible share require <em>purification</em>: give that percentage of dividends to charity.</p>
+        <p class="hint">Classifications here are estimates for guidance only, not a fatwa. Confirm with a dedicated screener (Zoya, Musaffa, IdealRatings) or a qualified scholar. You can override any stock's status from its details panel.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= DETAILS MODAL ================= -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>Guidance only - not financial or religious advice. Always verify compliance with a qualified scholar.</footer>
+
+  <script src="js/shariah-data.js"></script>
+  <script src="js/prices.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
