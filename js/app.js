@@ -23,6 +23,27 @@
   const today = () => new Date().toISOString().slice(0, 10);
   const trend = (n) => n > 0 ? "up" : n < 0 ? "down" : "";
 
+  // In-page messages and confirmations (browser dialogs are blocked in some embeds)
+  let toastTimer;
+  function toast(msg, kind = "") {
+    let el = $("#toast");
+    if (!el) { el = document.createElement("div"); el.id = "toast"; el.setAttribute("role", "status"); document.body.appendChild(el); }
+    el.textContent = msg;
+    el.className = `toast show ${kind}`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 3500);
+  }
+  // First click arms the button, second click within 3s confirms
+  function armed(btn, label) {
+    if (btn.dataset.armed) return true;
+    const old = btn.innerHTML;
+    btn.dataset.armed = "1";
+    btn.classList.add("armed");
+    btn.innerHTML = label;
+    setTimeout(() => { delete btn.dataset.armed; btn.classList.remove("armed"); btn.innerHTML = old; }, 3000);
+    return false;
+  }
+
   // ---------------- State ----------------
   let state = load();
   function load() {
@@ -174,9 +195,10 @@
     if (!btn) return;
     const sym = btn.closest("tr").dataset.sym;
     if (btn.dataset.act === "details") openDetails(sym);
-    if (btn.dataset.act === "remove" && confirm(`Remove ${sym} from your portfolio?`)) {
+    if (btn.dataset.act === "remove" && armed(btn, "Remove?")) {
       state.holdings = state.holdings.filter(h => h.symbol !== sym);
       save(); syncFeed(); renderAll();
+      toast(`Removed ${sym}`);
     }
   });
 
@@ -241,7 +263,7 @@
       const q = await PriceFeed.quote(sym).catch(() => null);
       price = q?.price;
     }
-    if (!(price > 0)) { alert(`Couldn't find a price for ${sym}. Check the ticker or enter the buy price.`); return; }
+    if (!(price > 0)) { toast(`Couldn't find a price for ${sym}. Check the ticker or enter the buy price.`, "error"); return; }
 
     const scr = screening(sym);
     const shares = amount / price;
@@ -253,6 +275,7 @@
       state.holdings.push({ symbol: sym, name: scr.name, shares, invested: amount, lots: [lot] });
     }
     save(); syncFeed(); renderAll();
+    toast(`Added ${money(amount)} of ${sym}`);
     e.target.reset();
     $("#fDate").value = today(); $("#fPrice").placeholder = "current price";
     $("#fPreview").hidden = true; $("#fWarn").hidden = true;
@@ -489,14 +512,15 @@
       if (!Array.isArray(data.holdings)) throw new Error("Not a backup file");
       state = { overrides: {}, profiles: {}, income: [], zakat: {}, ...data };
       save(); syncFeed(); renderAll();
-      alert("Backup imported.");
-    } catch (err) { alert(`Import failed: ${err.message}`); }
+      toast("Backup imported");
+    } catch (err) { toast(`Import failed: ${err.message}`, "error"); }
     e.target.value = "";
   });
   $("#resetBtn").addEventListener("click", () => {
-    if (!confirm("Delete all holdings and income from this browser?")) return;
+    if (!armed($("#resetBtn"), "Click again to delete everything")) return;
     state = { holdings: [], income: [], overrides: {}, profiles: {}, zakat: {} };
     save(); syncFeed(); renderAll();
+    toast("All data deleted");
   });
 
   // ---------------- Boot ----------------

@@ -45,7 +45,9 @@ const PriceFeed = (() => {
   // ---------- Finnhub ----------
   async function api(path, params = {}) {
     const qs = new URLSearchParams({ ...params, token: apiKey });
-    const res = await fetch(`${API}${path}?${qs}`);
+    let res;
+    try { res = await fetch(`${API}${path}?${qs}`); }
+    catch { throw new Error("Can't reach Finnhub from this page - open the hosted site instead"); }
     if (res.status === 401 || res.status === 403) throw new Error("Invalid API key");
     if (res.status === 429) throw new Error("Rate limited - slow down");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
