@@ -116,10 +116,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .brand h1 { font-size: 17px; font-weight: 800; }
 .tagline { margin: 0; font-size: 12px; color: var(--band-muted); }
 .brand-mark {
-  width: 32px; height: 32px; border-radius: 50%; flex: none;
-  background: conic-gradient(#4f9a74 0 70%, transparent 70% 72%, #c9a227 72% 86%, transparent 86% 88%, #c2415a 88% 98%, transparent 98%);
-  -webkit-mask: radial-gradient(circle, transparent 8px, #000 9px);
-          mask: radial-gradient(circle, transparent 8px, #000 9px);
+  /* Light disc behind the ring so the deep compliance colors read on the dark band */
+  width: 38px; height: 38px; border-radius: 50%; flex: none;
+  display: grid; place-items: center;
+  background: var(--band-ink);
+}
+.brand-mark::before {
+  content: ""; width: 28px; height: 28px; border-radius: 50%;
+  background: conic-gradient(#2d6a4f 0 68%, transparent 68% 71%, #a67c00 71% 85%, transparent 85% 88%, #8b1a2e 88% 97%, transparent 97%);
+  -webkit-mask: radial-gradient(circle, transparent 7px, #000 8px);
+          mask: radial-gradient(circle, transparent 7px, #000 8px);
 }
 .tabs {
   display: flex; gap: 2px; margin-left: auto; padding: 4px;
@@ -140,9 +146,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 .feed-status .text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .feed-status .dot { width: 8px; height: 8px; border-radius: 50%; background: #c9a227; flex: none; }
-.feed-status.live .dot { background: #4f9a74; box-shadow: 0 0 0 0 rgba(79, 154, 116, .6); animation: pulse 1.8s infinite; }
-.feed-status.error .dot { background: #c2415a; }
-@keyframes pulse { 70% { box-shadow: 0 0 0 7px rgba(79, 154, 116, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 154, 116, 0); } }
+.feed-status.live .dot { background: #3f8f68; box-shadow: 0 0 0 0 rgba(63, 143, 104, .6); animation: pulse 1.8s infinite; }
+.feed-status.error .dot { background: #b8384f; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 7px rgba(63, 143, 104, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 143, 104, 0); } }
 
 /* ---------- Layout ---------- */
 main {
