@@ -3,10 +3,19 @@
   const STORE_KEY = "shariah-tracker-v1";
   const KEY_STORE = "shariah-tracker-finnhub-key";
 
+  const TD_KEY_STORE = "shariah-tracker-twelvedata-key";
+
+  // Chart colors come from the CSS tokens so they follow light/dark mode
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const list = (name) => css(name).split(",").map(x => x.trim()).filter(Boolean);
   const COLORS = {
-    halal: "#0ca30c", doubtful: "#e0a106", haram: "#d03b3b",
-    okShades: ["#0ca30c", "#5fbf5f", "#087a08", "#9fd89f"],
-    badShades: ["#d03b3b", "#ef8a8a", "#9e2626", "#f5b5b5"],
+    get halal() { return css("--halal"); },
+    get doubtful() { return css("--doubtful"); },
+    get haram() { return css("--haram"); },
+    get okShades() { return list("--ok-shades"); },
+    get badShades() { return list("--bad-shades"); },
+    get ink() { return css("--ink-2"); },
+    get muted() { return css("--muted"); },
   };
   const STATUS_LABEL = { halal: "✓ Halal", doubtful: "! Doubtful", haram: "✕ Not compliant" };
 
@@ -170,13 +179,14 @@
     const rows = computeRows();
     const total = renderKpis(rows);
     $("#holdingsEmpty").hidden = rows.length > 0;
+    $("#exampleBanner").hidden = !state.holdings.some(h => h.example);
     rows.sort((a, b) => (b.value ?? b.h.invested) - (a.value ?? a.h.invested));
     $("#holdingsBody").innerHTML = rows.map(r => {
       const st = r.scr.status;
       const w = total ? ((r.value ?? r.h.invested) / total) * 100 : 0;
       const flash = r.q && Date.now() - r.q.time < 1200 ? (r.q.direction > 0 ? "flash-up" : r.q.direction < 0 ? "flash-down" : "") : "";
       return `<tr class="row-${st}" data-sym="${esc(r.h.symbol)}">
-        <td><button class="link sym" data-act="details"><strong>${esc(r.h.symbol)}</strong><span>${esc(r.scr.name)}</span></button></td>
+        <td><button class="link sym" data-act="details"><strong>${esc(r.h.symbol)}</strong><span>${esc(r.scr.name)}</span></button>${r.h.example ? '<span class="tag">Example</span>' : ""}</td>
         <td><span class="pill ${st}">${STATUS_LABEL[st]}</span></td>
         <td class="num ${flash}">${r.price != null ? money(r.price) : '<span class="muted">loading…</span>'}</td>
         <td class="num ${trend(r.q?.change)}">${r.q ? pct(r.q.changePct) : "-"}</td>
@@ -205,13 +215,16 @@
   // Re-render on price ticks, throttled to one frame
   let pending = false;
   let lastChart = 0;
-  PriceFeed.onQuote(() => {
+  let lastPerf = 0;
+  PriceFeed.onQuote((sym, q) => {
+    if (PriceFeed.isLive()) History.record(sym, q.price);
     if (pending) return;
     pending = true;
     requestAnimationFrame(() => {
       pending = false;
       renderHoldings();
       if (Date.now() - lastChart > 3000) { lastChart = Date.now(); renderChart(); }
+      if (Date.now() - lastPerf > 15000) { lastPerf = Date.now(); renderPerf(); }
       renderZakat();
     });
   });
@@ -270,7 +283,7 @@
     const lot = { date: $("#fDate").value || today(), amount, price };
     const existing = state.holdings.find(h => h.symbol === sym);
     if (existing) {
-      existing.shares += shares; existing.invested += amount; existing.lots.push(lot);
+      existing.shares += shares; existing.invested += amount; existing.lots.push(lot); delete existing.example;
     } else {
       state.holdings.push({ symbol: sym, name: scr.name, shares, invested: amount, lots: [lot] });
     }
@@ -284,6 +297,27 @@
   function syncFeed() {
     PriceFeed.track(state.holdings.map(h => h.symbol));
   }
+
+  // ---------------- Example portfolio ----------------
+  const EXAMPLES = [
+    ["AAPL", 2500, 300, 0.82], ["NVDA", 3000, 240, 0.70], ["SPUS", 2000, 200, 0.90],
+    ["MSFT", 1500, 150, 0.95], ["AMZN", 1000, 120, 0.97], ["JPM", 800, 90, 1.04], ["TSLA", 1200, 60, 1.15],
+  ];
+  function loadExamples() {
+    state.holdings = EXAMPLES.map(([sym, amount, daysAgo, f]) => {
+      const price = Math.round(SHARIAH_DB[sym].price * f * 100) / 100;
+      const date = new Date(Date.now() - daysAgo * 864e5).toISOString().slice(0, 10);
+      return { symbol: sym, name: SHARIAH_DB[sym].name, shares: amount / price, invested: amount, example: true, lots: [{ date, amount, price }] };
+    });
+    save(); syncFeed(); renderAll();
+  }
+  $("#loadExamples").addEventListener("click", loadExamples);
+  $("#clearExamples").addEventListener("click", () => {
+    state.holdings = state.holdings.filter(h => !h.example);
+    save(); syncFeed(); renderAll();
+    toast("Examples cleared. Add your first investment above.");
+    $("#fSymbol").focus();
+  });
 
   // ---------------- Details modal ----------------
   async function openDetails(sym) {
@@ -474,12 +508,210 @@
     const wealth = Math.max(0, v("zCash") + v("zGold") + stocks - v("zDebt"));
     const nisab = v("zNisab");
     const due = wealth >= nisab && wealth > 0 ? wealth * 0.025 : 0;
+    $("#zGoldN").textContent = perGram("gold") ? money(perGram("gold") * 85) : "-";
+    $("#zSilverN").textContent = perGram("silver") ? money(perGram("silver") * 595) : "-";
     $("#zWealth").textContent = money(wealth);
     $("#zDue").textContent = money(due);
     $("#zNote").textContent = wealth < nisab
       ? `Below nisab (${money(nisab)}) - no zakat due. Set nisab to today's value of 85g of gold.`
       : "Zakat applies once wealth above nisab has been held for one lunar year. Set nisab to today's value of 85g of gold.";
   }
+
+  // ---------------- Growth & loss ----------------
+  const DAY = 864e5;
+  const isoDaysAgo = (n) => new Date(Date.now() - n * DAY).toISOString().slice(0, 10);
+  let perfRange = "all", perfPick = "all", perfToken = 0;
+
+  $$("#perfRange button").forEach(b => b.addEventListener("click", () => {
+    perfRange = b.dataset.r;
+    $$("#perfRange button").forEach(x => x.classList.toggle("active", x === b));
+    renderPerf();
+  }));
+  $("#perfPick").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    perfPick = b.dataset.p;
+    renderPerf();
+  });
+
+  async function renderPerf() {
+    const token = ++perfToken;
+    const holdings = state.holdings;
+    if (perfPick !== "all" && !holdings.some(h => h.symbol === perfPick)) perfPick = "all";
+    $("#perfPick").innerHTML = holdings.length ? [["all", "Whole portfolio"], ...holdings.map(h => [h.symbol, h.symbol])]
+      .map(([p, l]) => `<button class="chip ${p === perfPick ? "active" : ""}" data-p="${esc(p)}">${esc(l)}</button>`).join("") : "";
+
+    const pick = perfPick === "all" ? holdings : holdings.filter(h => h.symbol === perfPick);
+    if (!pick.length) {
+      Charts.line($("#perfChart"), [], { empty: "Add investments to see how they grow over time." });
+      $("#perfSummary").textContent = ""; $("#perfSource").textContent = ""; $("#perfBars").innerHTML = "";
+      return;
+    }
+    const demo = !PriceFeed.isLive();
+    const results = await Promise.all(pick.map(h => {
+      const first = h.lots.map(l => l.date).sort()[0];
+      return History.stockSeries(h.symbol, first, h.lots, PriceFeed.get(h.symbol)?.price, demo).then(r => ({ h, ...r }));
+    }));
+    if (token !== perfToken) return;
+
+    const dates = [...new Set(results.flatMap(r => r.points.map(p => p[0])))].sort();
+    const start = perfRange === "all" ? dates[0] : isoDaysAgo(+perfRange);
+    const valuePts = [], investedPts = [];
+    const cursor = results.map(() => ({ i: 0, last: null }));
+    for (const d of dates) {
+      let value = 0, invested = 0, owned = false;
+      results.forEach((r, k) => {
+        const c = cursor[k];
+        while (c.i < r.points.length && r.points[c.i][0] <= d) c.last = r.points[c.i++][1];
+        let shares = 0;
+        r.h.lots.forEach(l => { if (l.date <= d) { shares += l.amount / l.price; invested += l.amount; } });
+        if (shares && c.last != null) { value += shares * c.last; owned = true; }
+      });
+      if (owned && d >= start) { valuePts.push([d, value]); investedPts.push([d, invested]); }
+    }
+
+    const endV = valuePts.at(-1)?.[1] ?? 0, endI = investedPts.at(-1)?.[1] ?? 0;
+    const startGain = valuePts.length ? valuePts[0][1] - investedPts[0][1] : 0;
+    const rangeGain = (endV - endI) - (perfRange === "all" ? 0 : startGain);
+    const up = rangeGain >= 0;
+    const label = perfPick === "all" ? "Portfolio value" : `${perfPick} value`;
+    Charts.line($("#perfChart"), [
+      { label, short: "Value", color: up ? COLORS.halal : COLORS.haram, points: valuePts, area: true },
+      { label: "Amount invested", short: "Invested", color: COLORS.muted, points: investedPts, dashed: true },
+    ], { format: v => money(v), axisFormat: v => compact(v), ariaLabel: `${label} over time`, empty: "No price history in this range yet." });
+
+    const rangeName = { 30: "past month", 91: "past 3 months", 182: "past 6 months", 365: "past year", all: "since you invested" }[perfRange];
+    const base = perfRange === "all" ? endI : (valuePts[0]?.[1] || endI);
+    $("#perfSummary").innerHTML = valuePts.length
+      ? `<span class="${up ? "up" : "down"}">${money(rangeGain, true)} (${pct(base ? (rangeGain / base) * 100 : 0)})</span> ${rangeName}`
+      : "";
+
+    const src = new Set(results.map(r => r.source));
+    $("#perfSource").textContent = src.has("twelve") ? "Daily closing prices from Twelve Data."
+      : src.has("demo") ? "Simulated demo history. Add API keys in Settings to see your real performance."
+      : "Built from prices recorded while the app is open. Add a free Twelve Data key in Settings for full daily history.";
+
+    // Return by stock: diverging bars around 0%
+    const rets = computeRows().map(r => ({ sym: r.h.symbol, st: r.scr.status, v: r.pl != null ? (r.pl / r.h.invested) * 100 : 0, pl: r.pl }))
+      .sort((a, b) => b.v - a.v);
+    const maxAbs = Math.max(1, ...rets.map(r => Math.abs(r.v)));
+    $("#perfBars").innerHTML = rets.map(r => {
+      const w = (Math.abs(r.v) / maxAbs) * 50;
+      return `<div class="bar-row" title="${esc(r.sym)}: ${pct(r.v)} (${money(r.pl, true)})">
+        <span class="bar-label"><span class="dot ${r.st}"></span>${esc(r.sym)}</span>
+        <span class="bar-track"><span class="bar-zero"></span><span class="bar ${r.v >= 0 ? "pos" : "neg"}" style="${r.v >= 0 ? "left:50%" : `left:${50 - w}%`};width:${w}%"></span></span>
+        <span class="bar-val ${trend(r.v)}">${pct(r.v)}</span>
+      </div>`;
+    }).join("");
+  }
+  const compact = (v) => "$" + Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(v);
+
+  // ---------------- Gold & silver ----------------
+  const PURITY = {
+    gold: [
+      { k: "24k", f: 1, mark: "999" }, { k: "22k", f: 0.916, mark: "916" }, { k: "21k", f: 0.875, mark: "875" },
+      { k: "18k", f: 0.75, mark: "750" }, { k: "14k", f: 0.585, mark: "585" }, { k: "10k", f: 0.417, mark: "417" },
+    ],
+    silver: [
+      { k: "Fine", f: 1, mark: "999" }, { k: "Britannia", f: 0.958, mark: "958" }, { k: "Sterling", f: 0.925, mark: "925" },
+      { k: "Coin", f: 0.9, mark: "900" }, { k: "800", f: 0.8, mark: "800" },
+    ],
+  };
+  const UNITS = { g: { f: 1, name: "gram" }, tola: { f: 11.6638, name: "tola" }, oz: { f: History.OZ, name: "troy ounce" } };
+  let metal = "gold", unit = "g", mRange = "365", metalData = null;
+  let shown = { gold: ["24k", "22k", "21k", "18k"], silver: ["Fine", "Sterling"] };
+  try { const saved = JSON.parse(localStorage.getItem("shariah-tracker-metal-ui")); if (saved) ({ metal = metal, unit = unit, mRange = mRange, shown = shown } = saved); } catch {}
+  const saveMetalUi = () => { try { localStorage.setItem("shariah-tracker-metal-ui", JSON.stringify({ metal, unit, mRange, shown })); } catch {} };
+  const syncToggle = (id, attr, val) => $$(`#${id} button`).forEach(b => b.classList.toggle("active", b.dataset[attr] === val));
+
+  [["mMetal", "m", v => metal = v], ["mUnit", "u", v => unit = v], ["mRange", "r", v => mRange = v]].forEach(([id, attr, set]) => {
+    $$(`#${id} button`).forEach(b => b.addEventListener("click", () => {
+      set(b.dataset[attr]); syncToggle(id, attr, b.dataset[attr]); saveMetalUi(); renderMetals();
+    }));
+  });
+  $("#mKarats").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    const k = b.dataset.k, cur = shown[metal];
+    shown[metal] = cur.includes(k) ? (cur.length > 1 ? cur.filter(x => x !== k) : cur) : PURITY[metal].map(p => p.k).filter(x => x === k || cur.includes(x));
+    saveMetalUi(); renderMetals();
+  });
+  $("#mTable").addEventListener("click", (e) => {
+    const tr = e.target.closest("tr[data-k]");
+    if (tr) $(`#mKarats button[data-k="${tr.dataset.k}"]`)?.click();
+  });
+
+  History.onMetals((m) => { metalData = m; renderMetals(); renderZakat(); });
+
+  const perGram = (m) => metalData?.[m]?.at(-1)?.[1] ?? null;
+  function change(pts, daysBack) {
+    if (!pts || pts.length < 2) return null;
+    const last = pts.at(-1);
+    let ref;
+    if (daysBack === 1) ref = pts.at(-2);
+    else { const cut = isoDaysAgo(daysBack); ref = pts.find(p => p[0] >= cut) || pts[0]; }
+    return ((last[1] - ref[1]) / ref[1]) * 100;
+  }
+
+  function renderMetals() {
+    syncToggle("mMetal", "m", metal); syncToggle("mUnit", "u", unit); syncToggle("mRange", "r", mRange);
+    if (!metalData) return;
+    const u = UNITS[unit];
+    const ramp = list(metal === "gold" ? "--ramp-gold" : "--ramp-silver");
+    const g = metalData.gold, sv = metalData.silver;
+
+    $("#mGold").textContent = money(perGram("gold") * u.f);
+    $("#mSilver").textContent = money(perGram("silver") * u.f);
+    [["#mGoldChg", g], ["#mSilverChg", sv]].forEach(([id, pts]) => {
+      const c = change(pts, 1);
+      $(id).innerHTML = `per ${u.name} · <span class="${trend(c)}">${pct(c)}</span> today`;
+    });
+    $("#mRatio").textContent = perGram("silver") ? (perGram("gold") / perGram("silver")).toFixed(1) : "-";
+
+    const purities = PURITY[metal];
+    $("#mKarats").innerHTML = purities.map((p, i) => {
+      const on = shown[metal].includes(p.k);
+      return `<button class="chip ${on ? "active" : ""}" data-k="${esc(p.k)}" aria-pressed="${on}"><i style="background:${ramp[i % ramp.length]}"></i>${esc(p.k)}${metal === "silver" && p.k !== p.mark ? ` ${p.mark}` : ""}</button>`;
+    }).join("");
+
+    const pts = metalData[metal];
+    const cut = isoDaysAgo(+mRange);
+    const inRange = pts.filter(p => p[0] >= cut);
+    Charts.line($("#mChart"), purities.map((p, i) => ({ p, i })).filter(({ p }) => shown[metal].includes(p.k)).map(({ p, i }) => ({
+      label: `${p.k}${metal === "silver" && p.k !== p.mark ? " " + p.mark : ""}`, color: ramp[i % ramp.length],
+      points: inRange.map(([d, v]) => [d, v * p.f * u.f]),
+    })), { format: v => money(v), axisFormat: v => money(v).replace(/\.00$/, ""), ariaLabel: `${metal} price per ${u.name}` });
+
+    $("#mTableTitle").textContent = metal === "gold" ? "Gold price by karat" : "Silver price by purity";
+    $("#mUnitHead").textContent = `Per ${u.name}`;
+    const d1 = change(pts, 1), y1 = change(pts, 365);
+    $("#mTable").innerHTML = purities.map((p, i) => `<tr data-k="${esc(p.k)}" class="clickable ${shown[metal].includes(p.k) ? "on" : ""}">
+      <td class="nowrap"><span class="swatch" style="background:${ramp[i % ramp.length]}"></span> <strong>${esc(p.k)}</strong></td>
+      <td class="muted nowrap">${p.mark} · ${(p.f * 100).toFixed(1)}%</td>
+      <td class="num"><strong>${money(perGram(metal) * p.f * u.f)}</strong></td>
+      <td class="num ${trend(d1)}">${pct(d1)}</td>
+      <td class="num ${trend(y1)}">${pct(y1)}</td>
+    </tr>`).join("");
+
+    const goldN = perGram("gold") * 85, silverN = perGram("silver") * 595;
+    $("#nGold").textContent = money(goldN);
+    $("#nSilver").textContent = money(silverN);
+    $("#mSource").textContent = metalData.source === "twelve"
+      ? `Live spot prices from Twelve Data · updated ${new Date(metalData.time).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`
+      : `Simulated demo prices${metalData.error ? ` (${metalData.error})` : ""}. Add a free Twelve Data key in Settings for live gold and silver prices.`;
+  }
+
+  function useNisab(kind) {
+    const v = kind === "gold" ? perGram("gold") * 85 : perGram("silver") * 595;
+    if (!v) return;
+    $("#zNisab").value = v.toFixed(2);
+    $("#zakatForm").dispatchEvent(new Event("input"));
+    toast(`Nisab set to ${money(v)} (${kind})`);
+  }
+  $("#useGoldNisab").addEventListener("click", () => useNisab("gold"));
+  $("#useSilverNisab").addEventListener("click", () => useNisab("silver"));
+  $("#zUseGold").addEventListener("click", () => useNisab("gold"));
+  $("#zUseSilver").addEventListener("click", () => useNisab("silver"));
 
   // ---------------- Settings ----------------
   let savedKey = "";
@@ -496,6 +728,23 @@
     try { localStorage.removeItem(KEY_STORE); } catch {}
     PriceFeed.setKey(""); syncFeed(); renderAll();
   });
+  let tdKey = "";
+  try { tdKey = localStorage.getItem(TD_KEY_STORE) || ""; } catch {}
+  $("#tdKey").value = tdKey;
+  $("#tdForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const k = $("#tdKey").value.trim();
+    try { localStorage.setItem(TD_KEY_STORE, k); } catch {}
+    History.clearCache(); History.setKey(k); renderPerf();
+    toast(k ? "Twelve Data connected" : "Twelve Data key removed");
+  });
+  $("#clearTd").addEventListener("click", () => {
+    $("#tdKey").value = "";
+    try { localStorage.removeItem(TD_KEY_STORE); } catch {}
+    History.setKey(""); renderPerf();
+    toast("Twelve Data key removed");
+  });
+
   $("#exportBtn").addEventListener("click", () => {
     const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
@@ -525,9 +774,29 @@
 
   // ---------------- Boot ----------------
   function renderAll() {
-    renderHoldings(); renderChart(); renderIncome(); renderZakat(); renderScreener(); updateIncSym();
+    renderHoldings(); renderChart(); renderIncome(); renderZakat(); renderScreener(); updateIncSym(); renderPerf();
   }
+
+  // Redraw charts when the theme or the width changes
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderChart(); renderPerf(); renderMetals(); });
+  new MutationObserver(() => { renderChart(); renderPerf(); renderMetals(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  let resizeTimer, lastW = window.innerWidth;
+  window.addEventListener("resize", () => {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { renderPerf(); renderMetals(); }, 200);
+  });
+  // Charts measure their container, so redraw when a hidden tab is first shown
+  $$(".tab").forEach(b => b.addEventListener("click", () => setTimeout(() => { renderPerf(); renderMetals(); }, 0)));
+
+  // First visit in demo mode opens with a clearly marked example portfolio
+  let firstVisit = false;
+  try { firstVisit = localStorage.getItem(STORE_KEY) == null; } catch {}
   PriceFeed.setKey(savedKey);
+  History.setKey(tdKey);
+  if (firstVisit && !savedKey) loadExamples();
   syncFeed();
   renderAll();
 })();

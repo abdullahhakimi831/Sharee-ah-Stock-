@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sharee'ah Stock Tracker</title>
   <meta name="description" content="Track your investments and income with Shariah compliance screening and live stock prices.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='none' stroke='%230ca30c' stroke-width='6'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='none' stroke='%232f6b45' stroke-width='6'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -19,6 +22,7 @@
     </div>
     <nav class="tabs" role="tablist">
       <button role="tab" class="tab active" data-tab="portfolio" aria-selected="true">Portfolio</button>
+      <button role="tab" class="tab" data-tab="metals" aria-selected="false">Gold &amp; Silver</button>
       <button role="tab" class="tab" data-tab="income" aria-selected="false">Income &amp; Zakat</button>
       <button role="tab" class="tab" data-tab="screener" aria-selected="false">Screener</button>
       <button role="tab" class="tab" data-tab="settings" aria-selected="false">Settings</button>
@@ -29,6 +33,10 @@
   <main>
     <!-- ================= PORTFOLIO ================= -->
     <section class="panel active" id="tab-portfolio" role="tabpanel">
+      <div class="banner" id="exampleBanner" hidden>
+        <span><strong>Example portfolio.</strong> These holdings are sample data so you can see how everything works.</span>
+        <button class="btn sm" id="clearExamples">Clear examples &amp; start mine</button>
+      </div>
       <div class="kpis">
         <div class="kpi"><span class="kpi-label">Total invested</span><span class="kpi-value" id="kpiInvested">$0.00</span></div>
         <div class="kpi"><span class="kpi-label">Current value</span><span class="kpi-value" id="kpiValue">$0.00</span><span class="kpi-sub" id="kpiDay"></span></div>
@@ -97,7 +105,81 @@
             <tbody id="holdingsBody"></tbody>
           </table>
         </div>
-        <p class="empty" id="holdingsEmpty">No investments yet. Add your first one above.</p>
+        <div class="empty" id="holdingsEmpty">
+          <p>No investments yet. Add your first one above.</p>
+          <button class="btn" id="loadExamples">Load an example portfolio</button>
+        </div>
+      </div>
+
+      <div class="card" id="perfCard">
+        <div class="card-head">
+          <div>
+            <h2>Growth &amp; loss</h2>
+            <p class="card-sub" id="perfSummary"></p>
+          </div>
+          <div class="seg-toggle" id="perfRange" role="group" aria-label="Time range">
+            <button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button>
+            <button data-r="365">1Y</button><button class="active" data-r="all">All</button>
+          </div>
+        </div>
+        <div class="chips" id="perfPick" role="group" aria-label="Show"></div>
+        <div id="perfChart" class="line-wrap"></div>
+        <p class="hint" id="perfSource"></p>
+        <h3 class="mt">Return by stock</h3>
+        <div id="perfBars" class="bars"></div>
+      </div>
+    </section>
+
+    <!-- ================= GOLD & SILVER ================= -->
+    <section class="panel" id="tab-metals" role="tabpanel" hidden>
+      <div class="kpis three">
+        <div class="kpi gold"><span class="kpi-label">Gold 24k</span><span class="kpi-value" id="mGold">-</span><span class="kpi-sub" id="mGoldChg"></span></div>
+        <div class="kpi silver"><span class="kpi-label">Silver 999</span><span class="kpi-value" id="mSilver">-</span><span class="kpi-sub" id="mSilverChg"></span></div>
+        <div class="kpi"><span class="kpi-label">Gold / silver ratio</span><span class="kpi-value" id="mRatio">-</span><span class="kpi-sub">ounces of silver per ounce of gold</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="seg-toggle" id="mMetal" role="group" aria-label="Metal">
+            <button class="active" data-m="gold">Gold</button><button data-m="silver">Silver</button>
+          </div>
+          <div class="head-right">
+            <div class="seg-toggle" id="mUnit" role="group" aria-label="Unit">
+              <button class="active" data-u="g">Gram</button><button data-u="tola">Tola</button><button data-u="oz">Ounce</button>
+            </div>
+            <div class="seg-toggle" id="mRange" role="group" aria-label="Time range">
+              <button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button><button class="active" data-r="365">1Y</button>
+            </div>
+          </div>
+        </div>
+        <div class="chips" id="mKarats" role="group" aria-label="Purities shown on chart"></div>
+        <div id="mChart" class="line-wrap"></div>
+        <p class="hint" id="mSource"></p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 id="mTableTitle">Gold price by karat</h2>
+          <div class="table-scroll">
+            <table class="holdings">
+              <thead><tr><th>Purity</th><th>Hallmark</th><th class="num" id="mUnitHead">Per gram</th><th class="num">Today</th><th class="num">1Y change</th></tr></thead>
+              <tbody id="mTable"></tbody>
+            </table>
+          </div>
+          <p class="hint">Spot price multiplied by purity. Jewellers add making charges on top.</p>
+        </div>
+        <div class="card">
+          <h2>Nisab today</h2>
+          <div class="nisab">
+            <div><span class="kpi-label">Gold nisab · 85g of 24k</span><span class="big" id="nGold">-</span></div>
+            <div><span class="kpi-label">Silver nisab · 595g of silver</span><span class="big" id="nSilver">-</span></div>
+          </div>
+          <p class="hint">Many scholars use the silver nisab, since it is lower and benefits more people in need. Others use gold. Pick one for your Zakat calculation.</p>
+          <div class="btn-row">
+            <button class="btn" id="useGoldNisab">Use gold nisab for Zakat</button>
+            <button class="btn" id="useSilverNisab">Use silver nisab for Zakat</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -159,6 +241,10 @@
                 <input id="zNisab" type="number" min="0" step="0.01" value="6000" title="Value of 85g of gold (or 595g of silver) today">
               </label>
             </div>
+            <div class="btn-row">
+              <button type="button" class="btn sm" id="zUseGold">Gold nisab: <span id="zGoldN">-</span></button>
+              <button type="button" class="btn sm" id="zUseSilver">Silver nisab: <span id="zSilverN">-</span></button>
+            </div>
             <label class="check"><input type="checkbox" id="zStocks" checked> Include portfolio value (<span id="zStockVal">$0.00</span>)</label>
           </form>
           <div class="zakat-result">
@@ -212,6 +298,23 @@
         <p class="hint">Your key is stored only in this browser (localStorage).</p>
       </div>
       <div class="card narrow">
+        <h2>Price history &amp; gold/silver</h2>
+        <p>Stock growth charts and gold/silver prices come from <a href="https://twelvedata.com/register" target="_blank" rel="noopener">Twelve Data</a> (free: 800 requests a day). Without a key the charts use simulated demo data, or the prices recorded while you have the app open.</p>
+        <form id="tdForm" class="form inline" autocomplete="off">
+          <input id="tdKey" type="password" placeholder="Twelve Data API key">
+          <button class="btn primary" type="submit">Save &amp; connect</button>
+          <button class="btn" type="button" id="clearTd">Remove</button>
+        </form>
+      </div>
+      <div class="card narrow">
+        <h2>How live updates work</h2>
+        <ul class="plain">
+          <li>The app runs in your browser. While the page is open, stock prices stream live from Finnhub during market hours and refresh every minute. Gold and silver refresh every 10 minutes.</li>
+          <li>Nothing runs while the page is closed. When you open it again it fetches the latest prices straight away.</li>
+          <li>No server or Claude connector is needed, only the two free API keys above.</li>
+        </ul>
+      </div>
+      <div class="card narrow">
         <h2>Your data</h2>
         <p>Holdings and income are saved in this browser. Export a backup to move them to another device.</p>
         <div class="btn-row">
@@ -245,6 +348,7 @@
 
   <script src="js/shariah-data.js"></script>
   <script src="js/prices.js"></script>
+  <script src="js/history.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/app.js"></script>
 </body>
