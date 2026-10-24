@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <script>
+    // Apply the saved look before anything paints (Onyx is the default)
+    try { document.documentElement.dataset.skin = localStorage.getItem("shariah-tracker-skin") || "onyx"; }
+    catch (e) { document.documentElement.dataset.skin = "onyx"; }
+  </script>
   <header class="topbar">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true"></span>
@@ -40,7 +45,7 @@
       <div class="kpis">
         <div class="kpi"><span class="kpi-label">Total invested</span><span class="kpi-value" id="kpiInvested">$0.00</span></div>
         <div class="kpi"><span class="kpi-label">Current value</span><span class="kpi-value" id="kpiValue">$0.00</span><span class="kpi-sub" id="kpiDay"></span></div>
-        <div class="kpi"><span class="kpi-label">Total profit / loss</span><span class="kpi-value" id="kpiPL">$0.00</span><span class="kpi-sub" id="kpiPLPct"></span></div>
+        <div class="kpi"><span class="kpi-label">Open profit / loss</span><span class="kpi-value" id="kpiPL">$0.00</span><span class="kpi-sub" id="kpiPLPct"></span></div>
         <div class="kpi"><span class="kpi-label">Shariah compliant</span><span class="kpi-value" id="kpiHalal">-</span><span class="kpi-sub" id="kpiHalalSub">of portfolio value</span></div>
       </div>
 
@@ -87,6 +92,7 @@
       <div class="card">
         <div class="card-head">
           <h2>Holdings</h2>
+          <button class="btn sm" id="openImport">Import trades (CSV)</button>
           <div class="legend-inline">
             <span class="pill halal">✓ Halal</span>
             <span class="pill doubtful">! Doubtful</span>
@@ -127,6 +133,35 @@
         <p class="hint" id="perfSource"></p>
         <h3 class="mt">Return by stock</h3>
         <div id="perfBars" class="bars"></div>
+      </div>
+
+      <div class="card" id="plCard">
+        <div class="card-head">
+          <div>
+            <h2>Profit &amp; loss over time</h2>
+            <p class="card-sub" id="plSummary"></p>
+          </div>
+          <div class="seg-toggle" id="plRange" role="group" aria-label="Time range">
+            <button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button>
+            <button data-r="365">1Y</button><button class="active" data-r="all">All</button>
+          </div>
+        </div>
+        <div class="mini-kpis">
+          <div><span class="kpi-label">Total profit / loss</span><span class="mini-val" id="plTotal">-</span></div>
+          <div><span class="kpi-label">Realized (from sales)</span><span class="mini-val" id="plRealized">-</span></div>
+          <div><span class="kpi-label">Open (still holding)</span><span class="mini-val" id="plOpen">-</span></div>
+          <div><span class="kpi-label">Total sold</span><span class="mini-val" id="plSold">-</span><span class="kpi-sub" id="plSoldSub"></span></div>
+        </div>
+        <div id="plChart" class="line-wrap"></div>
+        <p class="hint">Total profit / loss = money made on stocks you've sold + the gain or loss on what you still hold. Sales use your average cost per share.</p>
+        <h3 class="mt">Sales</h3>
+        <div class="table-scroll">
+          <table class="holdings">
+            <thead><tr><th>Date</th><th>Stock</th><th class="num">Shares</th><th class="num">Sold at</th><th class="num">Proceeds</th><th class="num">Cost</th><th class="num">Profit / loss</th><th></th></tr></thead>
+            <tbody id="salesBody"></tbody>
+          </table>
+        </div>
+        <p class="empty" id="salesEmpty">No sales yet. Use <strong>Sell</strong> on a holding, or import your trades from Robinhood.</p>
       </div>
     </section>
 
@@ -287,6 +322,19 @@
 
     <!-- ================= SETTINGS ================= -->
     <section class="panel" id="tab-settings" role="tabpanel" hidden>
+      <div class="card narrow">
+        <h2>Appearance</h2>
+        <p>Choose the look of the dashboard.</p>
+        <div class="skin-pick" id="skinPick" role="group" aria-label="Appearance">
+          <button data-skin="onyx"><span class="skin-swatch onyx"></span>Onyx<small>Black, sleek</small></button>
+          <button data-skin="forest"><span class="skin-swatch forest"></span>Forest<small>Classic green header, follows light/dark mode</small></button>
+        </div>
+      </div>
+      <div class="card narrow">
+        <h2>Import trades</h2>
+        <p>Bring in your real buys, sells and dividends from a Robinhood activity report (CSV file). No login or password needed.</p>
+        <button class="btn primary" id="openImport2">Import trades (CSV)</button>
+      </div>
       <div class="card narrow">
         <h2>Live price connection</h2>
         <p>Live prices come from <a href="https://finnhub.io/register" target="_blank" rel="noopener">Finnhub</a>. Create a free account, copy your API key and paste it below. Without a key the dashboard shows simulated demo prices.</p>

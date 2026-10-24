@@ -58,10 +58,16 @@
   function load() {
     try {
       const s = JSON.parse(localStorage.getItem(STORE_KEY));
-      if (s && Array.isArray(s.holdings)) return { overrides: {}, profiles: {}, income: [], zakat: {}, ...s };
+      if (s && Array.isArray(s.holdings)) return { overrides: {}, profiles: {}, income: [], zakat: {}, sales: [], imported: {}, ...s };
     } catch {}
-    return { holdings: [], income: [], overrides: {}, profiles: {}, zakat: {} };
+    return blankState();
   }
+  function blankState() {
+    return { holdings: [], income: [], overrides: {}, profiles: {}, zakat: {}, sales: [], imported: {} };
+  }
+  // A holding stays in state after it's fully sold so its history still counts
+  const isOpen = (h) => h.shares > 1e-9;
+  const openHoldings = () => state.holdings.filter(isOpen);
   function save() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
   }
@@ -104,7 +110,7 @@
   }));
 
   function computeRows() {
-    return state.holdings.map(h => {
+    return openHoldings().map(h => {
       const q = PriceFeed.get(h.symbol);
       const price = q?.price;
       const value = price != null ? price * h.shares : null;
@@ -179,7 +185,7 @@
     const rows = computeRows();
     const total = renderKpis(rows);
     $("#holdingsEmpty").hidden = rows.length > 0;
-    $("#exampleBanner").hidden = !state.holdings.some(h => h.example);
+    $("#exampleBanner").hidden = !openHoldings().some(h => h.example);
     rows.sort((a, b) => (b.value ?? b.h.invested) - (a.value ?? a.h.invested));
     $("#holdingsBody").innerHTML = rows.map(r => {
       const st = r.scr.status;
@@ -195,7 +201,7 @@
         <td class="num">${money(r.value)}</td>
         <td class="num ${trend(r.pl)}">${money(r.pl, true)}<span class="sub">${r.pl != null ? pct((r.pl / r.h.invested) * 100) : ""}</span></td>
         <td class="num">${w.toFixed(1)}%</td>
-        <td class="actions"><button class="icon-btn" data-act="remove" title="Remove ${esc(r.h.symbol)}" aria-label="Remove ${esc(r.h.symbol)}">🗑</button></td>
+        <td class="actions"><button class="btn sm sell-btn" data-act="sell">Sell</button><button class="icon-btn" data-act="remove" title="Remove ${esc(r.h.symbol)}" aria-label="Remove ${esc(r.h.symbol)}">🗑</button></td>
       </tr>`;
     }).join("");
   }
@@ -205,8 +211,10 @@
     if (!btn) return;
     const sym = btn.closest("tr").dataset.sym;
     if (btn.dataset.act === "details") openDetails(sym);
+    if (btn.dataset.act === "sell") openSell(sym);
     if (btn.dataset.act === "remove" && armed(btn, "Remove?")) {
       state.holdings = state.holdings.filter(h => h.symbol !== sym);
+      state.sales = state.sales.filter(x => x.symbol !== sym);
       save(); syncFeed(); renderAll();
       toast(`Removed ${sym}`);
     }
@@ -224,7 +232,7 @@
       pending = false;
       renderHoldings();
       if (Date.now() - lastChart > 3000) { lastChart = Date.now(); renderChart(); }
-      if (Date.now() - lastPerf > 15000) { lastPerf = Date.now(); renderPerf(); }
+      if (Date.now() - lastPerf > 15000) { lastPerf = Date.now(); renderPerf(); renderPL(); }
       renderZakat();
     });
   });
@@ -282,6 +290,7 @@
     const shares = amount / price;
     const lot = { date: $("#fDate").value || today(), amount, price };
     const existing = state.holdings.find(h => h.symbol === sym);
+    if (existing && !isOpen(existing)) existing.shares = 0;
     if (existing) {
       existing.shares += shares; existing.invested += amount; existing.lots.push(lot); delete existing.example;
     } else {
@@ -295,25 +304,35 @@
   });
 
   function syncFeed() {
-    PriceFeed.track(state.holdings.map(h => h.symbol));
+    PriceFeed.track(openHoldings().map(h => h.symbol));
   }
 
   // ---------------- Example portfolio ----------------
   const EXAMPLES = [
     ["AAPL", 2500, 300, 0.82], ["NVDA", 3000, 240, 0.70], ["SPUS", 2000, 200, 0.90],
     ["MSFT", 1500, 150, 0.95], ["AMZN", 1000, 120, 0.97], ["JPM", 800, 90, 1.04], ["TSLA", 1200, 60, 1.15],
+    ["META", 1000, 250, 0.74],
   ];
+  // Example sales: [symbol, fraction sold, days ago, sale price as a share of the reference price]
+  const EXAMPLE_SALES = [["META", 1, 20, 0.97], ["AAPL", 0.3, 45, 0.96]];
   function loadExamples() {
     state.holdings = EXAMPLES.map(([sym, amount, daysAgo, f]) => {
       const price = Math.round(SHARIAH_DB[sym].price * f * 100) / 100;
       const date = new Date(Date.now() - daysAgo * 864e5).toISOString().slice(0, 10);
       return { symbol: sym, name: SHARIAH_DB[sym].name, shares: amount / price, invested: amount, example: true, lots: [{ date, amount, price }] };
     });
+    state.sales = state.sales.filter(x => !x.example);
+    EXAMPLE_SALES.forEach(([sym, frac, daysAgo, f]) => {
+      const h = state.holdings.find(x => x.symbol === sym);
+      applySale(sym, h.shares * frac, Math.round(SHARIAH_DB[sym].price * f * 100) / 100, isoDaysAgo(daysAgo));
+    });
     save(); syncFeed(); renderAll();
   }
   $("#loadExamples").addEventListener("click", loadExamples);
   $("#clearExamples").addEventListener("click", () => {
+    const ex = new Set(state.holdings.filter(h => h.example).map(h => h.symbol));
     state.holdings = state.holdings.filter(h => !h.example);
+    state.sales = state.sales.filter(x => !ex.has(x.symbol) || !x.example);
     save(); syncFeed(); renderAll();
     toast("Examples cleared. Add your first investment above.");
     $("#fSymbol").focus();
@@ -325,7 +344,7 @@
     await ensureProfile(sym);
     const scr = screening(sym);
     const q = PriceFeed.get(sym) || await PriceFeed.quote(sym).catch(() => null);
-    const held = state.holdings.find(h => h.symbol === sym);
+    const held = openHoldings().find(h => h.symbol === sym);
     const imp = impermissiblePct(scr);
     const st = scr.status;
 
@@ -547,28 +566,12 @@
       $("#perfSummary").textContent = ""; $("#perfSource").textContent = ""; $("#perfBars").innerHTML = "";
       return;
     }
-    const demo = !PriceFeed.isLive();
-    const results = await Promise.all(pick.map(h => {
-      const first = h.lots.map(l => l.date).sort()[0];
-      return History.stockSeries(h.symbol, first, h.lots, PriceFeed.get(h.symbol)?.price, demo).then(r => ({ h, ...r }));
-    }));
+    const hist = await portfolioHistory(pick);
     if (token !== perfToken) return;
-
-    const dates = [...new Set(results.flatMap(r => r.points.map(p => p[0])))].sort();
-    const start = perfRange === "all" ? dates[0] : isoDaysAgo(+perfRange);
-    const valuePts = [], investedPts = [];
-    const cursor = results.map(() => ({ i: 0, last: null }));
-    for (const d of dates) {
-      let value = 0, invested = 0, owned = false;
-      results.forEach((r, k) => {
-        const c = cursor[k];
-        while (c.i < r.points.length && r.points[c.i][0] <= d) c.last = r.points[c.i++][1];
-        let shares = 0;
-        r.h.lots.forEach(l => { if (l.date <= d) { shares += l.amount / l.price; invested += l.amount; } });
-        if (shares && c.last != null) { value += shares * c.last; owned = true; }
-      });
-      if (owned && d >= start) { valuePts.push([d, value]); investedPts.push([d, invested]); }
-    }
+    const results = hist.results;
+    const start = perfRange === "all" ? hist.days[0]?.d : isoDaysAgo(+perfRange);
+    const days = hist.days.filter(x => x.owned && x.d >= start);
+    const valuePts = days.map(x => [x.d, x.value]), investedPts = days.map(x => [x.d, x.cost]);
 
     const endV = valuePts.at(-1)?.[1] ?? 0, endI = investedPts.at(-1)?.[1] ?? 0;
     const startGain = valuePts.length ? valuePts[0][1] - investedPts[0][1] : 0;
@@ -604,7 +607,324 @@
       </div>`;
     }).join("");
   }
-  const compact = (v) => "$" + Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(v);
+  const compact = (v) => (v < 0 ? "-$" : "$") + Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(Math.abs(v));
+
+  /*
+   * Day-by-day value and remaining cost basis for a set of holdings,
+   * accounting for every buy (lot) and sale up to that day.
+   */
+  async function portfolioHistory(holdings) {
+    const demo = !PriceFeed.isLive();
+    const results = await Promise.all(holdings.map(h => {
+      const sales = state.sales.filter(x => x.symbol === h.symbol);
+      const anchors = [...h.lots, ...sales.map(x => ({ date: x.date, price: x.price }))];
+      const first = anchors.map(l => l.date).sort()[0];
+      const current = isOpen(h) ? PriceFeed.get(h.symbol)?.price : null;
+      return History.stockSeries(h.symbol, first, anchors, current, demo).then(r => ({ h, sales, ...r }));
+    }));
+    const dates = [...new Set([
+      ...results.flatMap(r => r.points.map(p => p[0])),
+      ...results.flatMap(r => r.sales.map(x => x.date)),
+    ])].sort();
+    const cursor = results.map(() => ({ i: 0, last: null }));
+    const days = dates.map(d => {
+      let value = 0, cost = 0, owned = false;
+      results.forEach((r, k) => {
+        const c = cursor[k];
+        while (c.i < r.points.length && r.points[c.i][0] <= d) c.last = r.points[c.i++][1];
+        let shares = 0, basis = 0;
+        r.h.lots.forEach(l => { if (l.date <= d) { shares += l.amount / l.price; basis += l.amount; } });
+        r.sales.forEach(x => { if (x.date <= d) { shares -= x.shares; basis -= x.cost ?? 0; } });
+        if (shares > 1e-9) { cost += basis; owned = true; if (c.last != null) value += shares * c.last; }
+      });
+      return { d, value, cost, owned };
+    });
+    return { results, days };
+  }
+
+  // ---------------- Selling ----------------
+  function applySale(sym, shares, price, date, extra = {}) {
+    const h = state.holdings.find(x => x.symbol === sym);
+    if (!h || !(shares > 0) || !(price > 0)) return null;
+    shares = Math.min(shares, h.shares);
+    const cost = (h.invested / h.shares) * shares; // average cost method
+    h.shares -= shares; h.invested -= cost;
+    if (h.shares < 1e-9) { h.shares = 0; h.invested = 0; }
+    const sale = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, symbol: sym, name: h.name, date, shares, price,
+      proceeds: shares * price, cost, gain: shares * price - cost, ...(h.example ? { example: true } : {}), ...extra };
+    state.sales.push(sale);
+    return sale;
+  }
+
+  function openSell(sym) {
+    const h = openHoldings().find(x => x.symbol === sym);
+    if (!h) return;
+    const q = PriceFeed.get(sym);
+    const avg = h.invested / h.shares;
+    $("#modalBody").innerHTML = `
+      <div class="m-head"><div><h2 id="mTitle">Sell ${esc(sym)}</h2><p class="muted">${esc(h.name)} · you hold ${fmtShares(h.shares)} shares · average cost ${money(avg)}</p></div></div>
+      <form id="sellForm" class="form" autocomplete="off">
+        <div class="row">
+          <label>Shares to sell
+            <input id="sShares" type="number" min="0.000001" step="any" max="${h.shares}" required>
+          </label>
+          <label>Sale price per share ($)
+            <input id="sPrice" type="number" min="0.0001" step="any" value="${q?.price ?? ""}" required>
+          </label>
+          <label>Date
+            <input id="sDate" type="date" value="${today()}" required>
+          </label>
+        </div>
+        <div class="btn-row"><button type="button" class="btn sm" id="sAll">Sell all ${fmtShares(h.shares)}</button><button type="button" class="btn sm" id="sHalf">Sell half</button></div>
+        <div class="sell-preview" id="sPreview"></div>
+        <p class="hint">This records a sale you made at your broker. It does not place an order.</p>
+        <button type="submit" class="btn primary">Record sale</button>
+      </form>`;
+    const upd = () => {
+      const n = Math.min(parseFloat($("#sShares").value) || 0, h.shares), p = parseFloat($("#sPrice").value) || 0;
+      const gain = n * p - n * avg;
+      $("#sPreview").innerHTML = n && p ? `<div><span class="kpi-label">Proceeds</span><strong>${money(n * p)}</strong></div>
+        <div><span class="kpi-label">Cost</span><strong>${money(n * avg)}</strong></div>
+        <div><span class="kpi-label">Profit / loss</span><strong class="${trend(gain)}">${money(gain, true)}</strong></div>` : "";
+    };
+    $("#sAll").addEventListener("click", () => { $("#sShares").value = h.shares; upd(); });
+    $("#sHalf").addEventListener("click", () => { $("#sShares").value = +(h.shares / 2).toFixed(6); upd(); });
+    $("#sellForm").addEventListener("input", upd);
+    $("#sellForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const sale = applySale(sym, parseFloat($("#sShares").value), parseFloat($("#sPrice").value), $("#sDate").value || today());
+      if (!sale) return;
+      save(); syncFeed(); renderAll(); closeModal();
+      toast(`Sold ${fmtShares(sale.shares)} ${sym} · ${money(sale.gain, true)}`);
+    });
+    $("#modal").hidden = false;
+    $("#sShares").focus();
+  }
+  const fmtShares = (n) => n.toLocaleString("en-US", { maximumFractionDigits: 4 });
+
+  // ---------------- Profit & loss over time ----------------
+  let plRange = "all", plToken = 0;
+  $$("#plRange button").forEach(b => b.addEventListener("click", () => {
+    plRange = b.dataset.r;
+    $$("#plRange button").forEach(x => x.classList.toggle("active", x === b));
+    renderPL();
+  }));
+  $("#salesBody").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-undo]");
+    if (!btn || !armed(btn, "Undo?")) return;
+    const sale = state.sales.find(x => x.id === btn.dataset.undo);
+    const h = sale && state.holdings.find(x => x.symbol === sale.symbol);
+    if (h && sale.cost != null) { h.shares += sale.shares; h.invested += sale.cost; }
+    state.sales = state.sales.filter(x => x !== sale);
+    save(); syncFeed(); renderAll();
+    toast("Sale removed");
+  });
+
+  async function renderPL() {
+    const token = ++plToken;
+    const sales = [...state.sales].sort((a, b) => b.date.localeCompare(a.date));
+    const realizedAll = sales.reduce((s, x) => s + (x.gain ?? 0), 0);
+    const open = computeRows().reduce((s, r) => s + (r.pl ?? 0), 0);
+    const sold = sales.reduce((s, x) => s + x.proceeds, 0);
+    const setVal = (id, v, sign = true) => { const el = $(id); el.textContent = money(v, sign); el.className = `mini-val ${sign ? trend(v) : ""}`; };
+    setVal("#plTotal", realizedAll + open); setVal("#plRealized", realizedAll); setVal("#plOpen", open); setVal("#plSold", sold, false);
+    $("#plSoldSub").textContent = sales.length ? `${sales.length} sale${sales.length > 1 ? "s" : ""}` : "";
+
+    $("#salesEmpty").hidden = sales.length > 0;
+    $("#salesBody").innerHTML = sales.map(x => `<tr>
+      <td class="nowrap">${esc(x.date)}</td>
+      <td><strong>${esc(x.symbol)}</strong>${x.example ? ' <span class="tag">Example</span>' : ""}</td>
+      <td class="num">${fmtShares(x.shares)}</td>
+      <td class="num">${money(x.price)}</td>
+      <td class="num">${money(x.proceeds)}</td>
+      <td class="num">${x.cost != null ? money(x.cost) : '<span class="muted" title="No matching buy found">unknown</span>'}</td>
+      <td class="num ${trend(x.gain)}">${x.gain != null ? money(x.gain, true) : "-"}</td>
+      <td class="actions"><button class="icon-btn" data-undo="${esc(x.id)}" aria-label="Remove this sale">🗑</button></td>
+    </tr>`).join("");
+
+    if (!state.holdings.length) {
+      Charts.line($("#plChart"), [], { empty: "Add investments to track your profit and loss over time." });
+      $("#plSummary").textContent = "";
+      return;
+    }
+    const hist = await portfolioHistory(state.holdings);
+    if (token !== plToken) return;
+    const asc = [...state.sales].sort((a, b) => a.date.localeCompare(b.date));
+    let i = 0, realized = 0;
+    const start = plRange === "all" ? hist.days[0]?.d : isoDaysAgo(+plRange);
+    const totalPts = [], realPts = [];
+    for (const day of hist.days) {
+      while (i < asc.length && asc[i].date <= day.d) realized += asc[i++].gain ?? 0;
+      if (day.d < start) continue;
+      totalPts.push([day.d, (day.owned ? day.value - day.cost : 0) + realized]);
+      realPts.push([day.d, realized]);
+    }
+    // Make the line end on the live figure
+    if (totalPts.length && totalPts.at(-1)[0] === today()) totalPts.at(-1)[1] = realizedAll + open;
+    const first = totalPts[0]?.[1] ?? 0, last = totalPts.at(-1)?.[1] ?? 0;
+    const change = plRange === "all" ? last : last - first;
+    const up = last >= 0;
+    Charts.line($("#plChart"), [
+      { label: "Total profit / loss", short: "Total", color: up ? COLORS.halal : COLORS.haram, points: totalPts, area: true },
+      { label: "Realized from sales", short: "Realized", color: COLORS.ink, points: realPts },
+    ], { format: v => money(v, true), axisFormat: v => compact(v), zero: true, ariaLabel: "Profit and loss over time", empty: "No history in this range yet." });
+    const rangeName = { 30: "in the past month", 91: "in the past 3 months", 182: "in the past 6 months", 365: "in the past year", all: "all time" }[plRange];
+    $("#plSummary").innerHTML = totalPts.length ? `<span class="${trend(change)}">${money(change, true)}</span> ${rangeName}` : "";
+  }
+
+  // ---------------- Import trades (CSV) ----------------
+  function parseCSV(text) {
+    const rows = []; let row = [], field = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+        else if (c === '"') q = false;
+        else field += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(field); field = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        row.push(field); field = "";
+        if (row.some(x => x.trim())) rows.push(row);
+        row = [];
+      } else field += c;
+    }
+    row.push(field);
+    if (row.some(x => x.trim())) rows.push(row);
+    return rows;
+  }
+  const num = (v) => {
+    if (v == null) return NaN;
+    const t = String(v).trim(); if (!t) return NaN;
+    const neg = /^\(.*\)$/.test(t) || t.startsWith("-");
+    const n = parseFloat(t.replace(/[^0-9.]/g, ""));
+    return neg ? -n : n;
+  };
+  const isoDate = (v) => {
+    const t = String(v || "").trim();
+    let m = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+    if (m) { const y = m[3].length === 2 ? "20" + m[3] : m[3]; return `${y}-${m[1].padStart(2, "0")}-${m[2].padStart(2, "0")}`; }
+    m = t.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? m[0] : null;
+  };
+
+  /* Turns a broker CSV into a list of buy / sell / dividend transactions. */
+  function readTrades(text) {
+    const rows = parseCSV(text);
+    const hi = rows.findIndex(r => r.some(c => /instrument|symbol|ticker/i.test(c)) && r.some(c => /date/i.test(c)));
+    if (hi < 0) throw new Error("Couldn't find the column headers. Expected columns like Activity Date, Instrument, Trans Code, Quantity, Price, Amount.");
+    const head = rows[hi].map(h => h.trim().toLowerCase());
+    const col = (...names) => head.findIndex(h => names.some(n => h === n)) ;
+    const iDate = col("activity date", "date", "trade date"), iSym = col("instrument", "symbol", "ticker");
+    const iCode = col("trans code", "type", "action", "transaction"), iQty = col("quantity", "shares", "qty");
+    const iPrice = col("price"), iAmt = col("amount", "total");
+    if ([iDate, iSym, iCode].some(i => i < 0)) throw new Error("Missing a date, symbol or transaction type column.");
+    const out = [], skipped = {};
+    for (const r of rows.slice(hi + 1)) {
+      const code = (r[iCode] || "").trim(), sym = (r[iSym] || "").trim().toUpperCase(), date = isoDate(r[iDate]);
+      const type = /^(buy|bto|bought)$/i.test(code) ? "buy" : /^(sell|stc|sold)$/i.test(code) ? "sell"
+        : /^(cdiv|div|dividend|qualified dividend)$/i.test(code) ? "dividend" : null;
+      if (!type || !sym || !date) { if (code) skipped[code] = (skipped[code] || 0) + 1; continue; }
+      const qty = Math.abs(num(r[iQty])), amount = Math.abs(num(r[iAmt]));
+      let price = Math.abs(num(r[iPrice]));
+      if (!(price > 0) && qty > 0 && amount > 0) price = amount / qty;
+      if (type !== "dividend" && !(qty > 0 && price > 0)) { skipped[code] = (skipped[code] || 0) + 1; continue; }
+      out.push({ type, sym, date, qty, price, amount: type === "dividend" ? amount : qty * price,
+        fp: [date, sym, code, r[iQty], r[iPrice], r[iAmt]].join("|") });
+    }
+    return { trades: out, skipped };
+  }
+
+  function importTrades(trades) {
+    if (state.holdings.some(h => h.example)) {
+      state.holdings = state.holdings.filter(h => !h.example);
+      state.sales = state.sales.filter(x => !x.example);
+    }
+    const order = { buy: 0, sell: 1, dividend: 2 };
+    const fresh = trades.filter(t => !state.imported[t.fp]).sort((a, b) => a.date.localeCompare(b.date) || order[a.type] - order[b.type]);
+    let buys = 0, sells = 0, divs = 0, unmatched = 0;
+    for (const t of fresh) {
+      state.imported[t.fp] = 1;
+      if (t.type === "buy") {
+        const lot = { date: t.date, amount: t.amount, price: t.price };
+        let h = state.holdings.find(x => x.symbol === t.sym);
+        if (!h) { h = { symbol: t.sym, name: SHARIAH_DB[t.sym]?.name || state.profiles[t.sym]?.name || t.sym, shares: 0, invested: 0, lots: [] }; state.holdings.push(h); }
+        h.shares += t.qty; h.invested += t.amount; h.lots.push(lot);
+        buys++;
+      } else if (t.type === "sell") {
+        const h = state.holdings.find(x => x.symbol === t.sym);
+        const have = h ? h.shares : 0;
+        const matched = Math.min(have, t.qty);
+        if (matched > 1e-9) applySale(t.sym, matched, t.price, t.date, { imported: true });
+        const left = t.qty - matched;
+        if (left > 1e-6) {
+          // Bought before this report's date range, so the cost isn't known
+          state.sales.push({ id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, symbol: t.sym, name: t.sym, date: t.date,
+            shares: left, price: t.price, proceeds: left * t.price, cost: null, gain: null, imported: true });
+          unmatched++;
+        }
+        sells++;
+      } else {
+        state.income.push({ id: Date.now() + Math.random(), source: `${t.sym} dividend`, category: "Dividend", symbol: t.sym, amount: t.amount, date: t.date });
+        divs++;
+      }
+    }
+    save(); syncFeed(); renderAll();
+    return { buys, sells, divs, unmatched, dupes: trades.length - fresh.length };
+  }
+
+  function openImport() {
+    $("#modalBody").innerHTML = `
+      <div class="m-head"><div><h2 id="mTitle">Import trades</h2><p class="muted">Safe: you download a file from your broker and choose it here. No login, nothing leaves your browser.</p></div></div>
+      <ol class="steps">
+        <li>In Robinhood, go to <strong>Account → Reports and statements → Reports</strong> (menu names can change).</li>
+        <li>Create an <strong>account activity</strong> report for the dates you want (start from your first trade for accurate profit numbers), then download the CSV.</li>
+        <li>Choose the file below. Buys, sells and dividends are imported; transfers and fees are skipped.</li>
+      </ol>
+      <label class="btn primary file-btn">Choose CSV file<input type="file" id="importCsv" accept=".csv,text/csv" hidden></label>
+      <div id="importResult"></div>
+      <p class="hint">Other brokers work too if the file has columns for date, symbol, type (Buy/Sell/Dividend), quantity and price. Importing the same file twice won't duplicate trades.</p>`;
+    $("#importCsv").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const { trades, skipped } = readTrades(await file.text());
+        const c = (t) => trades.filter(x => x.type === t).length;
+        const skip = Object.entries(skipped).map(([k, v]) => `${v} ${esc(k)}`).join(", ");
+        $("#importResult").innerHTML = trades.length ? `
+          <div class="import-sum">
+            <div><span class="kpi-label">Buys</span><strong>${c("buy")}</strong></div>
+            <div><span class="kpi-label">Sells</span><strong>${c("sell")}</strong></div>
+            <div><span class="kpi-label">Dividends</span><strong>${c("dividend")}</strong></div>
+          </div>
+          ${skip ? `<p class="hint">Skipped: ${skip}</p>` : ""}
+          ${state.holdings.some(h => h.example) ? '<p class="hint">The example portfolio will be removed.</p>' : ""}
+          <button class="btn primary" id="doImport">Import ${trades.length} transactions</button>`
+          : `<p class="warn">No buys, sells or dividends found in this file.</p>`;
+        $("#doImport")?.addEventListener("click", () => {
+          const r = importTrades(trades);
+          closeModal();
+          toast(`Imported ${r.buys} buys, ${r.sells} sells, ${r.divs} dividends${r.dupes ? ` (${r.dupes} already imported)` : ""}`);
+          if (r.unmatched) setTimeout(() => toast(`${r.unmatched} sale${r.unmatched > 1 ? "s" : ""} had no matching buy in this file, so profit couldn't be calculated. Import an earlier date range to fix it.`), 3800);
+        });
+      } catch (err) {
+        $("#importResult").innerHTML = `<p class="warn">${esc(err.message)}</p>`;
+      }
+    });
+    $("#modal").hidden = false;
+  }
+  $("#openImport").addEventListener("click", openImport);
+  $("#openImport2").addEventListener("click", openImport);
+
+  // ---------------- Appearance ----------------
+  function setSkin(skin) {
+    document.documentElement.dataset.skin = skin;
+    try { localStorage.setItem("shariah-tracker-skin", skin); } catch {}
+    $$("#skinPick button").forEach(b => b.classList.toggle("active", b.dataset.skin === skin));
+  }
+  $$("#skinPick button").forEach(b => b.addEventListener("click", () => setSkin(b.dataset.skin)));
+  setSkin(document.documentElement.dataset.skin || "onyx");
 
   // ---------------- Gold & silver ----------------
   const PURITY = {
@@ -759,7 +1079,7 @@
     try {
       const data = JSON.parse(await file.text());
       if (!Array.isArray(data.holdings)) throw new Error("Not a backup file");
-      state = { overrides: {}, profiles: {}, income: [], zakat: {}, ...data };
+      state = { ...blankState(), ...data };
       save(); syncFeed(); renderAll();
       toast("Backup imported");
     } catch (err) { toast(`Import failed: ${err.message}`, "error"); }
@@ -767,29 +1087,29 @@
   });
   $("#resetBtn").addEventListener("click", () => {
     if (!armed($("#resetBtn"), "Click again to delete everything")) return;
-    state = { holdings: [], income: [], overrides: {}, profiles: {}, zakat: {} };
+    state = blankState();
     save(); syncFeed(); renderAll();
     toast("All data deleted");
   });
 
   // ---------------- Boot ----------------
   function renderAll() {
-    renderHoldings(); renderChart(); renderIncome(); renderZakat(); renderScreener(); updateIncSym(); renderPerf();
+    renderHoldings(); renderChart(); renderIncome(); renderZakat(); renderScreener(); updateIncSym(); renderPerf(); renderPL();
   }
 
   // Redraw charts when the theme or the width changes
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderChart(); renderPerf(); renderMetals(); });
-  new MutationObserver(() => { renderChart(); renderPerf(); renderMetals(); })
-    .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderChart(); renderPerf(); renderPL(); renderMetals(); });
+  new MutationObserver(() => { renderChart(); renderPerf(); renderPL(); renderMetals(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-skin"] });
   let resizeTimer, lastW = window.innerWidth;
   window.addEventListener("resize", () => {
     if (window.innerWidth === lastW) return;
     lastW = window.innerWidth;
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { renderPerf(); renderMetals(); }, 200);
+    resizeTimer = setTimeout(() => { renderPerf(); renderPL(); renderMetals(); }, 200);
   });
   // Charts measure their container, so redraw when a hidden tab is first shown
-  $$(".tab").forEach(b => b.addEventListener("click", () => setTimeout(() => { renderPerf(); renderMetals(); }, 0)));
+  $$(".tab").forEach(b => b.addEventListener("click", () => setTimeout(() => { renderPerf(); renderPL(); renderMetals(); }, 0)));
 
   // First visit in demo mode opens with a clearly marked example portfolio
   let firstVisit = false;
