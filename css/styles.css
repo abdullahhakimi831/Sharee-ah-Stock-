@@ -485,6 +485,27 @@ footer { text-align: center; color: var(--muted); font-size: 12px; padding-block
   .sell-preview, .import-sum, .skin-pick { grid-template-columns: 1fr; }
 }
 
+/* ---------- Key status, stock detail price + ratio, screener prices ---------- */
+.key-status { margin: 10px 0 0; font-size: 13px; font-weight: 600; color: var(--muted); }
+.key-status.ok { color: var(--halal-ink); }
+.key-status.warn { color: var(--doubtful-ink); }
+.key-status.err { color: var(--haram-ink); }
+.key-status.busy { color: var(--ink-2); }
+.m-top { display: grid; grid-template-columns: auto 1fr; gap: 16px; margin: 12px 0; }
+.m-price-box, .m-ratio { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: var(--surface-2); border-radius: var(--radius-sm); min-width: 0; }
+.m-price-box { min-width: 190px; }
+.m-price-box .big { font-size: 30px; }
+.ratio-bar { display: flex; height: 14px; border-radius: 999px; overflow: hidden; gap: 2px; margin-top: 6px; background: var(--surface); }
+.ratio-bar .ok { background: var(--halal); }
+.ratio-bar .bad { background: var(--haram); min-width: 3px; }
+.ratio-legend { display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; }
+.m-chart { margin: 8px 0 4px; }
+.m-chart .card-head { margin-bottom: 8px; }
+.line-wrap.sm { min-height: 220px; }
+.linechart .baseline { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 4; }
+.sc-price { font-size: 13px; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .m-top { grid-template-columns: 1fr; } }
+
 /* ---------- Onyx skin: black and sleek, always dark ----------
    Declared last so it wins over the light/dark blocks above. */
 :root[data-skin="onyx"] {

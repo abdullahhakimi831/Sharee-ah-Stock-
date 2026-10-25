@@ -109,8 +109,6 @@ const Charts = (() => {
     const H = opts.height || 280;
     const narrow = W < 480;
     const endLabels = opts.endLabels !== false && !narrow;
-    const m = { l: narrow ? 44 : 60, r: endLabels ? 74 : 12, t: 14, b: 28 };
-    const iw = W - m.l - m.r, ih = H - m.t - m.b;
     container.innerHTML = "";
 
     const data = series.filter(s => s.points && s.points.length);
@@ -119,14 +117,24 @@ const Charts = (() => {
       return;
     }
     const dates = [...new Set(data.flatMap(s => s.points.map(p => p[0])))].sort();
-    const t = (d) => new Date(d + "T12:00:00Z").getTime();
+    // Points are "YYYY-MM-DD" (daily) or "YYYY-MM-DD HH:MM" (intraday, local time)
+    const intraday = (d) => d.length > 10;
+    const t = (d) => intraday(d) ? new Date(d.replace(" ", "T")).getTime() : new Date(d + "T12:00:00Z").getTime();
+    const asDate = (d) => new Date(t(d));
     const t0 = t(dates[0]), t1 = t(dates[dates.length - 1]) || t0 + 1;
     const vals = data.flatMap(s => s.points.map(p => p[1]));
     let lo = Math.min(...vals), hi = Math.max(...vals);
     if (opts.zero) lo = Math.min(0, lo);
+    if (opts.baseline != null) { lo = Math.min(lo, opts.baseline); hi = Math.max(hi, opts.baseline); }
     if (lo === hi) { lo -= Math.abs(lo) * 0.05 || 1; hi += Math.abs(hi) * 0.05 || 1; }
     const ticks = niceTicks(lo, hi, 5);
     lo = Math.min(lo, ticks[0]); hi = Math.max(hi, ticks[ticks.length - 1]);
+    // Short axis labels, unless rounding would make two of them read the same
+    let labels = ticks.map(v => opts.axisFormat ? opts.axisFormat(v) : fmt(v));
+    if (new Set(labels).size < labels.length) labels = ticks.map(v => fmt(v).replace(/\.00$/, ""));
+    const widest = Math.max(...labels.map(l => l.length));
+    const m = { l: Math.max(narrow ? 44 : 60, widest * 6.6 + 14), r: endLabels ? 74 : 12, t: 14, b: 28 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
     const x = (d) => m.l + (t1 === t0 ? iw / 2 : ((t(d) - t0) / (t1 - t0)) * iw);
     const y = (v) => m.t + ih - ((v - lo) / (hi - lo)) * ih;
 
@@ -135,16 +143,17 @@ const Charts = (() => {
     svg.appendChild(defs);
 
     // Grid + y labels
-    ticks.forEach(v => {
+    ticks.forEach((v, ti) => {
       svg.appendChild(el("line", { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), class: "grid" }));
       const tx = el("text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end", class: "axis" });
-      tx.textContent = opts.axisFormat ? opts.axisFormat(v) : fmt(v);
+      tx.textContent = labels[ti];
       svg.appendChild(tx);
     });
     // X labels
     const spanDays = (t1 - t0) / 864e5;
-    const xFmt = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US",
-      spanDays > 300 ? { month: "short", year: "2-digit" } : { month: "short", day: "numeric" });
+    const xFmt = (d) => spanDays < 2 && intraday(d)
+      ? asDate(d).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : asDate(d).toLocaleDateString("en-US", spanDays > 300 ? { month: "short", year: "2-digit" } : { month: "short", day: "numeric" });
     const nX = Math.min(dates.length, narrow ? 3 : 6);
     for (let i = 0; i < nX; i++) {
       const d = dates[Math.round((i / Math.max(1, nX - 1)) * (dates.length - 1))];
@@ -153,6 +162,10 @@ const Charts = (() => {
       svg.appendChild(tx);
     }
 
+    // Reference line, e.g. yesterday's close on a 1D chart
+    if (opts.baseline != null) {
+      svg.appendChild(el("line", { x1: m.l, x2: m.l + iw, y1: y(opts.baseline), y2: y(opts.baseline), class: "baseline" }));
+    }
     // Series
     data.forEach((s, si) => {
       const pts = s.points.map(p => [x(p[0]), y(p[1])]);
@@ -204,7 +217,10 @@ const Charts = (() => {
         rows.push(`<span class="tip-row"><i style="background:${s.color}"></i>${escapeHtml(s.short || s.label)}<b>${escapeHtml(fmt(v))}</b></span>`);
       });
       const tp = tooltip();
-      tp.innerHTML = `<strong>${new Date(best + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</strong>${rows.join("")}`;
+      const when = intraday(best)
+        ? asDate(best).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
+        : asDate(best).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      tp.innerHTML = `<strong>${when}</strong>${rows.join("")}`;
       tp.classList.add("show");
       const left = ev.clientX + 14 + tp.offsetWidth > window.innerWidth ? ev.clientX - tp.offsetWidth - 14 : ev.clientX + 14;
       tp.style.left = `${Math.max(8, left)}px`;

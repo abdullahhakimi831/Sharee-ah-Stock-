@@ -124,8 +124,8 @@
             <p class="card-sub" id="perfSummary"></p>
           </div>
           <div class="seg-toggle" id="perfRange" role="group" aria-label="Time range">
-            <button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button>
-            <button data-r="365">1Y</button><button class="active" data-r="all">All</button>
+            <button data-r="1d">1D</button><button data-r="7">1W</button><button data-r="30">1M</button><button data-r="91">3M</button>
+            <button data-r="182">6M</button><button data-r="365">1Y</button><button class="active" data-r="all">All</button>
           </div>
         </div>
         <div class="chips" id="perfPick" role="group" aria-label="Show"></div>
@@ -142,8 +142,8 @@
             <p class="card-sub" id="plSummary"></p>
           </div>
           <div class="seg-toggle" id="plRange" role="group" aria-label="Time range">
-            <button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button>
-            <button data-r="365">1Y</button><button class="active" data-r="all">All</button>
+            <button data-r="1d">1D</button><button data-r="7">1W</button><button data-r="30">1M</button><button data-r="91">3M</button>
+            <button data-r="182">6M</button><button data-r="365">1Y</button><button class="active" data-r="all">All</button>
           </div>
         </div>
         <div class="mini-kpis">
@@ -183,7 +183,7 @@
               <button class="active" data-u="g">Gram</button><button data-u="tola">Tola</button><button data-u="oz">Ounce</button>
             </div>
             <div class="seg-toggle" id="mRange" role="group" aria-label="Time range">
-              <button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button><button class="active" data-r="365">1Y</button>
+              <button data-r="7">1W</button><button data-r="30">1M</button><button data-r="91">3M</button><button data-r="182">6M</button><button class="active" data-r="365">1Y</button>
             </div>
           </div>
         </div>
@@ -343,6 +343,7 @@
           <button class="btn primary" type="submit">Save &amp; connect</button>
           <button class="btn" type="button" id="clearKey">Use demo</button>
         </form>
+        <p class="key-status" id="fhStatus" role="status"></p>
         <p class="hint">Your key is stored only in this browser (localStorage).</p>
       </div>
       <div class="card narrow">
@@ -353,6 +354,7 @@
           <button class="btn primary" type="submit">Save &amp; connect</button>
           <button class="btn" type="button" id="clearTd">Remove</button>
         </form>
+        <p class="key-status" id="tdStatus" role="status"></p>
       </div>
       <div class="card narrow">
         <h2>How live updates work</h2>

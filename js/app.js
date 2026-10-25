@@ -74,7 +74,12 @@
 
   function screening(sym) {
     const p = state.profiles[sym] || {};
-    const rec = screenStock(sym, p.name, p.industry);
+    let rec = screenStock(sym, p.name, p.industry);
+    // A "halal" label must agree with the numbers: 5% or more impermissible revenue can't be fully halal
+    const imp = impermissiblePct(rec);
+    if (rec.status === "halal" && imp != null && imp >= 5) {
+      rec = { ...rec, status: "doubtful", reason: `${rec.reason} Impermissible revenue is about ${imp.toFixed(1)}%, at or above the 5% limit.` };
+    }
     const o = state.overrides[sym];
     if (o) return { ...rec, status: o, overridden: true };
     return rec;
@@ -362,7 +367,34 @@
         </div>
         <span class="pill lg ${st}">${STATUS_LABEL[st]}</span>
       </div>
-      ${q?.price ? `<p class="m-price"><span class="big">${money(q.price)}</span> <span class="${trend(q.change)}">${money(q.change, true)} (${pct(q.changePct)}) today</span></p>` : ""}
+      <div class="m-top">
+        <div class="m-price-box">
+          <span class="kpi-label">Price per share</span>
+          <span class="big">${q?.price ? money(q.price) : "-"}</span>
+          <span class="${trend(q?.change)}">${q ? `${money(q.change, true)} (${pct(q.changePct)}) today` : ""}</span>
+          ${PriceFeed.isLive() ? "" : '<span class="hint">Demo price</span>'}
+        </div>
+        <div class="m-ratio">
+          <span class="kpi-label">Halal / haram ratio · share of revenue</span>
+          ${imp != null ? `
+            <div class="ratio-bar" role="img" aria-label="Halal ${(100 - imp).toFixed(1)} percent, haram ${imp.toFixed(1)} percent">
+              <span class="ok" style="width:${100 - imp}%"></span><span class="bad" style="width:${imp}%"></span>
+            </div>
+            <div class="ratio-legend"><span class="up">Halal ${(100 - imp).toFixed(1)}%</span><span class="down">Haram ${imp.toFixed(1)}%</span></div>
+            <span class="hint">${imp < 5 ? "Under" : "Over"} the 5% limit · estimate, see breakdown below</span>`
+          : `<p class="muted">No revenue breakdown for this stock yet, so the ratio can't be shown.</p>`}
+        </div>
+      </div>
+      <div class="m-chart">
+        <div class="card-head">
+          <span class="card-sub" id="mChg"></span>
+          <div class="seg-toggle" id="mRangeSel" role="group" aria-label="Price range">
+            <button class="active" data-r="1d">1D</button><button data-r="7">1W</button><button data-r="30">1M</button>
+            <button data-r="91">3M</button><button data-r="365">1Y</button><button data-r="all">All</button>
+          </div>
+        </div>
+        <div id="mPriceChart" class="line-wrap sm"></div>
+      </div>
       <p>${esc(scr.reason)}</p>
       <div class="m-grid">
         <div>
@@ -403,6 +435,35 @@
         </div>
       </div>`;
 
+    const myModal = ++modalToken;
+    let mR = "1d";
+    const drawPrice = async () => {
+      const demo = !PriceFeed.isLive();
+      const cur = PriceFeed.get(sym) || q;
+      let pts = [], baseline = null, src = "";
+      if (mR === "1d") {
+        const r = await History.intraday(sym, cur?.prevClose, cur?.price, demo);
+        pts = r.points; baseline = cur?.prevClose ?? null; src = r.source;
+      } else {
+        const from = isoDaysAgo(mR === "all" ? 1100 : +mR);
+        const r = await History.stockSeries(sym, from, [], cur?.price, demo);
+        pts = r.points.filter(p => p[0] >= from); src = r.source;
+      }
+      if (myModal !== modalToken || $("#modal").hidden) return;
+      const ref = baseline ?? pts[0]?.[1], last = pts.at(-1)?.[1];
+      const change = last != null && ref ? last - ref : 0;
+      Charts.line($("#mPriceChart"), [{ label: sym, color: change >= 0 ? COLORS.halal : COLORS.haram, points: pts, area: true }], {
+        height: 220, endLabels: false, baseline, format: v => money(v), axisFormat: v => money(v),
+        ariaLabel: `${sym} price`, empty: src === "recorded" ? "Add a free Twelve Data key in Settings to see price history." : "No price data yet.",
+      });
+      $("#mChg").innerHTML = pts.length > 1 ? `<span class="${trend(change)}">${money(change, true)} (${pct(ref ? (change / ref) * 100 : 0)})</span> ${RANGE_NAME[mR]}` : "";
+    };
+    $$("#mRangeSel button").forEach(b => b.addEventListener("click", () => {
+      mR = b.dataset.r;
+      $$("#mRangeSel button").forEach(x => x.classList.toggle("active", x === b));
+      drawPrice();
+    }));
+
     if (segs.length) Charts.donut($("#revChart"), segs, {
       size: 200, center: imp != null ? `${(100 - imp).toFixed(1)}%` : "", sub: "permissible", ariaLabel: `${sym} revenue breakdown`,
     });
@@ -417,7 +478,10 @@
     });
     $("#modal").hidden = false;
     $("#modalClose").focus();
+    drawPrice();
   }
+  let modalToken = 0;
+  const RANGE_NAME = { "1d": "today", 7: "past week", 30: "past month", 91: "past 3 months", 182: "past 6 months", 365: "past year", all: "all time" };
   function closeModal() { $("#modal").hidden = true; }
   $("#modalClose").addEventListener("click", closeModal);
   $("#modal").addEventListener("click", (e) => { if (e.target.id === "modal") closeModal(); });
@@ -433,10 +497,26 @@
       return `<button class="screen-card ${s.status}" data-sym="${esc(s.symbol)}">
         <span class="sc-top"><strong>${esc(s.symbol)}</strong><span class="pill sm ${s.status}">${STATUS_LABEL[s.status]}</span></span>
         <span class="sc-name">${esc(s.name)}</span>
+        ${(() => { const q = PriceFeed.get(s.symbol); return q ? `<span class="sc-price"><strong>${money(q.price)}</strong> <span class="${trend(q.change)}">${pct(q.changePct)} today</span></span>` : '<span class="sc-price muted">Price loading…</span>'; })()}
         <span class="muted">${esc(s.sector)}${imp != null ? ` · ${imp.toFixed(1)}% impermissible` : ""}</span>
       </button>`;
     }).join("");
   }
+  // Fetch a price for every stock in the screener once per visit (spaced out to respect Finnhub's free limit)
+  let screenerFetching = false;
+  async function loadScreenerPrices() {
+    if (screenerFetching) return;
+    screenerFetching = true;
+    const missing = Object.keys(SHARIAH_DB).filter(sym => !PriceFeed.get(sym));
+    for (const sym of missing) {
+      await PriceFeed.quote(sym).catch(() => null);
+      if (PriceFeed.isLive()) { renderScreener(); await new Promise(r => setTimeout(r, 1100)); }
+    }
+    renderScreener();
+    screenerFetching = false;
+  }
+  $('.tab[data-tab="screener"]').addEventListener("click", loadScreenerPrices);
+
   $("#screenGrid").addEventListener("click", (e) => {
     const c = e.target.closest(".screen-card");
     if (c) openDetails(c.dataset.sym);
@@ -566,6 +646,22 @@
       $("#perfSummary").textContent = ""; $("#perfSource").textContent = ""; $("#perfBars").innerHTML = "";
       return;
     }
+    if (perfRange === "1d") {
+      const day = await intradayPortfolio(pick.filter(isOpen));
+      if (token !== perfToken) return;
+      const last = day.pts.at(-1)?.[1] ?? day.prevValue, change = last - day.prevValue;
+      const label = perfPick === "all" ? "Portfolio value" : `${perfPick} value`;
+      Charts.line($("#perfChart"), [
+        { label, short: "Value", color: change >= 0 ? COLORS.halal : COLORS.haram, points: day.pts, area: true },
+      ], { format: v => money(v), axisFormat: v => compact(v), baseline: day.prevValue, ariaLabel: `${label} today`,
+        empty: "No prices recorded today yet. Add a Twelve Data key in Settings for a full 1-day chart." });
+      $("#perfSummary").innerHTML = day.pts.length ? `<span class="${trend(change)}">${money(change, true)} (${pct(day.prevValue ? (change / day.prevValue) * 100 : 0)})</span> today` : "";
+      $("#perfSource").textContent = day.sources.has("twelve") ? "5-minute prices from Twelve Data. Dashed line = yesterday's close."
+        : day.sources.has("demo") ? "Simulated demo prices. Dashed line = yesterday's close."
+        : "Built from prices recorded since you opened the app today. Dashed line = yesterday's close.";
+      renderReturnBars();
+      return;
+    }
     const hist = await portfolioHistory(pick);
     if (token !== perfToken) return;
     const results = hist.results;
@@ -583,7 +679,7 @@
       { label: "Amount invested", short: "Invested", color: COLORS.muted, points: investedPts, dashed: true },
     ], { format: v => money(v), axisFormat: v => compact(v), ariaLabel: `${label} over time`, empty: "No price history in this range yet." });
 
-    const rangeName = { 30: "past month", 91: "past 3 months", 182: "past 6 months", 365: "past year", all: "since you invested" }[perfRange];
+    const rangeName = perfRange === "all" ? "since you invested" : RANGE_NAME[perfRange];
     const base = perfRange === "all" ? endI : (valuePts[0]?.[1] || endI);
     $("#perfSummary").innerHTML = valuePts.length
       ? `<span class="${up ? "up" : "down"}">${money(rangeGain, true)} (${pct(base ? (rangeGain / base) * 100 : 0)})</span> ${rangeName}`
@@ -594,7 +690,11 @@
       : src.has("demo") ? "Simulated demo history. Add API keys in Settings to see your real performance."
       : "Built from prices recorded while the app is open. Add a free Twelve Data key in Settings for full daily history.";
 
-    // Return by stock: diverging bars around 0%
+    renderReturnBars();
+  }
+
+  // Return by stock: diverging bars around 0%
+  function renderReturnBars() {
     const rets = computeRows().map(r => ({ sym: r.h.symbol, st: r.scr.status, v: r.pl != null ? (r.pl / r.h.invested) * 100 : 0, pl: r.pl }))
       .sort((a, b) => b.v - a.v);
     const maxAbs = Math.max(1, ...rets.map(r => Math.abs(r.v)));
@@ -640,6 +740,30 @@
       return { d, value, cost, owned };
     });
     return { results, days };
+  }
+
+  /* Today's value path for a set of open holdings, plus yesterday's closing value. */
+  async function intradayPortfolio(holdings) {
+    const demo = !PriceFeed.isLive();
+    const parts = await Promise.all(holdings.map(async h => {
+      const q = PriceFeed.get(h.symbol);
+      const r = await History.intraday(h.symbol, q?.prevClose, q?.price, demo);
+      return { h, q, ...r };
+    }));
+    const stamps = [...new Set(parts.flatMap(p => p.points.map(x => x[0])))].sort();
+    const cur = parts.map(() => ({ i: 0, last: null }));
+    const pts = stamps.map(ts => {
+      let v = 0;
+      parts.forEach((p, k) => {
+        const c = cur[k];
+        while (c.i < p.points.length && p.points[c.i][0] <= ts) c.last = p.points[c.i++][1];
+        v += p.h.shares * (c.last ?? p.q?.prevClose ?? p.points[0]?.[1] ?? 0);
+      });
+      return [ts, v];
+    });
+    const prevValue = parts.reduce((s, p) => s + p.h.shares * (p.q?.prevClose ?? p.points[0]?.[1] ?? 0), 0);
+    const cost = holdings.reduce((s, h) => s + h.invested, 0);
+    return { pts, prevValue, cost, sources: new Set(parts.map(p => p.source)) };
   }
 
   // ---------------- Selling ----------------
@@ -747,6 +871,19 @@
       $("#plSummary").textContent = "";
       return;
     }
+    if (plRange === "1d") {
+      const day = await intradayPortfolio(openHoldings());
+      if (token !== plToken) return;
+      const base = realizedAll + day.prevValue - day.cost;
+      const pts = day.pts.map(([ts, v]) => [ts, realizedAll + v - day.cost]);
+      const change = (pts.at(-1)?.[1] ?? base) - base;
+      Charts.line($("#plChart"), [
+        { label: "Total profit / loss", short: "Total", color: change >= 0 ? COLORS.halal : COLORS.haram, points: pts, area: true },
+      ], { format: v => money(v, true), axisFormat: v => compact(v), baseline: base, ariaLabel: "Profit and loss today",
+        empty: "No prices recorded today yet. Add a Twelve Data key in Settings for a full 1-day chart." });
+      $("#plSummary").innerHTML = pts.length ? `<span class="${trend(change)}">${money(change, true)}</span> today` : "";
+      return;
+    }
     const hist = await portfolioHistory(state.holdings);
     if (token !== plToken) return;
     const asc = [...state.sales].sort((a, b) => a.date.localeCompare(b.date));
@@ -763,12 +900,12 @@
     if (totalPts.length && totalPts.at(-1)[0] === today()) totalPts.at(-1)[1] = realizedAll + open;
     const first = totalPts[0]?.[1] ?? 0, last = totalPts.at(-1)?.[1] ?? 0;
     const change = plRange === "all" ? last : last - first;
-    const up = last >= 0;
+    const up = change >= 0; // red whenever profit/loss fell over the chosen range
     Charts.line($("#plChart"), [
       { label: "Total profit / loss", short: "Total", color: up ? COLORS.halal : COLORS.haram, points: totalPts, area: true },
       { label: "Realized from sales", short: "Realized", color: COLORS.ink, points: realPts },
     ], { format: v => money(v, true), axisFormat: v => compact(v), zero: true, ariaLabel: "Profit and loss over time", empty: "No history in this range yet." });
-    const rangeName = { 30: "in the past month", 91: "in the past 3 months", 182: "in the past 6 months", 365: "in the past year", all: "all time" }[plRange];
+    const rangeName = plRange === "all" ? "all time" : `in the ${RANGE_NAME[plRange]}`;
     $("#plSummary").innerHTML = totalPts.length ? `<span class="${trend(change)}">${money(change, true)}</span> ${rangeName}` : "";
   }
 
@@ -1037,16 +1174,44 @@
   let savedKey = "";
   try { savedKey = localStorage.getItem(KEY_STORE) || ""; } catch {}
   $("#apiKey").value = savedKey;
+  function keyStatus(id, kind, text) { const el = $(id); el.className = `key-status ${kind}`; el.textContent = text; }
+  async function checkFinnhub(k, announce) {
+    if (!k) return keyStatus("#fhStatus", "", "Not connected. Showing demo stock prices.");
+    keyStatus("#fhStatus", "busy", "Checking your key…");
+    try {
+      const r = await PriceFeed.testKey(k);
+      keyStatus("#fhStatus", "ok", `✓ Completed. Connected to Finnhub: live stock prices are on (AAPL ${money(r.price)}).`);
+      if (announce) toast("✓ Completed: Finnhub key added, live stock prices are on");
+    } catch (e) {
+      keyStatus("#fhStatus", "err", `✕ ${e.message}`);
+      if (announce) toast(e.message, "error");
+    }
+  }
+  async function checkTwelve(k, announce) {
+    if (!k) return keyStatus("#tdStatus", "", "Not connected. Charts and gold/silver use demo data.");
+    keyStatus("#tdStatus", "busy", "Checking your key…");
+    try {
+      const r = await History.testKey(k);
+      const gold = r.gold ? `gold ${money(r.gold)}/oz` : `gold & silver: ${r.goldError} (demo prices stay on for metals)`;
+      keyStatus("#tdStatus", r.gold ? "ok" : "warn", `✓ Completed. Connected to Twelve Data: price history on (AAPL ${money(r.stock)}), ${gold}.`);
+      if (announce) toast("✓ Completed: Twelve Data key added");
+    } catch (e) {
+      keyStatus("#tdStatus", "err", `✕ ${e.message}`);
+      if (announce) toast(e.message, "error");
+    }
+  }
   $("#keyForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const k = $("#apiKey").value.trim();
     try { localStorage.setItem(KEY_STORE, k); } catch {}
     PriceFeed.setKey(k); syncFeed(); renderAll();
+    checkFinnhub(k, true);
   });
   $("#clearKey").addEventListener("click", () => {
     $("#apiKey").value = "";
     try { localStorage.removeItem(KEY_STORE); } catch {}
     PriceFeed.setKey(""); syncFeed(); renderAll();
+    checkFinnhub("", false);
   });
   let tdKey = "";
   try { tdKey = localStorage.getItem(TD_KEY_STORE) || ""; } catch {}
@@ -1055,13 +1220,14 @@
     e.preventDefault();
     const k = $("#tdKey").value.trim();
     try { localStorage.setItem(TD_KEY_STORE, k); } catch {}
-    History.clearCache(); History.setKey(k); renderPerf();
-    toast(k ? "Twelve Data connected" : "Twelve Data key removed");
+    History.clearCache(); History.setKey(k); renderPerf(); renderPL();
+    checkTwelve(k, true);
   });
   $("#clearTd").addEventListener("click", () => {
     $("#tdKey").value = "";
     try { localStorage.removeItem(TD_KEY_STORE); } catch {}
-    History.setKey(""); renderPerf();
+    History.setKey(""); renderPerf(); renderPL();
+    checkTwelve("", false);
     toast("Twelve Data key removed");
   });
 
@@ -1119,4 +1285,6 @@
   if (firstVisit && !savedKey) loadExamples();
   syncFeed();
   renderAll();
+  checkFinnhub(savedKey, false);
+  checkTwelve(tdKey, false);
 })();

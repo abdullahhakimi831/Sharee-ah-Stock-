@@ -21,6 +21,10 @@ const History = (() => {
   let metalListeners = [];
   let metalTimer = null;
   const inflight = {};
+  const intraCache = {};                 // sym -> { t, points }
+  const ticks = {};                      // sym -> [[ "YYYY-MM-DD HH:MM", price ]] seen today
+  const pad = (n) => String(n).padStart(2, "0");
+  const localStamp = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
   function read(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } }
   function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
@@ -81,6 +85,8 @@ const History = (() => {
   /* Record today's price so history builds up even without Twelve Data. */
   function record(sym, price) {
     if (!price) return;
+    const stamp = localStamp(), list = (ticks[sym] = (ticks[sym] || []).filter(p => p[0].slice(0, 10) === stamp.slice(0, 10)));
+    if (list.at(-1)?.[0] === stamp) list.at(-1)[1] = price; else list.push([stamp, price]);
     const d = today();
     snaps[sym] = snaps[sym] || {};
     if (snaps[sym][d] === price) return;
@@ -160,6 +166,40 @@ const History = (() => {
     return { points: all.filter(([d]) => d >= from), source: "recorded" };
   }
 
+  /* Simulated 5-minute prices for today's session, from yesterday's close to now. */
+  function simulateIntraday(sym, prevClose, current) {
+    const now = new Date();
+    const open = new Date(now); open.setHours(9, 30, 0, 0);
+    const close = new Date(now); close.setHours(16, 0, 0, 0);
+    const end = now < open ? close : (now > close ? close : now);
+    const pts = [];
+    for (let t = open.getTime(); t <= end.getTime(); t += 5 * 60e3) pts.push(localStamp(new Date(t)));
+    if (pts.length < 2) pts.push(localStamp(new Date(open.getTime() + 5 * 60e3)));
+    const r = rng(sym + pts[0].slice(0, 10));
+    const noise = [0];
+    for (let i = 1; i < pts.length; i++) noise.push(noise[i - 1] + gauss(r) * 0.0025);
+    const l0 = Math.log(prevClose), l1 = Math.log(current), n = pts.length - 1;
+    return pts.map((d, i) => [d, Math.round(Math.exp(l0 + (l1 - l0) * (i / n) + noise[i] - noise[n] * (i / n)) * 100) / 100]);
+  }
+
+  /* Today's price path for a symbol (1D charts). */
+  async function intraday(sym, prevClose, current, demo) {
+    if (apiKey) {
+      const c = intraCache[sym];
+      if (c && Date.now() - c.t < 5 * 60e3) return { points: c.points, source: "twelve" };
+      try {
+        const data = await td("/time_series", { symbol: sym, interval: "5min", outputsize: 90 });
+        const vals = (data.values || []).map(v => [v.datetime.slice(0, 16), parseFloat(v.close)]).reverse();
+        const lastDay = vals.at(-1)?.[0].slice(0, 10);
+        const points = vals.filter(p => p[0].startsWith(lastDay));
+        intraCache[sym] = { t: Date.now(), points };
+        if (points.length) return { points, source: "twelve" };
+      } catch (e) { /* fall through */ }
+    }
+    if (demo && prevClose && current) return { points: simulateIntraday(sym, prevClose, current), source: "demo" };
+    return { points: ticks[sym] || [], source: "recorded" };
+  }
+
   // ---------- Metals ----------
   const DEMO_SPOT = { gold: 4150, silver: 49 }; // USD per troy ounce, demo only
 
@@ -205,6 +245,18 @@ const History = (() => {
       if (apiKey) metalTimer = setInterval(loadMetals, METAL_REFRESH_MS);
     },
     hasKey: () => !!apiKey,
+    intraday,
+    /* Checks a key with one stock price and the gold price. Resolves { stock, gold, goldError } or throws. */
+    async testKey(key) {
+      let res;
+      try { res = await fetch(`${API}/price?symbol=${encodeURIComponent("AAPL,XAU/USD")}&apikey=${encodeURIComponent(key)}`); }
+      catch { throw new Error("Can't reach Twelve Data from this page. Open the website version (GitHub Pages) to use live data."); }
+      const data = await res.json().catch(() => ({}));
+      if (data.status === "error") throw new Error(/api ?key/i.test(data.message || "") ? "Twelve Data rejected this key. Check you copied all of it." : (data.message || "Twelve Data error."));
+      const stock = parseFloat(data.AAPL?.price), gold = parseFloat(data["XAU/USD"]?.price);
+      if (!stock && !gold) throw new Error(data.AAPL?.message || "Twelve Data answered but sent no prices.");
+      return { stock, gold, goldError: gold ? null : (data["XAU/USD"]?.message || "Gold price not available on this key.") };
+    },
     stockSeries,
     record,
     onMetals(fn) { metalListeners.push(fn); if (metals) fn(metals); },

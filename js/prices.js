@@ -160,6 +160,18 @@ const PriceFeed = (() => {
       await fetchQuote(sym);
       return quotes[sym];
     },
+    /* Checks a key with one real quote. Resolves { price } or throws a readable error. */
+    async testKey(key) {
+      let res;
+      try { res = await fetch(`${API}/quote?symbol=AAPL&token=${encodeURIComponent(key)}`); }
+      catch { throw new Error("Can't reach Finnhub from this page. Open the website version (GitHub Pages) to use live prices."); }
+      if (res.status === 401 || res.status === 403) throw new Error("Finnhub rejected this key. Check you copied all of it.");
+      if (res.status === 429) throw new Error("Finnhub's rate limit was hit. Wait a minute and try again.");
+      if (!res.ok) throw new Error(`Finnhub error (HTTP ${res.status}).`);
+      const q = await res.json();
+      if (!q || !q.c) throw new Error("Finnhub answered but sent no price. Try again in a minute.");
+      return { price: q.c };
+    },
     /* Company name + industry, used to auto-screen unknown tickers. */
     async profile(sym) {
       if (!apiKey) return null;
