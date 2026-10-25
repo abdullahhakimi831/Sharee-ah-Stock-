@@ -1,0 +1,2586 @@
+{
+ "generated": "2026-10-25T04:18:21.741Z",
+ "method": "AAOIFI-style financial screens from SEC XBRL filings. Market value = current market capitalization.",
+ "limits": {
+  "interest": 5,
+  "debt": 33,
+  "cash": 33,
+  "receivables": 49
+ },
+ "stocks": {
+  "AAPL": {
+   "name": "Apple Inc.",
+   "cik": 320193,
+   "asOf": "2026-06-27",
+   "revenueYearEnd": "2018-09-29",
+   "form": "10-Q",
+   "filed": "2026-07-31",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/",
+   "values": {
+    "revenue": 265595000000,
+    "interestIncome": 5686000000,
+    "debt": 84297000000,
+    "cashAndSecurities": 146517000000,
+    "receivables": 31398000000,
+    "shares": 14594180000,
+    "marketCap": 5074761149625.363,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 2.14,
+    "debt": 1.66,
+    "cash": 2.89,
+    "receivables": 0.62
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt + CommercialPaper",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent + MarketableSecuritiesNoncurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterestAndDividend"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-27",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 2.14,
+      "debt": 1.66,
+      "cash": 2.89,
+      "receivables": 0.62
+     }
+    }
+   ]
+  },
+  "MSFT": {
+   "name": "Microsoft Corporation",
+   "cik": 789019,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2010-06-30",
+   "form": "10-K",
+   "filed": "2026-07-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/",
+   "values": {
+    "revenue": 62484000000,
+    "interestIncome": 843000000,
+    "debt": 40294000000,
+    "cashAndSecurities": 76843000000,
+    "receivables": 80876000000,
+    "shares": 7425545491,
+    "marketCap": 3895234970383.919,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.35,
+    "debt": 1.03,
+    "cash": 1.97,
+    "receivables": 2.08
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterestAndDividend"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.35,
+      "debt": 1.03,
+      "cash": 1.97,
+      "receivables": 2.08
+     }
+    }
+   ]
+  },
+  "NVDA": {
+   "name": "NVIDIA CORP",
+   "cik": 1045810,
+   "asOf": "2026-07-26",
+   "revenueYearEnd": "2026-01-25",
+   "form": "10-Q",
+   "filed": "2026-08-26",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/",
+   "values": {
+    "revenue": 215938000000,
+    "interestIncome": 2300000000,
+    "debt": 33366000000,
+    "cashAndSecurities": 22443000000,
+    "receivables": 63059000000,
+    "shares": 24100000000,
+    "marketCap": 5084136160850.911,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.07,
+    "debt": 0.66,
+    "cash": 0.44,
+    "receivables": 1.24
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-07-26",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.07,
+      "debt": 0.66,
+      "cash": 0.44,
+      "receivables": 1.24
+     }
+    }
+   ]
+  },
+  "TSLA": {
+   "name": "Tesla, Inc.",
+   "cik": 1318605,
+   "asOf": "2026-09-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-10-22",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/",
+   "values": {
+    "revenue": 94827000000,
+    "interestIncome": 1680000000,
+    "debt": 7956000000,
+    "cashAndSecurities": 45447000000,
+    "receivables": 4636000000,
+    "shares": 3952757946,
+    "marketCap": 1471285191462.3228,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.77,
+    "debt": 0.54,
+    "cash": 3.09,
+    "receivables": 0.32
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.77,
+      "debt": 0.54,
+      "cash": 3.09,
+      "receivables": 0.32
+     }
+    }
+   ]
+  },
+  "AMD": {
+   "name": "ADVANCED MICRO DEVICES INC",
+   "cik": 2488,
+   "asOf": "2026-06-27",
+   "revenueYearEnd": "2025-12-27",
+   "form": "10-Q",
+   "filed": "2026-08-05",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/",
+   "values": {
+    "revenue": 34639000000,
+    "interestIncome": 3000000,
+    "debt": 3226000000,
+    "cashAndSecurities": 13111000000,
+    "receivables": 7281000000,
+    "shares": 1632475042,
+    "marketCap": 843646730468.1322,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.01,
+    "debt": 0.38,
+    "cash": 1.55,
+    "receivables": 0.86
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "DebtLongtermAndShorttermCombinedAmount",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-27",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.01,
+      "debt": 0.38,
+      "cash": 1.55,
+      "receivables": 0.86
+     }
+    }
+   ]
+  },
+  "ADBE": {
+   "name": "ADOBE INC.",
+   "cik": 796343,
+   "asOf": "2026-08-28",
+   "revenueYearEnd": "2025-11-28",
+   "form": "10-Q",
+   "filed": "2026-09-22",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/796343/000079634326000156/",
+   "values": {
+    "revenue": 23769000000,
+    "interestIncome": 264000000,
+    "debt": 4766000000,
+    "cashAndSecurities": 5639000000,
+    "receivables": 2081000000,
+    "shares": 389200000,
+    "marketCap": 102678742588.01936,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.11,
+    "debt": 4.64,
+    "cash": 5.49,
+    "receivables": 2.03
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-08-28",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.11,
+      "debt": 4.64,
+      "cash": 5.49,
+      "receivables": 2.03
+     }
+    }
+   ]
+  },
+  "CRM": {
+   "name": "Salesforce, Inc.",
+   "cik": 1108524,
+   "asOf": "2026-07-31",
+   "revenueYearEnd": "2017-01-31",
+   "form": "10-Q",
+   "filed": "2026-08-27",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000190/",
+   "values": {
+    "revenue": 8391984000,
+    "interestIncome": 22000000,
+    "debt": 39288000000,
+    "cashAndSecurities": 11403000000,
+    "receivables": 6320000000,
+    "shares": 823000000,
+    "marketCap": 204573104511.97482,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.26,
+    "debt": 19.2,
+    "cash": 5.57,
+    "receivables": 3.09
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + AvailableForSaleSecuritiesDebtSecuritiesCurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-07-31",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.26,
+      "debt": 19.2,
+      "cash": 5.57,
+      "receivables": 3.09
+     }
+    }
+   ]
+  },
+  "META": {
+   "name": "Meta Platforms, Inc.",
+   "cik": 1326801,
+   "asOf": "2026-09-30",
+   "revenueYearEnd": "2017-12-31",
+   "form": "10-Q",
+   "filed": "2026-10-22",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/",
+   "values": {
+    "revenue": 40653000000,
+    "interestIncome": 398000000,
+    "debt": 83669000000,
+    "cashAndSecurities": 82449000000,
+    "receivables": 22716000000,
+    "shares": 2574000000,
+    "marketCap": 1636687083893.3037,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.98,
+    "debt": 5.11,
+    "cash": 5.04,
+    "receivables": 1.39
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.98,
+      "debt": 5.11,
+      "cash": 5.04,
+      "receivables": 1.39
+     }
+    }
+   ]
+  },
+  "JNJ": {
+   "name": "Johnson & Johnson",
+   "cik": 200406,
+   "asOf": "2026-09-27",
+   "revenueYearEnd": "2025-12-28",
+   "form": "10-Q",
+   "filed": "2026-10-21",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/200406/000020040626000197/",
+   "values": {
+    "revenue": 94193000000,
+    "interestIncome": 1056000000,
+    "debt": 44651000000,
+    "cashAndSecurities": 17228000000,
+    "receivables": 18987000000,
+    "shares": 2407310266,
+    "marketCap": 635072496201.3464,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.12,
+    "debt": 7.03,
+    "cash": 2.71,
+    "receivables": 2.99
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-27",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.12,
+      "debt": 7.03,
+      "cash": 2.71,
+      "receivables": 2.99
+     }
+    }
+   ]
+  },
+  "LLY": {
+   "name": "ELI LILLY AND COMPANY",
+   "cik": 59478,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-05",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/",
+   "values": {
+    "revenue": 65179000000,
+    "interestIncome": 175200000,
+    "debt": 47858000000,
+    "cashAndSecurities": 8950000000,
+    "receivables": 20083000000,
+    "shares": 941357065,
+    "marketCap": 1198780502350.98,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.27,
+    "debt": 3.99,
+    "cash": 0.75,
+    "receivables": 1.68
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.27,
+      "debt": 3.99,
+      "cash": 0.75,
+      "receivables": 1.68
+     }
+    }
+   ]
+  },
+  "PFE": {
+   "name": "PFIZER INC",
+   "cik": 78003,
+   "asOf": "2026-06-28",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-04",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/78003/000007800326000095/",
+   "values": {
+    "revenue": 62579000000,
+    "interestIncome": 603000000,
+    "debt": 63100000000,
+    "cashAndSecurities": 8257000000,
+    "receivables": 12490000000,
+    "shares": 5699673589,
+    "marketCap": 171161190824.8846,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.96,
+    "debt": 36.87,
+    "cash": 4.82,
+    "receivables": 7.3
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + AvailableForSaleSecuritiesDebtSecuritiesCurrent + AvailableForSaleSecuritiesDebtSecuritiesNoncurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-28",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.96,
+      "debt": 36.87,
+      "cash": 4.82,
+      "receivables": 7.3
+     }
+    }
+   ]
+  },
+  "XOM": {
+   "name": "ExxonMobil Holdings Corp",
+   "cik": 2115436,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": null,
+   "form": "10-Q",
+   "filed": "2026-08-03",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/2115436/000003408826000093/",
+   "values": {
+    "revenue": null,
+    "interestIncome": null,
+    "debt": 32229000000,
+    "cashAndSecurities": 10588000000,
+    "receivables": 60558000000,
+    "shares": 4111911960,
+    "marketCap": 732290400000,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": null,
+    "debt": 4.4,
+    "cash": 1.45,
+    "receivables": 8.27
+   },
+   "pass": {
+    "interest": null,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligations",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "ReceivablesNetCurrent",
+    "interest": null
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": null,
+      "debt": 4.4,
+      "cash": 1.45,
+      "receivables": 8.27
+     }
+    }
+   ]
+  },
+  "CVX": {
+   "name": "Chevron Corp",
+   "cik": 93410,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-06",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/93410/000009341026000167/",
+   "values": {
+    "revenue": 189031000000,
+    "interestIncome": 0,
+    "debt": 37075000000,
+    "cashAndSecurities": 9582000000,
+    "receivables": 22000000000,
+    "shares": 1975771274,
+    "marketCap": 460769596046.853,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 8.05,
+    "cash": 2.08,
+    "receivables": 4.77
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + ShortTermBorrowings",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 8.05,
+      "cash": 2.08,
+      "receivables": 4.77
+     }
+    }
+   ]
+  },
+  "PG": {
+   "name": "PROCTER & GAMBLE CO",
+   "cik": 80424,
+   "asOf": "2026-09-30",
+   "revenueYearEnd": "2026-06-30",
+   "form": "10-Q",
+   "filed": "2026-10-22",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/",
+   "values": {
+    "revenue": 87032000000,
+    "interestIncome": 430000000,
+    "debt": 21897000000,
+    "cashAndSecurities": 15365000000,
+    "receivables": 6620000000,
+    "shares": 2317783143,
+    "marketCap": 373996695664.5486,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.49,
+    "debt": 5.85,
+    "cash": 4.11,
+    "receivables": 1.77
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.49,
+      "debt": 5.85,
+      "cash": 4.11,
+      "receivables": 1.77
+     }
+    }
+   ]
+  },
+  "KO": {
+   "name": "COCA COLA CO",
+   "cik": 21344,
+   "asOf": "2026-04-03",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-04-30",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/21344/000162828026028802/",
+   "values": {
+    "revenue": 47941000000,
+    "interestIncome": 786000000,
+    "debt": 43808000000,
+    "cashAndSecurities": 10574000000,
+    "receivables": 3675000000,
+    "shares": 4302482418,
+    "marketCap": 398889286533.68005,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.64,
+    "debt": 10.98,
+    "cash": 2.65,
+    "receivables": 0.92
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + CommercialPaper",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-04-03",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.64,
+      "debt": 10.98,
+      "cash": 2.65,
+      "receivables": 0.92
+     }
+    }
+   ]
+  },
+  "PEP": {
+   "name": "PEPSICO INC",
+   "cik": 77476,
+   "asOf": "2026-09-05",
+   "revenueYearEnd": "2025-12-27",
+   "form": "10-Q",
+   "filed": "2026-10-08",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/77476/000007747626000048/",
+   "values": {
+    "revenue": 93925000000,
+    "interestIncome": 68000000,
+    "debt": 56681000000,
+    "cashAndSecurities": 11163000000,
+    "receivables": 13623000000,
+    "shares": 1362741092,
+    "marketCap": 185019360076.0607,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.07,
+    "debt": 30.64,
+    "cash": 6.03,
+    "receivables": 7.36
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligations + ShortTermBorrowings + CommercialPaper",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
+    "receivables": "AccountsNotesAndLoansReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-05",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.07,
+      "debt": 30.64,
+      "cash": 6.03,
+      "receivables": 7.36
+     }
+    }
+   ]
+  },
+  "NKE": {
+   "name": "NIKE, Inc.",
+   "cik": 320187,
+   "asOf": "2026-08-31",
+   "revenueYearEnd": "2026-05-31",
+   "form": "10-Q",
+   "filed": "2026-10-02",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/320187/000032018726000193/",
+   "values": {
+    "revenue": 46398000000,
+    "interestIncome": 278000000,
+    "debt": 7893000000,
+    "cashAndSecurities": 6903000000,
+    "receivables": 5242000000,
+    "shares": 855351589,
+    "marketCap": 55402021326.59446,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.6,
+    "debt": 14.25,
+    "cash": 12.46,
+    "receivables": 9.46
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-08-31",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.6,
+      "debt": 14.25,
+      "cash": 12.46,
+      "receivables": 9.46
+     }
+    }
+   ]
+  },
+  "HD": {
+   "name": "The Home Depot, Inc.",
+   "cik": 354950,
+   "asOf": "2026-08-02",
+   "revenueYearEnd": "2010-01-31",
+   "form": "10-Q",
+   "filed": "2026-08-25",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/354950/000162828026058715/",
+   "values": {
+    "revenue": 66176000000,
+    "interestIncome": 18000000,
+    "debt": 97801000000,
+    "cashAndSecurities": 2085000000,
+    "receivables": 6963000000,
+    "shares": 997689626,
+    "marketCap": 319091087052.55756,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.03,
+    "debt": 30.65,
+    "cash": 0.65,
+    "receivables": 2.18
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligations + LongTermDebtAndCapitalLeaseObligationsCurrent + SeniorNotes + CommercialPaper",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterestAndDividend"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-08-02",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.03,
+      "debt": 30.65,
+      "cash": 0.65,
+      "receivables": 2.18
+     }
+    }
+   ]
+  },
+  "SHOP": {
+   "name": "Shopify Inc.",
+   "cik": 1594805,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-05",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000047/",
+   "values": {
+    "revenue": 11556000000,
+    "interestIncome": 0,
+    "debt": 0,
+    "cashAndSecurities": 5472000000,
+    "receivables": null,
+    "shares": 1304953255,
+    "marketCap": 217031118270.163,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 0,
+    "cash": 2.52,
+    "receivables": null
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": null
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "no debt reported",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent + MarketableSecuritiesNoncurrent",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No interest-bearing debt reported.",
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 0,
+      "cash": 2.52,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "AMZN": {
+   "name": "AMAZON COM INC",
+   "cik": 1018724,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-31",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/",
+   "values": {
+    "revenue": 716924000000,
+    "interestIncome": 4381000000,
+    "debt": 133320000000,
+    "cashAndSecurities": 122988000000,
+    "receivables": 88092000000,
+    "shares": 10786313572,
+    "marketCap": 2675006036541.928,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.61,
+    "debt": 4.98,
+    "cash": 4.6,
+    "receivables": 3.29
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.61,
+      "debt": 4.98,
+      "cash": 4.6,
+      "receivables": 3.29
+     }
+    }
+   ]
+  },
+  "GOOGL": {
+   "name": "Alphabet Inc.",
+   "cik": 1652044,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-23",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/",
+   "values": {
+    "revenue": 402836000000,
+    "interestIncome": 4337000000,
+    "debt": 100164000000,
+    "cashAndSecurities": 242474000000,
+    "receivables": 69175000000,
+    "shares": 12230000000,
+    "marketCap": 3916168300000,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.08,
+    "debt": 2.56,
+    "cash": 6.19,
+    "receivables": 1.77
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent + CommercialPaper",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InterestIncomeOther"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.08,
+      "debt": 2.56,
+      "cash": 6.19,
+      "receivables": 1.77
+     }
+    }
+   ]
+  },
+  "V": {
+   "name": "VISA INC.",
+   "cik": 1403161,
+   "asOf": "2026-03-31",
+   "revenueYearEnd": "2020-09-30",
+   "form": "10-Q",
+   "filed": "2026-04-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000079/",
+   "values": {
+    "revenue": 21846000000,
+    "interestIncome": 791000000,
+    "debt": 23976000000,
+    "cashAndSecurities": 12404000000,
+    "receivables": 3405000000,
+    "shares": 469280842,
+    "marketCap": 763398317195.6969,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 3.62,
+    "debt": 3.14,
+    "cash": 1.62,
+    "receivables": 0.45
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "DebtLongtermAndShorttermCombinedAmount",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterestAndDividend"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-03-31",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 3.62,
+      "debt": 3.14,
+      "cash": 1.62,
+      "receivables": 0.45
+     }
+    }
+   ]
+  },
+  "MA": {
+   "name": "Mastercard Incorporated",
+   "cik": 1141391,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-30",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/",
+   "values": {
+    "revenue": 32791000000,
+    "interestIncome": 48000000,
+    "debt": 24643000000,
+    "cashAndSecurities": 11291000000,
+    "receivables": 5047000000,
+    "shares": 122530193,
+    "marketCap": 546279815250.7566,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.15,
+    "debt": 4.51,
+    "cash": 2.07,
+    "receivables": 0.92
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "DebtLongtermAndShorttermCombinedAmount",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + HeldToMaturitySecurities",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.15,
+      "debt": 4.51,
+      "cash": 2.07,
+      "receivables": 0.92
+     }
+    }
+   ]
+  },
+  "COST": {
+   "name": "COSTCO WHOLESALE CORP /NEW",
+   "cik": 909832,
+   "asOf": "2026-08-30",
+   "revenueYearEnd": "2025-08-31",
+   "form": "10-K",
+   "filed": "2026-10-07",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/",
+   "values": {
+    "revenue": 275235000000,
+    "interestIncome": 0,
+    "debt": 6162000000,
+    "cashAndSecurities": 21599000000,
+    "receivables": 3959000000,
+    "shares": 443129349,
+    "marketCap": 444600532477.853,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 1.39,
+    "cash": 4.86,
+    "receivables": 0.89
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments + HeldToMaturitySecurities",
+    "receivables": "ReceivablesNetCurrent",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-08-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 1.39,
+      "cash": 4.86,
+      "receivables": 0.89
+     }
+    }
+   ]
+  },
+  "WMT": {
+   "name": "Walmart Inc.",
+   "cik": 104169,
+   "asOf": "2026-07-31",
+   "revenueYearEnd": "2026-01-31",
+   "form": "10-Q",
+   "filed": "2026-08-28",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000154/",
+   "values": {
+    "revenue": 713163000000,
+    "interestIncome": 368000000,
+    "debt": 50411000000,
+    "cashAndSecurities": 11529000000,
+    "receivables": 11075000000,
+    "shares": 7933746241,
+    "marketCap": 934595310000,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.05,
+    "debt": 5.39,
+    "cash": 1.23,
+    "receivables": 1.19
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "DebtLongtermAndShorttermCombinedAmount + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "ReceivablesNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-07-31",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.05,
+      "debt": 5.39,
+      "cash": 1.23,
+      "receivables": 1.19
+     }
+    }
+   ]
+  },
+  "MCD": {
+   "name": "McDONALD’S CORPORATION",
+   "cik": 63908,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-07",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000073/",
+   "values": {
+    "revenue": 26885000000,
+    "interestIncome": 0,
+    "debt": 39863000000,
+    "cashAndSecurities": 822000000,
+    "receivables": 2485000000,
+    "shares": 707641531,
+    "marketCap": 175820605392.48996,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 22.67,
+    "cash": 0.47,
+    "receivables": 1.41
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsNotesAndLoansReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 22.67,
+      "cash": 0.47,
+      "receivables": 1.41
+     }
+    }
+   ]
+  },
+  "JPM": {
+   "name": "JPMORGAN CHASE & CO",
+   "cik": 19617,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-06",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/19617/000162828026054343/",
+   "values": {
+    "revenue": 182447000000,
+    "interestIncome": 28032000000,
+    "debt": 532953000000,
+    "cashAndSecurities": 309811000000,
+    "receivables": null,
+    "shares": 2658186195,
+    "marketCap": 881401428868.9171,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 15.36,
+    "debt": 60.47,
+    "cash": 35.15,
+    "receivables": null
+   },
+   "pass": {
+    "interest": false,
+    "debt": false,
+    "cash": false,
+    "receivables": null
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + ShortTermBorrowings",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 15.36,
+      "debt": 60.47,
+      "cash": 35.15,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "BAC": {
+   "name": "BofA Finance LLC",
+   "cik": 70858,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-31",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000394/",
+   "values": {
+    "revenue": 113097000000,
+    "interestIncome": 20421000000,
+    "debt": 339863000000,
+    "cashAndSecurities": 229745000000,
+    "receivables": null,
+    "shares": 6992748365,
+    "marketCap": 350011487546.4621,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 18.06,
+    "debt": 97.1,
+    "cash": 65.64,
+    "receivables": null
+   },
+   "pass": {
+    "interest": false,
+    "debt": false,
+    "cash": false,
+    "receivables": null
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": "InterestIncomeOther"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 18.06,
+      "debt": 97.1,
+      "cash": 65.64,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "WFC": {
+   "name": "WELLS        FARGO & COMPANY/MN",
+   "cik": 72971,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2019-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-28",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/72971/000007297126000302/",
+   "values": {
+    "revenue": 85063000000,
+    "interestIncome": 5128000000,
+    "debt": 207307000000,
+    "cashAndSecurities": 201461000000,
+    "receivables": null,
+    "shares": 3023999336,
+    "marketCap": 247391870000,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 6.03,
+    "debt": 83.8,
+    "cash": 81.43,
+    "receivables": null
+   },
+   "pass": {
+    "interest": false,
+    "debt": false,
+    "cash": false,
+    "receivables": null
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt + ShortTermBorrowings",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": "InterestIncomeOther"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 6.03,
+      "debt": 83.8,
+      "cash": 81.43,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "C": {
+   "name": "Citigroup Inc",
+   "cik": 831001,
+   "asOf": "2025-12-31",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-K",
+   "filed": "2026-02-20",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/",
+   "values": {
+    "revenue": 85225000000,
+    "interestIncome": 142864000000,
+    "debt": 387646000000,
+    "cashAndSecurities": 349579000000,
+    "receivables": null,
+    "shares": 1749319009,
+    "marketCap": 202332426433.0012,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 167.63,
+    "debt": 191.59,
+    "cash": 172.77,
+    "receivables": null
+   },
+   "pass": {
+    "interest": false,
+    "debt": false,
+    "cash": false,
+    "receivables": null
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt + ShortTermBorrowings + CommercialPaper",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": "InterestAndDividendIncomeOperating"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2025-12-31",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 167.63,
+      "debt": 191.59,
+      "cash": 172.77,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "GS": {
+   "name": "The Goldman Sachs Group, Inc.",
+   "cik": 886982,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": null,
+   "form": "10-Q",
+   "filed": "2026-08-03",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/886982/000088698226000297/",
+   "values": {
+    "revenue": null,
+    "interestIncome": null,
+    "debt": 437874000000,
+    "cashAndSecurities": 187266000000,
+    "receivables": null,
+    "shares": 291171408,
+    "marketCap": 254972983153.06522,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": null,
+    "debt": 171.73,
+    "cash": 73.45,
+    "receivables": null
+   },
+   "pass": {
+    "interest": null,
+    "debt": false,
+    "cash": false,
+    "receivables": null
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "DebtLongtermAndShorttermCombinedAmount",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "",
+    "interest": null
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": null,
+      "debt": 171.73,
+      "cash": 73.45,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "MS": {
+   "name": "MORGAN STANLEY",
+   "cik": 895421,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2014-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-04",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000212/",
+   "values": {
+    "revenue": 34275000000,
+    "interestIncome": 5413000000,
+    "debt": 383156000000,
+    "cashAndSecurities": 160135000000,
+    "receivables": null,
+    "shares": 1570566292,
+    "marketCap": 281900944218.18134,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 15.79,
+    "debt": 135.92,
+    "cash": 56.81,
+    "receivables": null
+   },
+   "pass": {
+    "interest": false,
+    "debt": false,
+    "cash": false,
+    "receivables": null
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": "InterestAndDividendIncomeOperating"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 15.79,
+      "debt": 135.92,
+      "cash": 56.81,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "BRK.B": {
+   "name": "BERKSHIRE HATHAWAY INC",
+   "cik": 1067983,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-10",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526341032/",
+   "values": {
+    "revenue": 371444000000,
+    "interestIncome": 0,
+    "debt": 0,
+    "cashAndSecurities": 41360000000,
+    "receivables": null,
+    "shares": 941481,
+    "marketCap": 1161072143295.7993,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 0,
+    "cash": 3.56,
+    "receivables": null
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": null
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "no debt reported",
+    "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No interest-bearing debt reported.",
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 0,
+      "cash": 3.56,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "UNH": {
+   "name": "UnitedHealth Group Incorporated",
+   "cik": 731766,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-10",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/731766/000073176626000197/",
+   "values": {
+    "revenue": 447567000000,
+    "interestIncome": 3920000000,
+    "debt": 69501000000,
+    "cashAndSecurities": 31944000000,
+    "receivables": 21573000000,
+    "shares": 897594847,
+    "marketCap": 375275439966.0477,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.88,
+    "debt": 18.52,
+    "cash": 8.51,
+    "receivables": 5.75
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments + HeldToMaturitySecurities",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterestAndDividend"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.88,
+      "debt": 18.52,
+      "cash": 8.51,
+      "receivables": 5.75
+     }
+    }
+   ]
+  },
+  "WMG": {
+   "name": "Warner Music Group Corp.",
+   "cik": 1319161,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2020-09-30",
+   "form": "10-Q",
+   "filed": "2026-08-05",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1319161/000131916126000032/",
+   "values": {
+    "revenue": 4463000000,
+    "interestIncome": 0,
+    "debt": 4710000000,
+    "cashAndSecurities": 618000000,
+    "receivables": 1607000000,
+    "shares": 1069,
+    "marketCap": 16446570000,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 28.64,
+    "cash": 3.76,
+    "receivables": 9.77
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 28.64,
+      "cash": 3.76,
+      "receivables": 9.77
+     }
+    }
+   ]
+  },
+  "SIRI": {
+   "name": "SIRIUS XM HOLDINGS INC.",
+   "cik": 908937,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2017-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-30",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/908937/000090893726000022/",
+   "values": {
+    "revenue": 5425129000,
+    "interestIncome": -5375000,
+    "debt": 9463000000,
+    "cashAndSecurities": 174000000,
+    "receivables": 627000000,
+    "shares": 337066891,
+    "marketCap": 9313158605.51634,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 101.61,
+    "cash": 1.87,
+    "receivables": 6.73
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterestAndDividend"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 101.61,
+      "cash": 1.87,
+      "receivables": 6.73
+     }
+    }
+   ]
+  },
+  "LYV": {
+   "name": "LIVE NATION ENTERTAINMENT, INC.",
+   "cik": 1335258,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-30",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1335258/000133525826000035/",
+   "values": {
+    "revenue": 25201406000,
+    "interestIncome": 150445000,
+    "debt": 9201465000,
+    "cashAndSecurities": 9071949000,
+    "receivables": 2885249000,
+    "shares": 235633860,
+    "marketCap": 40868337607.720345,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.6,
+    "debt": 22.51,
+    "cash": 22.2,
+    "receivables": 7.06
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "DebtLongtermAndShorttermCombinedAmount",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.6,
+      "debt": 22.51,
+      "cash": 22.2,
+      "receivables": 7.06
+     }
+    }
+   ]
+  },
+  "DIS": {
+   "name": "WALT DISNEY CO/",
+   "cik": 1744489,
+   "asOf": "2026-06-27",
+   "revenueYearEnd": "2025-09-27",
+   "form": "10-Q",
+   "filed": "2026-08-05",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1744489/000174448926000057/",
+   "values": {
+    "revenue": 94425000000,
+    "interestIncome": 0,
+    "debt": 46041000000,
+    "cashAndSecurities": 5185000000,
+    "receivables": 14553000000,
+    "shares": 1726686902,
+    "marketCap": 194286804105.88846,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 23.7,
+    "cash": 2.67,
+    "receivables": 7.49
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "ReceivablesNetCurrent",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-27",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 23.7,
+      "cash": 2.67,
+      "receivables": 7.49
+     }
+    }
+   ]
+  },
+  "NFLX": {
+   "name": "Netflix, Inc.",
+   "cik": 1065280,
+   "asOf": "2026-09-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-10-21",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1065280/000106528026000291/",
+   "values": {
+    "revenue": 45183036000,
+    "interestIncome": 294000000,
+    "debt": 15132394000,
+    "cashAndSecurities": 8222953000,
+    "receivables": null,
+    "shares": 4106325903,
+    "marketCap": 270401590725.46753,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.65,
+    "debt": 5.6,
+    "cash": 3.04,
+    "receivables": null
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": null
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtNoncurrent + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
+    "receivables": "",
+    "revenue": "Revenues",
+    "interest": "InterestIncomeOperating"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.65,
+      "debt": 5.6,
+      "cash": 3.04,
+      "receivables": null
+     }
+    }
+   ]
+  },
+  "STZ": {
+   "name": "CONSTELLATION BRANDS, INC.",
+   "cik": 16918,
+   "asOf": "2026-08-31",
+   "revenueYearEnd": "2026-02-28",
+   "form": "10-Q",
+   "filed": "2026-10-07",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/16918/000001691826000040/",
+   "values": {
+    "revenue": 9139000000,
+    "interestIncome": 12000000,
+    "debt": 10315700000,
+    "cashAndSecurities": 98500000,
+    "receivables": 678100000,
+    "shares": null,
+    "marketCap": 23467657149.752197,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.13,
+    "debt": 43.96,
+    "cash": 0.42,
+    "receivables": 2.89
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "ReceivablesNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [
+    "Shares outstanding not found."
+   ],
+   "history": [
+    {
+     "asOf": "2026-08-31",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.13,
+      "debt": 43.96,
+      "cash": 0.42,
+      "receivables": 2.89
+     }
+    }
+   ]
+  },
+  "TAP": {
+   "name": "Molson Coors Beverage Company",
+   "cik": 24545,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2020-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-06",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/24545/000002454526000071/",
+   "values": {
+    "revenue": 11723800000,
+    "interestIncome": 3300000,
+    "debt": 7681800000,
+    "cashAndSecurities": 2128100000,
+    "receivables": 1004100000,
+    "shares": 0,
+    "marketCap": 7695856180.585073,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.03,
+    "debt": 99.82,
+    "cash": 27.65,
+    "receivables": 13.05
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.03,
+      "debt": 99.82,
+      "cash": 27.65,
+      "receivables": 13.05
+     }
+    }
+   ]
+  },
+  "SAM": {
+   "name": "THE BOSTON BEER COMPANY, INC.",
+   "cik": 949870,
+   "asOf": "2026-09-26",
+   "revenueYearEnd": "2025-12-27",
+   "form": "10-Q",
+   "filed": "2026-10-22",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/949870/000119312526428979/",
+   "values": {
+    "revenue": 1964994000,
+    "interestIncome": 54000,
+    "debt": 0,
+    "cashAndSecurities": 308072000,
+    "receivables": 83032000,
+    "shares": 10937000,
+    "marketCap": 2081801143.4667892,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 0,
+    "cash": 14.8,
+    "receivables": 3.99
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "no debt reported",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [
+    "No interest-bearing debt reported."
+   ],
+   "history": [
+    {
+     "asOf": "2026-09-26",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 0,
+      "cash": 14.8,
+      "receivables": 3.99
+     }
+    }
+   ]
+  },
+  "MO": {
+   "name": "Altria Group, Inc.",
+   "cik": 764180,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-30",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/764180/000076418026000094/",
+   "values": {
+    "revenue": 23279000000,
+    "interestIncome": 98000000,
+    "debt": 24577000000,
+    "cashAndSecurities": 2367000000,
+    "receivables": 306000000,
+    "shares": 1669743926,
+    "marketCap": 124078668449.97714,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.42,
+    "debt": 19.81,
+    "cash": 1.91,
+    "receivables": 0.25
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebt + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "ReceivablesNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InterestIncomeOther"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.42,
+      "debt": 19.81,
+      "cash": 1.91,
+      "receivables": 0.25
+     }
+    }
+   ]
+  },
+  "PM": {
+   "name": "Philip Morris International Inc.",
+   "cik": 1413329,
+   "asOf": "2026-09-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-10-23",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1413329/000162828026066976/",
+   "values": {
+    "revenue": 40648000000,
+    "interestIncome": 621000000,
+    "debt": 47562000000,
+    "cashAndSecurities": 6683000000,
+    "receivables": 5156000000,
+    "shares": 1558655629,
+    "marketCap": 310896648375.0262,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 1.53,
+    "debt": 15.3,
+    "cash": 2.15,
+    "receivables": 1.66
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + ShortTermBorrowings",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 1.53,
+      "debt": 15.3,
+      "cash": 2.15,
+      "receivables": 1.66
+     }
+    }
+   ]
+  },
+  "LVS": {
+   "name": "LAS VEGAS SANDS CORP.",
+   "cik": 1300514,
+   "asOf": "2026-09-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-10-23",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1300514/000130051426000103/",
+   "values": {
+    "revenue": 13017000000,
+    "interestIncome": 23252000,
+    "debt": 15444000000,
+    "cashAndSecurities": 2858000000,
+    "receivables": 664000000,
+    "shares": 626990133,
+    "marketCap": 23109977040.302216,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.18,
+    "debt": 66.83,
+    "cash": 12.37,
+    "receivables": 2.87
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.18,
+      "debt": 66.83,
+      "cash": 12.37,
+      "receivables": 2.87
+     }
+    }
+   ]
+  },
+  "MGM": {
+   "name": "MGM Resorts International",
+   "cik": 789570,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2013-12-31",
+   "form": "10-Q",
+   "filed": "2026-07-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/789570/000078957026000076/",
+   "values": {
+    "revenue": 9809663000,
+    "interestIncome": 0,
+    "debt": 6068442000,
+    "cashAndSecurities": 2547380000,
+    "receivables": 1218354000,
+    "shares": 251592756,
+    "marketCap": 7059692366.202034,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0,
+    "debt": 85.96,
+    "cash": 36.08,
+    "receivables": 17.26
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": false,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebt",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": null
+   },
+   "notes": [
+    "No separate interest income line found; treated as 0."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0,
+      "debt": 85.96,
+      "cash": 36.08,
+      "receivables": 17.26
+     }
+    }
+   ]
+  },
+  "DKNG": {
+   "name": "DRAFTKINGS INC.",
+   "cik": 1883685,
+   "asOf": "2026-06-30",
+   "revenueYearEnd": "2025-12-31",
+   "form": "10-Q",
+   "filed": "2026-08-07",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1883685/000188368526000029/",
+   "values": {
+    "revenue": 6054525000,
+    "interestIncome": 47259000,
+    "debt": 0,
+    "cashAndSecurities": 983882000,
+    "receivables": 82079000,
+    "shares": 495903000,
+    "marketCap": 10380854890.488537,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.78,
+    "debt": 0,
+    "cash": 9.48,
+    "receivables": 0.79
+   },
+   "pass": {
+    "interest": true,
+    "debt": true,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": true,
+   "tags": {
+    "debt": "no debt reported",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [
+    "No interest-bearing debt reported."
+   ],
+   "history": [
+    {
+     "asOf": "2026-06-30",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.78,
+      "debt": 0,
+      "cash": 9.48,
+      "receivables": 0.79
+     }
+    }
+   ]
+  },
+  "TSN": {
+   "name": "TYSON FOODS, INC.",
+   "cik": 100493,
+   "asOf": "2026-06-27",
+   "revenueYearEnd": "2025-09-27",
+   "form": "10-Q",
+   "filed": "2026-08-03",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/100493/000010049326000058/",
+   "values": {
+    "revenue": 54441000000,
+    "interestIncome": 73000000,
+    "debt": 6579000000,
+    "cashAndSecurities": 740000000,
+    "receivables": 2457000000,
+    "shares": 357000000,
+    "marketCap": 19550194793.94954,
+    "price": null
+   },
+   "marketCapSource": "Finnhub",
+   "ratios": {
+    "interest": 0.13,
+    "debt": 33.65,
+    "cash": 3.79,
+    "receivables": 12.57
+   },
+   "pass": {
+    "interest": true,
+    "debt": false,
+    "cash": true,
+    "receivables": true
+   },
+   "financialPass": false,
+   "tags": {
+    "debt": "LongTermDebtAndCapitalLeaseObligations",
+    "cash": "CashAndCashEquivalentsAtCarryingValue",
+    "receivables": "AccountsReceivableNetCurrent",
+    "revenue": "Revenues",
+    "interest": "InvestmentIncomeInterest"
+   },
+   "notes": [],
+   "history": [
+    {
+     "asOf": "2026-06-27",
+     "checked": "2026-10-25",
+     "ratios": {
+      "interest": 0.13,
+      "debt": 33.65,
+      "cash": 3.79,
+      "receivables": 12.57
+     }
+    }
+   ]
+  }
+ },
+ "skipped": {
+  "ASML": "No balance sheet in SEC data",
+  "TSM": "Files under IFRS (foreign company), not supported yet",
+  "SPOT": "Files under IFRS (foreign company), not supported yet",
+  "WBD": "Not in the SEC's company list",
+  "BUD": "Files under IFRS (foreign company), not supported yet",
+  "DEO": "No balance sheet in SEC data"
+ }
+}
