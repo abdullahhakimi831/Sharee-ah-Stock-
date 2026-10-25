@@ -18,6 +18,12 @@ A Shariah-compliant investment and income dashboard. It runs entirely in the bro
 - **Screener**: browse about 60 well-known stocks and Islamic ETFs, or check any ticker. Tickers not in the list are auto-classified from their company name and industry.
 - You can override any stock's status yourself. Data is saved in your browser, with export and import of a backup.
 
+## Real Shariah ratios (updates itself)
+
+`.github/workflows/shariah-data.yml` runs every night on GitHub's servers. It runs `scripts/build-shariah-data.mjs`, which downloads each company's official SEC filings, computes the AAOIFI-style financial screens (interest income, debt, cash and receivables ratios), and commits `data/shariah-ratios.json`. The site reads that file, so stock pages show real ratios with a link to the filing. Interest income in the halal/haram ratio comes from the filing; music, alcohol and similar income stay estimates.
+
+Optional repository secrets (Settings → Secrets and variables → Actions): `FINNHUB_KEY` for more reliable market values, and `SEC_USER_AGENT` (for example `Your Name you@example.com`), which the SEC asks for. Run it by hand from the Actions tab with **Run workflow**. Add more tickers in `data/extra-symbols.json` (a JSON list).
+
 ## Run it
 
 Open `index.html` in a browser, or host the folder on GitHub Pages (Settings → Pages → deploy from branch).

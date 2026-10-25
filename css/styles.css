@@ -506,6 +506,17 @@ footer { text-align: center; color: var(--muted); font-size: 12px; padding-block
 .sc-price { font-size: 13px; font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) { .m-top { grid-template-columns: 1fr; } }
 
+/* ---------- Financial screen from SEC filings ---------- */
+.fin-screen { list-style: none; margin: 8px 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+.fin-screen li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: baseline; }
+.fin-val { font-weight: 800; font-variant-numeric: tabular-nums; }
+.fin-val small { color: var(--muted); font-weight: 600; }
+.fin-bar { grid-column: 1 / -1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.fin-bar span { display: block; height: 100%; border-radius: 999px; }
+.fin-bar .ok { background: var(--halal); }
+.fin-bar .bad { background: var(--haram); }
+.tag.sec { color: var(--halal-ink); background: var(--halal-bg); }
+
 /* ---------- Onyx skin: black and sleek, always dark ----------
    Declared last so it wins over the light/dark blocks above. */
 :root[data-skin="onyx"] {

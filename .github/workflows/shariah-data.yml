@@ -1,0 +1,45 @@
+name: Update Shariah ratios
+
+# Recomputes the financial screens from SEC filings every night,
+# and can be run by hand from the Actions tab.
+on:
+  schedule:
+    - cron: "17 6 * * *" # 06:17 UTC daily, after US filings settle
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shariah-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build data/shariah-ratios.json
+        env:
+          # Optional repository secrets (Settings > Secrets and variables > Actions)
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: node scripts/build-shariah-data.mjs
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "Update Shariah ratios from SEC filings"
+          git push

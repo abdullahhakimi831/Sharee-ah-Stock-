@@ -72,9 +72,50 @@
     try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
   }
 
+  // Financial screens computed nightly from SEC filings (data/shariah-ratios.json)
+  let SEC = null;
+  const SEC_LABEL = { interest: "Interest income ÷ revenue", debt: "Debt ÷ market value", cash: "Cash + interest-bearing investments ÷ market value", receivables: "Receivables ÷ market value" };
+  async function loadSecData() {
+    try {
+      const res = await fetch("data/shariah-ratios.json", { cache: "no-cache" });
+      if (!res.ok) return;
+      SEC = await res.json();
+      renderAll();
+    } catch { /* not published yet, or opened from a file */ }
+  }
+
+  /* Merges real SEC ratios into a screening record. */
+  function withSecData(rec) {
+    const sec = SEC?.stocks?.[rec.symbol];
+    if (!sec) return rec;
+    let out = { ...rec, sec };
+    // Replace the estimated interest slice with the real interest-income share
+    const realInt = sec.ratios.interest;
+    if (realInt != null) {
+      const base = rec.revenue || [{ label: "Business revenue", pct: 100, ok: true }];
+      const otherBad = base.filter(r => !r.ok && !/interest/i.test(r.label));
+      const good = base.filter(r => r.ok);
+      const badTotal = Math.min(100, realInt + otherBad.reduce((t, r) => t + r.pct, 0));
+      const goodTotal = good.reduce((t, r) => t + r.pct, 0) || 1;
+      const scale = (100 - badTotal) / goodTotal;
+      out.revenue = [
+        ...good.map(r => ({ ...r, pct: Math.round(r.pct * scale * 10) / 10 })),
+        ...otherBad,
+        { label: "Interest income (SEC filing)", pct: Math.round(realInt * 10) / 10, ok: false, sec: true },
+      ];
+    }
+    if (rec.status !== "haram" && sec.financialPass === false) {
+      const fails = Object.entries(sec.pass).filter(([, v]) => v === false)
+        .map(([k]) => `${SEC_LABEL[k].split(" ÷")[0].toLowerCase()} ${sec.ratios[k]}% (limit ${SEC.limits[k]}%)`);
+      out = { ...out, status: "haram", reason: `Fails the financial screen: ${fails.join(", ")}. ${rec.reason}` };
+    }
+    return out;
+  }
+
   function screening(sym) {
     const p = state.profiles[sym] || {};
     let rec = screenStock(sym, p.name, p.industry);
+    rec = withSecData(rec);
     // A "halal" label must agree with the numbers: 5% or more impermissible revenue can't be fully halal
     const imp = impermissiblePct(rec);
     if (rec.status === "halal" && imp != null && imp >= 5) {
@@ -381,7 +422,7 @@
               <span class="ok" style="width:${100 - imp}%"></span><span class="bad" style="width:${imp}%"></span>
             </div>
             <div class="ratio-legend"><span class="up">Halal ${(100 - imp).toFixed(1)}%</span><span class="down">Haram ${imp.toFixed(1)}%</span></div>
-            <span class="hint">${imp < 5 ? "Under" : "Over"} the 5% limit · estimate, see breakdown below</span>`
+            <span class="hint">${imp < 5 ? "Under" : "Over"} the 5% limit · ${scr.sec?.ratios.interest != null ? "interest income from the SEC filing, other impermissible income estimated" : "estimate, see breakdown below"}</span>`
           : `<p class="muted">No revenue breakdown for this stock yet, so the ratio can't be shown.</p>`}
         </div>
       </div>
@@ -409,7 +450,7 @@
                 <span class="lg-val">${s.value}%</span></li>`).join("")}
               </ul>
             </div>
-            <p class="hint">Approximate revenue breakdown (estimate).</p>`
+            <p class="hint">${scr.sec ? "Interest income is from the SEC filing; the other slices are estimates." : "Approximate revenue breakdown (estimate)."}</p>`
           : `<p class="muted">No revenue breakdown available for this ticker. Check it on a dedicated screener.</p>`}
         </div>
         <div>
@@ -421,7 +462,20 @@
             </div>
             <p><strong>${imp.toFixed(1)}%</strong> impermissible revenue ${imp < 5 ? "- under the 5% limit" : "- over the 5% limit"}</p>
             ${imp > 0 && imp < 5 && st !== "haram" ? `<p class="purify">Purification: give <strong>${imp.toFixed(1)}%</strong> of any dividends from ${esc(sym)} to charity.</p>` : ""}` : ""}
-          <ul class="thresholds">${SHARIAH_THRESHOLDS.map(t => `<li><span>${esc(t.label)}</span><span class="muted">${esc(t.limit)}</span></li>`).join("")}</ul>
+          ${scr.sec ? `
+            <h3 class="mt">Financial screen · from SEC filing</h3>
+            <ul class="fin-screen">${Object.keys(SEC_LABEL).map(k => {
+              const v = scr.sec.ratios[k], lim = SEC.limits[k], ok = scr.sec.pass[k];
+              return `<li><span>${SEC_LABEL[k]}</span>
+                <span class="fin-val ${ok == null ? "muted" : ok ? "up" : "down"}">${v == null ? "n/a" : v + "%"} <small>/ ${lim}%</small></span>
+                <span class="fin-bar"><span class="${ok === false ? "bad" : "ok"}" style="width:${v == null ? 0 : Math.min(100, (v / lim) * 100)}%"></span></span></li>`;
+            }).join("")}</ul>
+            <p class="hint">${esc(scr.sec.form)} for the period ending ${esc(scr.sec.asOf)}, filed ${esc(scr.sec.filed)} ·
+              market value ${scr.sec.values.marketCap ? compact(scr.sec.values.marketCap) : "n/a"}${scr.sec.marketCapSource ? ` (${esc(scr.sec.marketCapSource)})` : ""} ·
+              <a href="${esc(scr.sec.filingUrl)}" target="_blank" rel="noopener">View filing</a>${scr.sec.stale ? " · last update failed, showing previous data" : ""}</p>
+            ${scr.sec.notes?.length ? `<p class="hint">${scr.sec.notes.map(esc).join(" ")}</p>` : ""}`
+          : `<ul class="thresholds">${SHARIAH_THRESHOLDS.map(t => `<li><span>${esc(t.label)}</span><span class="muted">${esc(t.limit)}</span></li>`).join("")}</ul>
+            <p class="hint">${SEC ? (SEC.skipped?.[sym] ? `No SEC data: ${esc(SEC.skipped[sym])}.` : "No SEC data for this stock.") : "Real ratios from SEC filings appear here once the nightly update has run."}</p>`}
           ${held ? `<p>You hold <strong>${held.shares.toLocaleString("en-US", { maximumFractionDigits: 4 })}</strong> shares · invested ${money(held.invested)}${q?.price ? ` · now ${money(held.shares * q.price)}` : ""}</p>` : ""}
           <label class="override">Set status yourself
             <select id="mOverride">
@@ -496,7 +550,7 @@
       const imp = impermissiblePct(s);
       return `<button class="screen-card ${s.status}" data-sym="${esc(s.symbol)}">
         <span class="sc-top"><strong>${esc(s.symbol)}</strong><span class="pill sm ${s.status}">${STATUS_LABEL[s.status]}</span></span>
-        <span class="sc-name">${esc(s.name)}</span>
+        <span class="sc-name">${esc(s.name)}${s.sec ? ' <span class="tag sec">SEC data</span>' : ""}</span>
         ${(() => { const q = PriceFeed.get(s.symbol); return q ? `<span class="sc-price"><strong>${money(q.price)}</strong> <span class="${trend(q.change)}">${pct(q.changePct)} today</span></span>` : '<span class="sc-price muted">Price loading…</span>'; })()}
         <span class="muted">${esc(s.sector)}${imp != null ? ` · ${imp.toFixed(1)}% impermissible` : ""}</span>
       </button>`;
@@ -1285,6 +1339,7 @@
   if (firstVisit && !savedKey) loadExamples();
   syncFeed();
   renderAll();
+  loadSecData();
   checkFinnhub(savedKey, false);
   checkTwelve(tdKey, false);
 })();
