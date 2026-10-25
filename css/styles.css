@@ -517,6 +517,29 @@ footer { text-align: center; color: var(--muted); font-size: 12px; padding-block
 .fin-bar .bad { background: var(--haram); }
 .tag.sec { color: var(--halal-ink); background: var(--halal-bg); }
 
+/* ---------- Account button, login and sync ---------- */
+.account-btn {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font: inherit; font-size: 12px; font-weight: 700; color: var(--band-ink);
+  padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .06);
+  max-width: 180px; flex: none;
+}
+.account-btn .acct-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--band-muted); flex: none; }
+.account-btn.synced .acct-dot { background: #3f8f68; }
+.account-btn.saving .acct-dot, .account-btn.syncing .acct-dot { background: #c9a227; }
+.account-btn.error .acct-dot { background: #b8384f; }
+.auth-form { max-width: 420px; }
+.auth-links { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.auth-links .link { color: var(--halal-ink); font-weight: 600; font-size: 13px; }
+.choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.choice { font: inherit; color: var(--ink); text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-2); }
+.choice:hover { border-color: var(--halal); }
+.choice span { color: var(--ink-2); font-size: 13px; }
+/* Keep brand, tabs, price status and account on one row on desktop */
+@media (min-width: 641px) { .topbar { gap: 14px; } .feed-status { max-width: 170px; } }
+@media (max-width: 640px) { .choice-grid { grid-template-columns: 1fr; } .account-btn { max-width: 100%; } }
+
 /* ---------- Onyx skin: black and sleek, always dark ----------
    Declared last so it wins over the light/dark blocks above. */
 :root[data-skin="onyx"] {

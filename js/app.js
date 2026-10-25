@@ -70,6 +70,7 @@
   const openHoldings = () => state.holdings.filter(isOpen);
   function save() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
+    cloudChanged();
   }
 
   // Financial screens computed nightly from SEC filings (data/shariah-ratios.json)
@@ -1111,7 +1112,9 @@
   // ---------------- Appearance ----------------
   function setSkin(skin) {
     document.documentElement.dataset.skin = skin;
-    try { localStorage.setItem("shariah-tracker-skin", skin); } catch {}
+    try {
+      if (localStorage.getItem("shariah-tracker-skin") !== skin) { localStorage.setItem("shariah-tracker-skin", skin); cloudChanged(); }
+    } catch {}
     $$("#skinPick button").forEach(b => b.classList.toggle("active", b.dataset.skin === skin));
   }
   $$("#skinPick button").forEach(b => b.addEventListener("click", () => setSkin(b.dataset.skin)));
@@ -1259,13 +1262,13 @@
     const k = $("#apiKey").value.trim();
     try { localStorage.setItem(KEY_STORE, k); } catch {}
     PriceFeed.setKey(k); syncFeed(); renderAll();
-    checkFinnhub(k, true);
+    checkFinnhub(k, true); cloudChanged();
   });
   $("#clearKey").addEventListener("click", () => {
     $("#apiKey").value = "";
     try { localStorage.removeItem(KEY_STORE); } catch {}
     PriceFeed.setKey(""); syncFeed(); renderAll();
-    checkFinnhub("", false);
+    checkFinnhub("", false); cloudChanged();
   });
   let tdKey = "";
   try { tdKey = localStorage.getItem(TD_KEY_STORE) || ""; } catch {}
@@ -1275,13 +1278,13 @@
     const k = $("#tdKey").value.trim();
     try { localStorage.setItem(TD_KEY_STORE, k); } catch {}
     History.clearCache(); History.setKey(k); renderPerf(); renderPL();
-    checkTwelve(k, true);
+    checkTwelve(k, true); cloudChanged();
   });
   $("#clearTd").addEventListener("click", () => {
     $("#tdKey").value = "";
     try { localStorage.removeItem(TD_KEY_STORE); } catch {}
     History.setKey(""); renderPerf(); renderPL();
-    checkTwelve("", false);
+    checkTwelve("", false); cloudChanged();
     toast("Twelve Data key removed");
   });
 
@@ -1312,6 +1315,220 @@
     toast("All data deleted");
   });
 
+  // ---------------- Account & sync (Firebase) ----------------
+  /*
+   * Everything the app saves (portfolio, sales, income, settings, API keys and look)
+   * is mirrored to one private Firestore document: users/<uid>/data/app.
+   * Security rules allow only that account to read or write it.
+   */
+  const DEVICE_KEY = "shariah-tracker-device";
+  const SYNCED_KEY = "shariah-tracker-last-synced";
+  let device = "";
+  try { device = localStorage.getItem(DEVICE_KEY) || ""; if (!device) { device = Math.random().toString(36).slice(2); localStorage.setItem(DEVICE_KEY, device); } } catch {}
+  // var, not const: save() can run before this section during start-up
+  var cloud = { ready: false, user: null, ref: null, unsub: null, timer: null, applying: false, status: "off", error: "" };
+
+  function readKeys() {
+    try { return { finnhub: localStorage.getItem(KEY_STORE) || "", twelve: localStorage.getItem(TD_KEY_STORE) || "", skin: localStorage.getItem("shariah-tracker-skin") || "onyx" }; }
+    catch { return { finnhub: "", twelve: "", skin: "onyx" }; }
+  }
+  const bundle = () => ({ stateJson: JSON.stringify(state), ...readKeys() });
+  const fingerprint = (b) => JSON.stringify([b.stateJson, b.finnhub, b.twelve, b.skin]);
+
+  function setCloudStatus(status, error = "") {
+    cloud.status = status; cloud.error = error;
+    renderAccount();
+  }
+
+  function initCloud() {
+    if (!window.firebase || !window.FIREBASE_CONFIG) { setCloudStatus("unavailable"); return; }
+    try {
+      if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
+      cloud.auth = firebase.auth();
+      cloud.db = firebase.firestore();
+      cloud.ready = true;
+      cloud.auth.onAuthStateChanged(onAuth);
+    } catch (e) { setCloudStatus("unavailable", e.message); }
+  }
+
+  async function onAuth(user) {
+    if (cloud.unsub) { cloud.unsub(); cloud.unsub = null; }
+    cloud.user = user;
+    if (!user) { cloud.ref = null; setCloudStatus("signedout"); return; }
+    cloud.ref = cloud.db.collection("users").doc(user.uid).collection("data").doc("app");
+    setCloudStatus("syncing");
+    try {
+      const snap = await cloud.ref.get();
+      const remote = snap.exists ? snap.data() : null;
+      const local = bundle();
+      let lastSynced = "";
+      try { lastSynced = localStorage.getItem(`${SYNCED_KEY}-${user.uid}`) || ""; } catch {}
+      const localHasData = state.holdings.some(h => !h.example) || state.income.length || state.sales.some(x => !x.example);
+      if (!remote) {
+        await pushNow();
+        toast("Your data is now saved to your account");
+      } else if (fingerprint(remote) === fingerprint(local)) {
+        rememberSynced(local);
+      } else if (localHasData && fingerprint(local) !== lastSynced) {
+        chooseVersion(remote);
+      } else {
+        applyRemote(remote);
+      }
+      cloud.unsub = cloud.ref.onSnapshot(s => {
+        if (s.metadata.hasPendingWrites || !s.exists || cloud.timer) return;
+        const d = s.data();
+        if (fingerprint(d) !== fingerprint(bundle())) applyRemote(d, true);
+      }, (err) => setCloudStatus("error", err.message));
+      if (cloud.status === "syncing") setCloudStatus("synced");
+    } catch (e) { setCloudStatus("error", e.message); }
+  }
+
+  function rememberSynced(b) { try { localStorage.setItem(`${SYNCED_KEY}-${cloud.user.uid}`, fingerprint(b)); } catch {} }
+
+  /* Replace this device's data with the account's copy. */
+  function applyRemote(d, live = false) {
+    cloud.applying = true;
+    try {
+      state = { ...blankState(), ...JSON.parse(d.stateJson || "{}") };
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      if (d.finnhub !== undefined) { localStorage.setItem(KEY_STORE, d.finnhub || ""); $("#apiKey").value = d.finnhub || ""; PriceFeed.setKey(d.finnhub || ""); checkFinnhub(d.finnhub || "", false); }
+      if (d.twelve !== undefined) { localStorage.setItem(TD_KEY_STORE, d.twelve || ""); $("#tdKey").value = d.twelve || ""; History.setKey(d.twelve || ""); checkTwelve(d.twelve || "", false); }
+      if (d.skin) setSkin(d.skin);
+    } catch (e) { console.warn(e); }
+    cloud.applying = false;
+    rememberSynced(d);
+    syncFeed(); renderAll();
+    setCloudStatus("synced");
+    if (live) toast("Updated from your other device");
+  }
+
+  function cloudChanged() {
+    if (!cloud || !cloud.user || cloud.applying) return;
+    clearTimeout(cloud.timer);
+    setCloudStatus("saving");
+    cloud.timer = setTimeout(() => { cloud.timer = null; pushNow(); }, 1200);
+  }
+
+  async function pushNow() {
+    if (!cloud.ref) return;
+    const b = bundle();
+    try {
+      await cloud.ref.set({ ...b, device, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      rememberSynced(b);
+      setCloudStatus("synced");
+    } catch (e) { setCloudStatus("error", e.message); }
+  }
+
+  function chooseVersion(remote) {
+    let when = "";
+    try { when = remote.updatedAt?.toDate?.().toLocaleString() || ""; } catch {}
+    $("#modalBody").innerHTML = `
+      <div class="m-head"><div><h2 id="mTitle">Which data should we keep?</h2>
+      <p class="muted">Your account and this device have different portfolios.</p></div></div>
+      <div class="choice-grid">
+        <button class="choice" id="useCloud"><strong>Use my account's data</strong><span>Saved in your account${when ? ` · last updated ${esc(when)}` : ""}. Replaces what's on this device.</span></button>
+        <button class="choice" id="useLocal"><strong>Use this device's data</strong><span>${state.holdings.filter(isOpen).length} holdings, ${state.sales.length} sales, ${state.income.length} income entries. Replaces what's in your account.</span></button>
+      </div>`;
+    $("#useCloud").addEventListener("click", () => { applyRemote(remote); closeModal(); toast("Loaded your account's data"); });
+    $("#useLocal").addEventListener("click", async () => { closeModal(); await pushNow(); toast("Saved this device's data to your account"); });
+    $("#modal").hidden = false;
+  }
+
+  const authError = (e) => ({
+    "auth/invalid-email": "That email address doesn't look right.",
+    "auth/missing-password": "Enter your password.",
+    "auth/weak-password": "Use a password with at least 6 characters.",
+    "auth/email-already-in-use": "An account with this email already exists. Log in instead.",
+    "auth/invalid-credential": "Wrong email or password.",
+    "auth/wrong-password": "Wrong email or password.",
+    "auth/user-not-found": "No account with this email. Create one first.",
+    "auth/too-many-requests": "Too many attempts. Wait a few minutes and try again.",
+    "auth/operation-not-allowed": "New sign-ups are turned off for this site.",
+    "auth/admin-restricted-operation": "New sign-ups are turned off for this site.",
+    "auth/network-request-failed": "No connection to the login service. Check your internet.",
+  }[e.code] || e.message);
+
+  function openLogin(mode = "login") {
+    $("#modalBody").innerHTML = `
+      <div class="m-head"><div><h2 id="mTitle">${mode === "login" ? "Log in" : "Create your account"}</h2>
+      <p class="muted">Your portfolio is saved privately to your account and appears on every device you log in on.</p></div></div>
+      <form id="authForm" class="form auth-form" autocomplete="on">
+        <label>Email <input id="authEmail" type="email" autocomplete="email" required></label>
+        <label>Password <input id="authPass" type="password" autocomplete="${mode === "login" ? "current-password" : "new-password"}" minlength="6" required></label>
+        <p class="warn" id="authErr" hidden></p>
+        <button class="btn primary" type="submit">${mode === "login" ? "Log in" : "Create account"}</button>
+        <div class="auth-links">
+          ${mode === "login" ? '<button type="button" class="link" id="toSignup">Create an account</button><button type="button" class="link" id="forgot">Forgot password?</button>'
+            : '<button type="button" class="link" id="toLogin">I already have an account</button>'}
+        </div>
+      </form>`;
+    const err = (m) => { const el = $("#authErr"); el.textContent = m; el.hidden = !m; };
+    $("#toSignup")?.addEventListener("click", () => openLogin("signup"));
+    $("#toLogin")?.addEventListener("click", () => openLogin("login"));
+    $("#forgot")?.addEventListener("click", async () => {
+      const email = $("#authEmail").value.trim();
+      if (!email) return err("Type your email above first.");
+      try { await cloud.auth.sendPasswordResetEmail(email); err(""); toast("Password reset email sent"); }
+      catch (e) { err(authError(e)); }
+    });
+    $("#authForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = $("#authEmail").value.trim(), pass = $("#authPass").value;
+      const btn = e.target.querySelector("button[type=submit]");
+      btn.disabled = true; err("");
+      try {
+        if (mode === "login") await cloud.auth.signInWithEmailAndPassword(email, pass);
+        else await cloud.auth.createUserWithEmailAndPassword(email, pass);
+        closeModal();
+        toast(mode === "login" ? "✓ Logged in" : "✓ Account created");
+      } catch (ex) { err(authError(ex)); btn.disabled = false; }
+    });
+    $("#modal").hidden = false;
+    $("#authEmail").focus();
+  }
+
+  async function logOut() {
+    clearTimeout(cloud.timer); cloud.timer = null;
+    await pushNow();
+    await cloud.auth.signOut();
+    // Leave nothing private behind on this device
+    state = blankState();
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); localStorage.removeItem(KEY_STORE); localStorage.removeItem(TD_KEY_STORE); } catch {}
+    $("#apiKey").value = ""; $("#tdKey").value = "";
+    PriceFeed.setKey(""); History.setKey(""); checkFinnhub("", false); checkTwelve("", false);
+    syncFeed(); renderAll();
+    toast("Logged out. This device's copy was cleared; your data is safe in your account.");
+  }
+
+  function renderAccount() {
+    const btn = $("#accountBtn"), u = cloud.user;
+    const label = {
+      unavailable: "Offline mode", signedout: "Log in", syncing: "Syncing…", saving: "Saving…", synced: "Synced", error: "Sync problem",
+    }[cloud.status] || "Log in";
+    btn.className = `account-btn ${cloud.status}`;
+    $(".acct-text", btn).textContent = u ? `${label} · ${u.email.split("@")[0]}` : label;
+    btn.title = cloud.error || (u ? `Logged in as ${u.email}` : "Log in to sync across devices");
+    const sum = $("#acctSummary"), act = $("#acctActions");
+    if (cloud.status === "unavailable") {
+      sum.textContent = "Login isn't available on this page (it needs the website version). Your data is saved in this browser only.";
+      act.innerHTML = "";
+    } else if (!u) {
+      sum.textContent = "Log in to save your portfolio to your account and see it on your phone and computer.";
+      act.innerHTML = '<button class="btn primary" id="acctLogin">Log in</button><button class="btn" id="acctSignup">Create account</button>';
+      $("#acctLogin").addEventListener("click", () => openLogin("login"));
+      $("#acctSignup").addEventListener("click", () => openLogin("signup"));
+    } else {
+      sum.innerHTML = `Logged in as <strong>${esc(u.email)}</strong>. ${cloud.status === "error" ? `<span class="down">Sync problem: ${esc(cloud.error)}</span>` : "Changes save to your account automatically and appear on your other devices."}`;
+      act.innerHTML = '<button class="btn" id="acctSync">Sync now</button><button class="btn" id="acctOut">Log out</button>';
+      $("#acctSync").addEventListener("click", () => pushNow());
+      $("#acctOut").addEventListener("click", logOut);
+    }
+  }
+  $("#accountBtn").addEventListener("click", () => {
+    if (cloud.status === "unavailable") { $('.tab[data-tab="settings"]').click(); return; }
+    if (!cloud.user) openLogin("login"); else $('.tab[data-tab="settings"]').click();
+  });
+
   // ---------------- Boot ----------------
   function renderAll() {
     renderHoldings(); renderChart(); renderIncome(); renderZakat(); renderScreener(); updateIncSym(); renderPerf(); renderPL();
@@ -1340,6 +1557,8 @@
   syncFeed();
   renderAll();
   loadSecData();
+  initCloud();
+  renderAccount();
   checkFinnhub(savedKey, false);
   checkTwelve(tdKey, false);
 })();

@@ -24,6 +24,10 @@ A Shariah-compliant investment and income dashboard. It runs entirely in the bro
 
 Optional repository secrets (Settings → Secrets and variables → Actions): `FINNHUB_KEY` for more reliable market values, and `SEC_USER_AGENT` (for example `Your Name you@example.com`), which the SEC asks for. Run it by hand from the Actions tab with **Run workflow**. Add more tickers in `data/extra-symbols.json` (a JSON list).
 
+## Login and sync
+
+Log in (Settings → Account & sync, or the button at the top right) to save everything to your account through Firebase: portfolio, sales, income, settings, API keys and the chosen look. It then appears on every device you log in on and updates live. Firestore security rules allow each account to read and write only `users/<its id>`. Logging out clears the device's copy. The Firebase settings in `js/firebase-config.js` are public identifiers, not secrets.
+
 ## Run it
 
 Open `index.html` in a browser, or host the folder on GitHub Pages (Settings → Pages → deploy from branch).

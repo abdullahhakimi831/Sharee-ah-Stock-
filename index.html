@@ -33,6 +33,7 @@
       <button role="tab" class="tab" data-tab="settings" aria-selected="false">Settings</button>
     </nav>
     <div class="feed-status" id="feedStatus"><span class="dot"></span><span class="text">Demo prices</span></div>
+    <button class="account-btn" id="accountBtn" type="button"><span class="acct-dot"></span><span class="acct-text">Log in</span></button>
   </header>
 
   <main>
@@ -323,6 +324,11 @@
     <!-- ================= SETTINGS ================= -->
     <section class="panel" id="tab-settings" role="tabpanel" hidden>
       <div class="card narrow">
+        <h2>Account &amp; sync</h2>
+        <p id="acctSummary">Log in to save your portfolio to your account and see it on your phone and computer.</p>
+        <div class="btn-row" id="acctActions"></div>
+      </div>
+      <div class="card narrow">
         <h2>Appearance</h2>
         <p>Choose the look of the dashboard.</p>
         <div class="skin-pick" id="skinPick" role="group" aria-label="Appearance">
@@ -396,6 +402,10 @@
 
   <footer>Guidance only - not financial or religious advice. Always verify compliance with a qualified scholar.</footer>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
   <script src="js/shariah-data.js"></script>
   <script src="js/prices.js"></script>
   <script src="js/history.js"></script>
