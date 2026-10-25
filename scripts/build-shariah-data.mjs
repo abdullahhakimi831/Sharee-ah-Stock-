@@ -25,7 +25,14 @@ import vm from "node:vm";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const OUT = `${ROOT}data/shariah-ratios.json`;
-const UA = process.env.SEC_USER_AGENT || "Sharee-ah-Stock-Tracker abdullahhakimi831@users.noreply.github.com";
+// The SEC asks automated clients to identify themselves: "Name email@domain".
+// A repository secret SEC_USER_AGENT is best; the fallbacks are tried in order.
+const UA_CANDIDATES = [
+  process.env.SEC_USER_AGENT,
+  "Sharee-ah Stock Tracker abdullahhakimi831@users.noreply.github.com",
+  "ShareeahStockTracker/1.0 (+https://github.com/abdullahhakimi831/Sharee-ah-Stock-)",
+].filter(Boolean);
+let UA = UA_CANDIDATES[0];
 const FINNHUB_KEY = process.env.FINNHUB_KEY || "";
 const MOCK_DIR = process.env.MOCK_DIR || "";
 
@@ -42,9 +49,14 @@ async function getJSON(url, { sec = false } = {}) {
   }
   if (sec) { const wait = 150 - (Date.now() - lastSec); if (wait > 0) await sleep(wait); lastSec = Date.now(); }
   for (let attempt = 1; attempt <= 3; attempt++) {
-    const res = await fetch(url, { headers: { "User-Agent": UA, "Accept-Encoding": "gzip, deflate" } });
+    const res = await fetch(url, { headers: { "User-Agent": UA, "Accept": "application/json", "Accept-Encoding": "gzip, deflate" } });
     if (res.ok) return res.json();
     if (res.status === 404) throw new Error("not found");
+    if (res.status === 403 && sec) {
+      const next = UA_CANDIDATES[UA_CANDIDATES.indexOf(UA) + 1];
+      if (next) { console.log(`SEC refused user agent "${UA}", trying the next one.`); UA = next; attempt--; await sleep(500); continue; }
+      throw new Error("HTTP 403 from the SEC. Add a repository secret SEC_USER_AGENT like \"Your Name you@example.com\" (Settings > Secrets and variables > Actions).");
+    }
     if (attempt === 3) throw new Error(`HTTP ${res.status}`);
     await sleep(1000 * attempt);
   }
