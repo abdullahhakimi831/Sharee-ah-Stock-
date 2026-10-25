@@ -508,12 +508,10 @@ footer { text-align: center; color: var(--muted); font-size: 12px; padding-block
   background:
     radial-gradient(1100px 420px at 50% -160px, rgba(63, 143, 104, .16), transparent 70%),
     var(--page);
-  background-attachment: fixed;
 }
 :root[data-skin="onyx"] .topbar {
-  background: rgba(9, 9, 11, .78);
-  -webkit-backdrop-filter: saturate(140%) blur(14px);
-          backdrop-filter: saturate(140%) blur(14px);
+  /* Solid, so colored content scrolling underneath can't tint the header */
+  background: #09090b;
   border-bottom: 1px solid var(--line);
 }
 :root[data-skin="onyx"] .tabs, :root[data-skin="onyx"] .feed-status { background: rgba(255, 255, 255, .05); border: 1px solid var(--line); }
