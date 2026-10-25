@@ -127,7 +127,11 @@ const TAGS = {
   revenue: ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "RevenueFromContractWithCustomerIncludingAssessedTax", "SalesRevenueNet"],
   interest: ["InvestmentIncomeInterest", "InterestIncomeOther", "InvestmentIncomeInterestAndDividend", "InterestAndDividendIncomeOperating", "InterestIncomeOperating"],
   debtTotal: ["LongTermDebt", "DebtLongtermAndShorttermCombinedAmount", "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities"],
-  debtParts: [["LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations"], ["LongTermDebtCurrent", "LongTermDebtAndCapitalLeaseObligationsCurrent"]],
+  debtParts: [
+    ["LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations"],
+    ["LongTermDebtCurrent", "LongTermDebtAndCapitalLeaseObligationsCurrent"],
+    ["ConvertibleDebtNoncurrent", "ConvertibleNotesPayable", "SeniorNotes"],
+  ],
   shortDebt: ["ShortTermBorrowings", "CommercialPaper"],
   cash: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "Cash"],
   securities: ["ShortTermInvestments", "MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesDebtSecuritiesCurrent", "MarketableSecuritiesNoncurrent", "AvailableForSaleSecuritiesDebtSecuritiesNoncurrent", "HeldToMaturitySecurities"],
@@ -236,7 +240,7 @@ async function main() {
       if (f.error) { skipped[sym] = f.error; continue; }
       const mc = await marketCap(sym, f.shares);
       const ratios = {
-        interest: f.revenue ? (f.interestIncome / f.revenue) * 100 : null,
+        interest: f.revenue ? (Math.max(0, f.interestIncome) / f.revenue) * 100 : null, // some filers report net (negative) figures
         debt: mc ? (f.debt / mc.value) * 100 : null,
         cash: mc ? (f.cashAndSecurities / mc.value) * 100 : null,
         receivables: mc && f.receivables != null ? (f.receivables / mc.value) * 100 : null,

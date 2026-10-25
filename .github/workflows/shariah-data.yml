@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Build data/shariah-ratios.json
         env:
@@ -34,12 +34,12 @@ jobs:
 
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/; then
+          git add data/
+          if git diff --cached --quiet; then
             echo "No changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
           git commit -m "Update Shariah ratios from SEC filings"
           git push
