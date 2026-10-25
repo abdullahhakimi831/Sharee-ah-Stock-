@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T04:18:21.741Z",
+ "generated": "2026-10-25T07:02:00.621Z",
  "method": "AAOIFI-style financial screens from SEC XBRL filings. Market value = current market capitalization.",
  "limits": {
   "interest": 5,
