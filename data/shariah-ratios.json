@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T07:02:00.621Z",
+ "generated": "2026-10-26T07:10:50.547Z",
  "method": "AAOIFI-style financial screens from SEC XBRL filings. Market value = current market capitalization.",
  "limits": {
   "interest": 5,
@@ -51,7 +51,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 2.14,
       "debt": 1.66,
@@ -104,7 +104,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.35,
       "debt": 1.03,
@@ -157,7 +157,7 @@
    "history": [
     {
      "asOf": "2026-07-26",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.07,
       "debt": 0.66,
@@ -210,7 +210,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.77,
       "debt": 0.54,
@@ -263,7 +263,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.01,
       "debt": 0.38,
@@ -316,7 +316,7 @@
    "history": [
     {
      "asOf": "2026-08-28",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.11,
       "debt": 4.64,
@@ -369,7 +369,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.26,
       "debt": 19.2,
@@ -422,7 +422,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.98,
       "debt": 5.11,
@@ -475,7 +475,7 @@
    "history": [
     {
      "asOf": "2026-09-27",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.12,
       "debt": 7.03,
@@ -528,7 +528,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.27,
       "debt": 3.99,
@@ -581,7 +581,7 @@
    "history": [
     {
      "asOf": "2026-06-28",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.96,
       "debt": 36.87,
@@ -633,7 +633,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": null,
       "debt": 4.4,
@@ -688,7 +688,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 8.05,
@@ -741,7 +741,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.49,
       "debt": 5.85,
@@ -794,7 +794,7 @@
    "history": [
     {
      "asOf": "2026-04-03",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.64,
       "debt": 10.98,
@@ -847,7 +847,7 @@
    "history": [
     {
      "asOf": "2026-09-05",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.07,
       "debt": 30.64,
@@ -900,7 +900,7 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.6,
       "debt": 14.25,
@@ -953,7 +953,7 @@
    "history": [
     {
      "asOf": "2026-08-02",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.03,
       "debt": 30.65,
@@ -1009,7 +1009,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 0,
@@ -1062,7 +1062,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.61,
       "debt": 4.98,
@@ -1115,7 +1115,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.08,
       "debt": 2.56,
@@ -1168,7 +1168,7 @@
    "history": [
     {
      "asOf": "2026-03-31",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 3.62,
       "debt": 3.14,
@@ -1221,7 +1221,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.15,
       "debt": 4.51,
@@ -1276,7 +1276,7 @@
    "history": [
     {
      "asOf": "2026-08-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 1.39,
@@ -1329,7 +1329,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.05,
       "debt": 5.39,
@@ -1384,7 +1384,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 22.67,
@@ -1437,7 +1437,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 15.36,
       "debt": 60.47,
@@ -1490,7 +1490,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 18.06,
       "debt": 97.1,
@@ -1543,7 +1543,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 6.03,
       "debt": 83.8,
@@ -1596,7 +1596,7 @@
    "history": [
     {
      "asOf": "2025-12-31",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 167.63,
       "debt": 191.59,
@@ -1648,7 +1648,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": null,
       "debt": 171.73,
@@ -1701,7 +1701,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 15.79,
       "debt": 135.92,
@@ -1757,7 +1757,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 0,
@@ -1810,7 +1810,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.88,
       "debt": 18.52,
@@ -1865,7 +1865,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 28.64,
@@ -1918,7 +1918,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 101.61,
@@ -1971,7 +1971,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.6,
       "debt": 22.51,
@@ -2026,7 +2026,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 23.7,
@@ -2079,7 +2079,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.65,
       "debt": 5.6,
@@ -2134,7 +2134,7 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.13,
       "debt": 43.96,
@@ -2187,7 +2187,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.03,
       "debt": 99.82,
@@ -2242,7 +2242,7 @@
    "history": [
     {
      "asOf": "2026-09-26",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 0,
@@ -2295,7 +2295,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.42,
       "debt": 19.81,
@@ -2348,7 +2348,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 1.53,
       "debt": 15.3,
@@ -2401,7 +2401,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.18,
       "debt": 66.83,
@@ -2456,7 +2456,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0,
       "debt": 85.96,
@@ -2511,7 +2511,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.78,
       "debt": 0,
@@ -2564,7 +2564,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-25",
+     "checked": "2026-10-26",
      "ratios": {
       "interest": 0.13,
       "debt": 33.65,
