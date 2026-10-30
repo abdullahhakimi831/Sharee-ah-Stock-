@@ -421,7 +421,7 @@ async function main() {
         continue;
       }
       const f = financials(data.facts);
-      if (f.error) { skipped[sym] = f.error; continue; }
+      if (f.error) { skipped[sym] = f.error; if (fundList.length) stocks[sym] = { name: data.entityName, cik, heldBy: fundList, noFilings: true }; continue; }
       const mv = await marketValues(sym, f);
       if (!mv.marketCap) f.missing.push("market value");
       if (!mv.avg36) f.missing.push(mv.avg24 ? "36-month price history" : "price history");
