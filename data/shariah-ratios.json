@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29T07:18:41.016Z",
+ "generated": "2026-10-30T07:18:30.701Z",
  "method": "AAOIFI-style financial screens from SEC XBRL filings. Market value = current market capitalization.",
  "limits": {
   "interest": 5,
@@ -23,15 +23,15 @@
     "cashAndSecurities": 146517000000,
     "receivables": 31398000000,
     "shares": 14594180000,
-    "marketCap": 5017916890189.698,
+    "marketCap": 5092055035903.137,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 2.14,
-    "debt": 1.68,
-    "cash": 2.92,
-    "receivables": 0.63
+    "debt": 1.66,
+    "cash": 2.88,
+    "receivables": 0.62
    },
    "pass": {
     "interest": true,
@@ -51,12 +51,12 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 2.14,
-      "debt": 1.68,
-      "cash": 2.92,
-      "receivables": 0.63
+      "debt": 1.66,
+      "cash": 2.88,
+      "receivables": 0.62
      }
     }
    ]
@@ -76,7 +76,7 @@
     "cashAndSecurities": 64509000000,
     "receivables": 62084000000,
     "shares": 7426194552,
-    "marketCap": 3943506740224.3125,
+    "marketCap": 3937045694933.687,
     "price": null
    },
    "marketCapSource": "Finnhub",
@@ -84,7 +84,7 @@
     "interest": 1.35,
     "debt": 0.9,
     "cash": 1.64,
-    "receivables": 1.57
+    "receivables": 1.58
    },
    "pass": {
     "interest": true,
@@ -114,12 +114,12 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.35,
       "debt": 0.9,
       "cash": 1.64,
-      "receivables": 1.57
+      "receivables": 1.58
      }
     }
    ]
@@ -139,15 +139,15 @@
     "cashAndSecurities": 22443000000,
     "receivables": 63059000000,
     "shares": 24100000000,
-    "marketCap": 5190658058146.867,
+    "marketCap": 5149206116736.253,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.07,
-    "debt": 0.64,
-    "cash": 0.43,
-    "receivables": 1.21
+    "debt": 0.65,
+    "cash": 0.44,
+    "receivables": 1.22
    },
    "pass": {
     "interest": true,
@@ -167,12 +167,12 @@
    "history": [
     {
      "asOf": "2026-07-26",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.07,
-      "debt": 0.64,
-      "cash": 0.43,
-      "receivables": 1.21
+      "debt": 0.65,
+      "cash": 0.44,
+      "receivables": 1.22
      }
     }
    ]
@@ -192,14 +192,14 @@
     "cashAndSecurities": 45447000000,
     "receivables": 4636000000,
     "shares": 3952757946,
-    "marketCap": 1597783828148.0596,
+    "marketCap": 1594147329056.9097,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.77,
     "debt": 0.5,
-    "cash": 2.84,
+    "cash": 2.85,
     "receivables": 0.29
    },
    "pass": {
@@ -220,11 +220,11 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.77,
       "debt": 0.5,
-      "cash": 2.84,
+      "cash": 2.85,
       "receivables": 0.29
      }
     }
@@ -245,15 +245,15 @@
     "cashAndSecurities": 13111000000,
     "receivables": 7281000000,
     "shares": 1632475042,
-    "marketCap": 944288841337.4651,
+    "marketCap": 924666479573.647,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.01,
-    "debt": 0.34,
-    "cash": 1.39,
-    "receivables": 0.77
+    "debt": 0.35,
+    "cash": 1.42,
+    "receivables": 0.79
    },
    "pass": {
     "interest": true,
@@ -273,12 +273,12 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.01,
-      "debt": 0.34,
-      "cash": 1.39,
-      "receivables": 0.77
+      "debt": 0.35,
+      "cash": 1.42,
+      "receivables": 0.79
      }
     }
    ]
@@ -298,15 +298,15 @@
     "cashAndSecurities": 5639000000,
     "receivables": 2081000000,
     "shares": 389200000,
-    "marketCap": 97206595287.42726,
+    "marketCap": 96568304905.0181,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.11,
-    "debt": 4.9,
-    "cash": 5.8,
-    "receivables": 2.14
+    "debt": 4.94,
+    "cash": 5.84,
+    "receivables": 2.15
    },
    "pass": {
     "interest": true,
@@ -326,12 +326,12 @@
    "history": [
     {
      "asOf": "2026-08-28",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.11,
-      "debt": 4.9,
-      "cash": 5.8,
-      "receivables": 2.14
+      "debt": 4.94,
+      "cash": 5.84,
+      "receivables": 2.15
      }
     }
    ]
@@ -351,15 +351,15 @@
     "cashAndSecurities": 11403000000,
     "receivables": 6320000000,
     "shares": 823000000,
-    "marketCap": 199256529495.4576,
+    "marketCap": 190030700478.75677,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.26,
-    "debt": 19.72,
-    "cash": 5.72,
-    "receivables": 3.17
+    "debt": 20.67,
+    "cash": 6,
+    "receivables": 3.33
    },
    "pass": {
     "interest": true,
@@ -379,12 +379,12 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.26,
-      "debt": 19.72,
-      "cash": 5.72,
-      "receivables": 3.17
+      "debt": 20.67,
+      "cash": 6,
+      "receivables": 3.33
      }
     }
    ]
@@ -404,15 +404,15 @@
     "cashAndSecurities": 82449000000,
     "receivables": 22716000000,
     "shares": 2574000000,
-    "marketCap": 1565672089308.9536,
+    "marketCap": 1596423637570.936,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.98,
-    "debt": 5.34,
-    "cash": 5.27,
-    "receivables": 1.45
+    "debt": 5.24,
+    "cash": 5.16,
+    "receivables": 1.42
    },
    "pass": {
     "interest": true,
@@ -432,12 +432,12 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.98,
-      "debt": 5.34,
-      "cash": 5.27,
-      "receivables": 1.45
+      "debt": 5.24,
+      "cash": 5.16,
+      "receivables": 1.42
      }
     }
    ]
@@ -457,15 +457,15 @@
     "cashAndSecurities": 17228000000,
     "receivables": 18987000000,
     "shares": 2407310266,
-    "marketCap": 652477411127.6562,
+    "marketCap": 662491816198.0872,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.12,
-    "debt": 6.84,
-    "cash": 2.64,
-    "receivables": 2.91
+    "debt": 6.74,
+    "cash": 2.6,
+    "receivables": 2.87
    },
    "pass": {
     "interest": true,
@@ -485,12 +485,12 @@
    "history": [
     {
      "asOf": "2026-09-27",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.12,
-      "debt": 6.84,
-      "cash": 2.64,
-      "receivables": 2.91
+      "debt": 6.74,
+      "cash": 2.6,
+      "receivables": 2.87
      }
     }
    ]
@@ -498,27 +498,27 @@
   "LLY": {
    "name": "ELI LILLY AND COMPANY",
    "cik": 59478,
-   "asOf": "2026-06-30",
+   "asOf": "2026-09-30",
    "revenueYearEnd": "2025-12-31",
    "form": "10-Q",
-   "filed": "2026-08-05",
-   "filingUrl": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/",
+   "filed": "2026-10-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000108/",
    "values": {
     "revenue": 65179000000,
     "interestIncome": 175200000,
-    "debt": 47858000000,
-    "cashAndSecurities": 8950000000,
-    "receivables": 20083000000,
-    "shares": 941357065,
-    "marketCap": 1212750327148.0808,
+    "debt": 46986000000,
+    "cashAndSecurities": 4885000000,
+    "receivables": 22089000000,
+    "shares": 940745031,
+    "marketCap": 1293142236377.6797,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.27,
-    "debt": 3.95,
-    "cash": 0.74,
-    "receivables": 1.66
+    "debt": 3.63,
+    "cash": 0.38,
+    "receivables": 1.71
    },
    "pass": {
     "interest": true,
@@ -545,6 +545,16 @@
       "cash": 0.74,
       "receivables": 1.66
      }
+    },
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-30",
+     "ratios": {
+      "interest": 0.27,
+      "debt": 3.63,
+      "cash": 0.38,
+      "receivables": 1.71
+     }
     }
    ]
   },
@@ -563,15 +573,15 @@
     "cashAndSecurities": 8257000000,
     "receivables": 12490000000,
     "shares": 5699673589,
-    "marketCap": 167855375561.12582,
+    "marketCap": 170705220950.75214,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.96,
-    "debt": 37.59,
-    "cash": 4.92,
-    "receivables": 7.44
+    "debt": 36.96,
+    "cash": 4.84,
+    "receivables": 7.32
    },
    "pass": {
     "interest": true,
@@ -591,12 +601,12 @@
    "history": [
     {
      "asOf": "2026-06-28",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.96,
-      "debt": 37.59,
-      "cash": 4.92,
-      "receivables": 7.44
+      "debt": 36.96,
+      "cash": 4.84,
+      "receivables": 7.32
      }
     }
    ]
@@ -643,7 +653,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": null,
       "debt": 4.28,
@@ -668,15 +678,15 @@
     "cashAndSecurities": 9582000000,
     "receivables": 22000000000,
     "shares": 1975771274,
-    "marketCap": 452846759784.1493,
+    "marketCap": 457312005175.47437,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
-    "debt": 8.19,
-    "cash": 2.12,
-    "receivables": 4.86
+    "debt": 8.11,
+    "cash": 2.1,
+    "receivables": 4.81
    },
    "pass": {
     "interest": true,
@@ -698,12 +708,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
-      "debt": 8.19,
-      "cash": 2.12,
-      "receivables": 4.86
+      "debt": 8.11,
+      "cash": 2.1,
+      "receivables": 4.81
      }
     }
    ]
@@ -723,15 +733,15 @@
     "cashAndSecurities": 15365000000,
     "receivables": 6620000000,
     "shares": 2317783143,
-    "marketCap": 366812359884.2936,
+    "marketCap": 372212791670.8394,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.49,
-    "debt": 5.97,
-    "cash": 4.19,
-    "receivables": 1.8
+    "debt": 5.88,
+    "cash": 4.13,
+    "receivables": 1.78
    },
    "pass": {
     "interest": true,
@@ -751,12 +761,12 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.49,
-      "debt": 5.97,
-      "cash": 4.19,
-      "receivables": 1.8
+      "debt": 5.88,
+      "cash": 4.13,
+      "receivables": 1.78
      }
     }
    ]
@@ -776,15 +786,15 @@
     "cashAndSecurities": 13454000000,
     "receivables": 3571000000,
     "shares": 4301902335,
-    "marketCap": 394672805324.38617,
+    "marketCap": 399362596841.2791,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.64,
-    "debt": 10.53,
-    "cash": 3.41,
-    "receivables": 0.9
+    "debt": 10.4,
+    "cash": 3.37,
+    "receivables": 0.89
    },
    "pass": {
     "interest": true,
@@ -814,12 +824,12 @@
     },
     {
      "asOf": "2026-10-02",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.64,
-      "debt": 10.53,
-      "cash": 3.41,
-      "receivables": 0.9
+      "debt": 10.4,
+      "cash": 3.37,
+      "receivables": 0.89
      }
     }
    ]
@@ -839,15 +849,15 @@
     "cashAndSecurities": 11163000000,
     "receivables": 13623000000,
     "shares": 1362741092,
-    "marketCap": 180740350616.68405,
+    "marketCap": 182321136991.27878,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.07,
-    "debt": 31.36,
-    "cash": 6.18,
-    "receivables": 7.54
+    "debt": 31.09,
+    "cash": 6.12,
+    "receivables": 7.47
    },
    "pass": {
     "interest": true,
@@ -867,12 +877,12 @@
    "history": [
     {
      "asOf": "2026-09-05",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.07,
-      "debt": 31.36,
-      "cash": 6.18,
-      "receivables": 7.54
+      "debt": 31.09,
+      "cash": 6.12,
+      "receivables": 7.47
      }
     }
    ]
@@ -892,15 +902,15 @@
     "cashAndSecurities": 6903000000,
     "receivables": 5242000000,
     "shares": 855351589,
-    "marketCap": 55179227450.958466,
+    "marketCap": 57065570073.593544,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.6,
-    "debt": 14.3,
-    "cash": 12.51,
-    "receivables": 9.5
+    "debt": 13.83,
+    "cash": 12.1,
+    "receivables": 9.19
    },
    "pass": {
     "interest": true,
@@ -920,12 +930,12 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.6,
-      "debt": 14.3,
-      "cash": 12.51,
-      "receivables": 9.5
+      "debt": 13.83,
+      "cash": 12.1,
+      "receivables": 9.19
      }
     }
    ]
@@ -945,15 +955,15 @@
     "cashAndSecurities": 2085000000,
     "receivables": 6963000000,
     "shares": 997689626,
-    "marketCap": 316826320880.9445,
+    "marketCap": 328219934004.1727,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.03,
-    "debt": 30.87,
-    "cash": 0.66,
-    "receivables": 2.2
+    "debt": 29.8,
+    "cash": 0.64,
+    "receivables": 2.12
    },
    "pass": {
     "interest": true,
@@ -973,12 +983,12 @@
    "history": [
     {
      "asOf": "2026-08-02",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.03,
-      "debt": 30.87,
-      "cash": 0.66,
-      "receivables": 2.2
+      "debt": 29.8,
+      "cash": 0.64,
+      "receivables": 2.12
      }
     }
    ]
@@ -998,14 +1008,14 @@
     "cashAndSecurities": 5472000000,
     "receivables": null,
     "shares": 1304953255,
-    "marketCap": 216402412655.75848,
+    "marketCap": 214691475275.86557,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
     "debt": 0,
-    "cash": 2.53,
+    "cash": 2.55,
     "receivables": null
    },
    "pass": {
@@ -1029,11 +1039,11 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
       "debt": 0,
-      "cash": 2.53,
+      "cash": 2.55,
       "receivables": null
      }
     }
@@ -1054,15 +1064,15 @@
     "cashAndSecurities": 122988000000,
     "receivables": 88092000000,
     "shares": 10786313572,
-    "marketCap": 2746195725989.854,
+    "marketCap": 2629595663566.473,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.61,
-    "debt": 4.85,
-    "cash": 4.48,
-    "receivables": 3.21
+    "debt": 5.07,
+    "cash": 4.68,
+    "receivables": 3.35
    },
    "pass": {
     "interest": true,
@@ -1082,12 +1092,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.61,
-      "debt": 4.85,
-      "cash": 4.48,
-      "receivables": 3.21
+      "debt": 5.07,
+      "cash": 4.68,
+      "receivables": 3.35
      }
     }
    ]
@@ -1095,27 +1105,27 @@
   "GOOGL": {
    "name": "Alphabet Inc.",
    "cik": 1652044,
-   "asOf": "2026-06-30",
+   "asOf": "2026-09-30",
    "revenueYearEnd": "2025-12-31",
    "form": "10-Q",
-   "filed": "2026-07-23",
-   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/",
+   "filed": "2026-10-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/",
    "values": {
     "revenue": 402836000000,
     "interestIncome": 4337000000,
-    "debt": 100164000000,
-    "cashAndSecurities": 242474000000,
-    "receivables": 69175000000,
+    "debt": 126118000000,
+    "cashAndSecurities": 265098000000,
+    "receivables": 72784000000,
     "shares": 12230000000,
-    "marketCap": 3973404699999.9995,
+    "marketCap": 3471118600000,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.08,
-    "debt": 2.52,
-    "cash": 6.1,
-    "receivables": 1.74
+    "debt": 3.63,
+    "cash": 7.64,
+    "receivables": 2.1
    },
    "pass": {
     "interest": true,
@@ -1141,6 +1151,16 @@
       "debt": 2.52,
       "cash": 6.1,
       "receivables": 1.74
+     }
+    },
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-30",
+     "ratios": {
+      "interest": 1.08,
+      "debt": 3.63,
+      "cash": 7.64,
+      "receivables": 2.1
      }
     }
    ]
@@ -1188,7 +1208,7 @@
    "history": [
     {
      "asOf": "2026-03-31",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 3.62,
       "debt": 3.2,
@@ -1201,26 +1221,26 @@
   "MA": {
    "name": "Mastercard Incorporated",
    "cik": 1141391,
-   "asOf": "2026-06-30",
+   "asOf": "2026-09-30",
    "revenueYearEnd": "2025-12-31",
    "form": "10-Q",
-   "filed": "2026-07-30",
-   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/",
+   "filed": "2026-10-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000124/",
    "values": {
     "revenue": 32791000000,
     "interestIncome": 48000000,
-    "debt": 24643000000,
-    "cashAndSecurities": 11291000000,
-    "receivables": 5047000000,
+    "debt": 23938000000,
+    "cashAndSecurities": 10147000000,
+    "receivables": 5258000000,
     "shares": 122530193,
-    "marketCap": 534637602837.5792,
+    "marketCap": 556879514296.4092,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.15,
-    "debt": 4.61,
-    "cash": 2.11,
+    "debt": 4.3,
+    "cash": 1.82,
     "receivables": 0.94
    },
    "pass": {
@@ -1248,6 +1268,16 @@
       "cash": 2.11,
       "receivables": 0.94
      }
+    },
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-30",
+     "ratios": {
+      "interest": 0.15,
+      "debt": 4.3,
+      "cash": 1.82,
+      "receivables": 0.94
+     }
     }
    ]
   },
@@ -1266,15 +1296,15 @@
     "cashAndSecurities": 21599000000,
     "receivables": 3959000000,
     "shares": 443129349,
-    "marketCap": 435476492049.6383,
+    "marketCap": 441392257736.60333,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
-    "debt": 1.42,
-    "cash": 4.96,
-    "receivables": 0.91
+    "debt": 1.4,
+    "cash": 4.89,
+    "receivables": 0.9
    },
    "pass": {
     "interest": true,
@@ -1296,12 +1326,12 @@
    "history": [
     {
      "asOf": "2026-08-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
-      "debt": 1.42,
-      "cash": 4.96,
-      "receivables": 0.91
+      "debt": 1.4,
+      "cash": 4.89,
+      "receivables": 0.9
      }
     }
    ]
@@ -1349,7 +1379,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.05,
       "debt": 5.3,
@@ -1374,15 +1404,15 @@
     "cashAndSecurities": 822000000,
     "receivables": 2485000000,
     "shares": 707641531,
-    "marketCap": 177264191480.44455,
+    "marketCap": 182132763991.91193,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
-    "debt": 22.49,
-    "cash": 0.46,
-    "receivables": 1.4
+    "debt": 21.89,
+    "cash": 0.45,
+    "receivables": 1.36
    },
    "pass": {
     "interest": true,
@@ -1404,12 +1434,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
-      "debt": 22.49,
-      "cash": 0.46,
-      "receivables": 1.4
+      "debt": 21.89,
+      "cash": 0.45,
+      "receivables": 1.36
      }
     }
    ]
@@ -1429,14 +1459,14 @@
     "cashAndSecurities": 309811000000,
     "receivables": null,
     "shares": 2658186195,
-    "marketCap": 901922627516.7596,
+    "marketCap": 913299608983.0795,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 15.36,
-    "debt": 59.09,
-    "cash": 34.35,
+    "debt": 58.35,
+    "cash": 33.92,
     "receivables": null
    },
    "pass": {
@@ -1457,11 +1487,11 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 15.36,
-      "debt": 59.09,
-      "cash": 34.35,
+      "debt": 58.35,
+      "cash": 33.92,
       "receivables": null
      }
     }
@@ -1482,14 +1512,14 @@
     "cashAndSecurities": 229745000000,
     "receivables": null,
     "shares": 6992748365,
-    "marketCap": 352019058760.2112,
+    "marketCap": 354026627657.38007,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 18.06,
-    "debt": 96.55,
-    "cash": 65.26,
+    "debt": 96,
+    "cash": 64.89,
     "receivables": null
    },
    "pass": {
@@ -1510,11 +1540,11 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 18.06,
-      "debt": 96.55,
-      "cash": 65.26,
+      "debt": 96,
+      "cash": 64.89,
       "receivables": null
      }
     }
@@ -1573,7 +1603,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 6.03,
       "debt": 89.38,
@@ -1598,14 +1628,14 @@
     "cashAndSecurities": 349579000000,
     "receivables": null,
     "shares": 1749319009,
-    "marketCap": 208186681366.35416,
+    "marketCap": 210954448928.11606,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 167.63,
-    "debt": 186.2,
-    "cash": 167.92,
+    "debt": 183.76,
+    "cash": 165.71,
     "receivables": null
    },
    "pass": {
@@ -1626,11 +1656,11 @@
    "history": [
     {
      "asOf": "2025-12-31",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 167.63,
-      "debt": 186.2,
-      "cash": 167.92,
+      "debt": 183.76,
+      "cash": 165.71,
       "receivables": null
      }
     }
@@ -1651,14 +1681,14 @@
     "cashAndSecurities": 187266000000,
     "receivables": null,
     "shares": 291171408,
-    "marketCap": 269383065855.55325,
+    "marketCap": 270128453922.35468,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": null,
-    "debt": 162.55,
-    "cash": 69.52,
+    "debt": 162.1,
+    "cash": 69.32,
     "receivables": null
    },
    "pass": {
@@ -1678,11 +1708,11 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": null,
-      "debt": 162.55,
-      "cash": 69.52,
+      "debt": 162.1,
+      "cash": 69.32,
       "receivables": null
      }
     }
@@ -1703,14 +1733,14 @@
     "cashAndSecurities": 160135000000,
     "receivables": null,
     "shares": 1570566292,
-    "marketCap": 298611773462.151,
+    "marketCap": 298407601657.8131,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 15.79,
-    "debt": 128.31,
-    "cash": 53.63,
+    "debt": 128.4,
+    "cash": 53.66,
     "receivables": null
    },
    "pass": {
@@ -1731,11 +1761,11 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 15.79,
-      "debt": 128.31,
-      "cash": 53.63,
+      "debt": 128.4,
+      "cash": 53.66,
       "receivables": null
      }
     }
@@ -1756,14 +1786,14 @@
     "cashAndSecurities": 41360000000,
     "receivables": null,
     "shares": 941481,
-    "marketCap": 1162881994368.173,
+    "marketCap": 1165328967080.9978,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
     "debt": 0,
-    "cash": 3.56,
+    "cash": 3.55,
     "receivables": null
    },
    "pass": {
@@ -1787,11 +1817,11 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
       "debt": 0,
-      "cash": 3.56,
+      "cash": 3.55,
       "receivables": null
      }
     }
@@ -1812,15 +1842,15 @@
     "cashAndSecurities": 31944000000,
     "receivables": 21573000000,
     "shares": 897594847,
-    "marketCap": 365410875921.589,
+    "marketCap": 366896387853.7596,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.88,
-    "debt": 19.02,
-    "cash": 8.74,
-    "receivables": 5.9
+    "debt": 18.94,
+    "cash": 8.71,
+    "receivables": 5.88
    },
    "pass": {
     "interest": true,
@@ -1840,12 +1870,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.88,
-      "debt": 19.02,
-      "cash": 8.74,
-      "receivables": 5.9
+      "debt": 18.94,
+      "cash": 8.71,
+      "receivables": 5.88
      }
     }
    ]
@@ -1895,7 +1925,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
       "debt": 29.18,
@@ -1906,29 +1936,29 @@
    ]
   },
   "SIRI": {
-   "name": "SIRIUS XM HOLDINGS INC.",
+   "name": "Sirius XM Holdings Inc.",
    "cik": 908937,
-   "asOf": "2026-06-30",
+   "asOf": "2026-09-30",
    "revenueYearEnd": "2017-12-31",
    "form": "10-Q",
-   "filed": "2026-07-30",
-   "filingUrl": "https://www.sec.gov/Archives/edgar/data/908937/000090893726000022/",
+   "filed": "2026-10-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/908937/000090893726000028/",
    "values": {
     "revenue": 5425129000,
     "interestIncome": -5375000,
-    "debt": 9463000000,
-    "cashAndSecurities": 174000000,
-    "receivables": 627000000,
-    "shares": 337066891,
-    "marketCap": 9208667558.617249,
+    "debt": 9323000000,
+    "cashAndSecurities": 210000000,
+    "receivables": 632000000,
+    "shares": 336486715,
+    "marketCap": 9663707758.547585,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
-    "debt": 102.76,
-    "cash": 1.89,
-    "receivables": 6.81
+    "debt": 96.47,
+    "cash": 2.17,
+    "receivables": 6.54
    },
    "pass": {
     "interest": true,
@@ -1955,6 +1985,16 @@
       "cash": 1.89,
       "receivables": 6.81
      }
+    },
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-30",
+     "ratios": {
+      "interest": 0,
+      "debt": 96.47,
+      "cash": 2.17,
+      "receivables": 6.54
+     }
     }
    ]
   },
@@ -1973,15 +2013,15 @@
     "cashAndSecurities": 9071949000,
     "receivables": 2885249000,
     "shares": 235633860,
-    "marketCap": 40646842062.525444,
+    "marketCap": 41902770276.35026,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.6,
-    "debt": 22.64,
-    "cash": 22.32,
-    "receivables": 7.1
+    "debt": 21.96,
+    "cash": 21.65,
+    "receivables": 6.89
    },
    "pass": {
     "interest": true,
@@ -2001,12 +2041,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.6,
-      "debt": 22.64,
-      "cash": 22.32,
-      "receivables": 7.1
+      "debt": 21.96,
+      "cash": 21.65,
+      "receivables": 6.89
      }
     }
    ]
@@ -2026,15 +2066,15 @@
     "cashAndSecurities": 5185000000,
     "receivables": 14553000000,
     "shares": 1726686902,
-    "marketCap": 188277944180.74646,
+    "marketCap": 191506844538.75165,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
-    "debt": 24.45,
-    "cash": 2.75,
-    "receivables": 7.73
+    "debt": 24.04,
+    "cash": 2.71,
+    "receivables": 7.6
    },
    "pass": {
     "interest": true,
@@ -2056,12 +2096,12 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
-      "debt": 24.45,
-      "cash": 2.75,
-      "receivables": 7.73
+      "debt": 24.04,
+      "cash": 2.71,
+      "receivables": 7.6
      }
     }
    ]
@@ -2081,7 +2121,7 @@
     "cashAndSecurities": 8222953000,
     "receivables": null,
     "shares": 4106325903,
-    "marketCap": 254551161257.97424,
+    "marketCap": 254797545863.9837,
     "price": null
    },
    "marketCapSource": "Finnhub",
@@ -2109,7 +2149,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.65,
       "debt": 5.94,
@@ -2134,15 +2174,15 @@
     "cashAndSecurities": 98500000,
     "receivables": 678100000,
     "shares": null,
-    "marketCap": 21964970475.546204,
+    "marketCap": 22058042078.504234,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.13,
-    "debt": 46.96,
+    "debt": 46.77,
     "cash": 0.45,
-    "receivables": 3.09
+    "receivables": 3.07
    },
    "pass": {
     "interest": true,
@@ -2164,12 +2204,12 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.13,
-      "debt": 46.96,
+      "debt": 46.77,
       "cash": 0.45,
-      "receivables": 3.09
+      "receivables": 3.07
      }
     }
    ]
@@ -2189,15 +2229,15 @@
     "cashAndSecurities": 2128100000,
     "receivables": 1004100000,
     "shares": 0,
-    "marketCap": 7357873972.61749,
+    "marketCap": 7345245104.605505,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.03,
-    "debt": 104.4,
-    "cash": 28.92,
-    "receivables": 13.65
+    "debt": 104.58,
+    "cash": 28.97,
+    "receivables": 13.67
    },
    "pass": {
     "interest": true,
@@ -2217,12 +2257,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.03,
-      "debt": 104.4,
-      "cash": 28.92,
-      "receivables": 13.65
+      "debt": 104.58,
+      "cash": 28.97,
+      "receivables": 13.67
      }
     }
    ]
@@ -2242,15 +2282,15 @@
     "cashAndSecurities": 308072000,
     "receivables": 83032000,
     "shares": 10937000,
-    "marketCap": 2011843017.554618,
+    "marketCap": 2014482070.1571565,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
     "debt": 0,
-    "cash": 15.31,
-    "receivables": 4.13
+    "cash": 15.29,
+    "receivables": 4.12
    },
    "pass": {
     "interest": true,
@@ -2272,12 +2312,12 @@
    "history": [
     {
      "asOf": "2026-09-26",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
       "debt": 0,
-      "cash": 15.31,
-      "receivables": 4.13
+      "cash": 15.29,
+      "receivables": 4.12
      }
     }
    ]
@@ -2285,27 +2325,27 @@
   "MO": {
    "name": "Altria Group, Inc.",
    "cik": 764180,
-   "asOf": "2026-06-30",
+   "asOf": "2026-09-30",
    "revenueYearEnd": "2025-12-31",
    "form": "10-Q",
-   "filed": "2026-07-30",
-   "filingUrl": "https://www.sec.gov/Archives/edgar/data/764180/000076418026000094/",
+   "filed": "2026-10-29",
+   "filingUrl": "https://www.sec.gov/Archives/edgar/data/764180/000076418026000114/",
    "values": {
     "revenue": 23279000000,
     "interestIncome": 98000000,
-    "debt": 24577000000,
-    "cashAndSecurities": 2367000000,
-    "receivables": 306000000,
-    "shares": 1669743926,
-    "marketCap": 121874603462.02394,
+    "debt": 24061000000,
+    "cashAndSecurities": 2697000000,
+    "receivables": 342000000,
+    "shares": 1663436915,
+    "marketCap": 128152840304.01082,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.42,
-    "debt": 20.17,
-    "cash": 1.94,
-    "receivables": 0.25
+    "debt": 18.78,
+    "cash": 2.1,
+    "receivables": 0.27
    },
    "pass": {
     "interest": true,
@@ -2332,6 +2372,16 @@
       "cash": 1.94,
       "receivables": 0.25
      }
+    },
+    {
+     "asOf": "2026-09-30",
+     "checked": "2026-10-30",
+     "ratios": {
+      "interest": 0.42,
+      "debt": 18.78,
+      "cash": 2.1,
+      "receivables": 0.27
+     }
     }
    ]
   },
@@ -2350,15 +2400,15 @@
     "cashAndSecurities": 6683000000,
     "receivables": 5156000000,
     "shares": 1558655629,
-    "marketCap": 315845971207.04175,
+    "marketCap": 324979699887.8282,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 1.53,
-    "debt": 15.06,
-    "cash": 2.12,
-    "receivables": 1.63
+    "debt": 14.64,
+    "cash": 2.06,
+    "receivables": 1.59
    },
    "pass": {
     "interest": true,
@@ -2378,12 +2428,12 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 1.53,
-      "debt": 15.06,
-      "cash": 2.12,
-      "receivables": 1.63
+      "debt": 14.64,
+      "cash": 2.06,
+      "receivables": 1.59
      }
     }
    ]
@@ -2403,15 +2453,15 @@
     "cashAndSecurities": 2858000000,
     "receivables": 664000000,
     "shares": 626990133,
-    "marketCap": 22709581196.377075,
+    "marketCap": 23223714542.416348,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.18,
-    "debt": 68.01,
-    "cash": 12.58,
-    "receivables": 2.92
+    "debt": 66.5,
+    "cash": 12.31,
+    "receivables": 2.86
    },
    "pass": {
     "interest": true,
@@ -2431,12 +2481,12 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.18,
-      "debt": 68.01,
-      "cash": 12.58,
-      "receivables": 2.92
+      "debt": 66.5,
+      "cash": 12.31,
+      "receivables": 2.86
      }
     }
    ]
@@ -2456,15 +2506,15 @@
     "cashAndSecurities": 2395957000,
     "receivables": 1072242000,
     "shares": 253010547,
-    "marketCap": 6860934043.572348,
+    "marketCap": 7253418900.566556,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0,
-    "debt": 82.63,
-    "cash": 34.92,
-    "receivables": 15.63
+    "debt": 78.16,
+    "cash": 33.03,
+    "receivables": 14.78
    },
    "pass": {
     "interest": true,
@@ -2496,12 +2546,12 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0,
-      "debt": 82.63,
-      "cash": 34.92,
-      "receivables": 15.63
+      "debt": 78.16,
+      "cash": 33.03,
+      "receivables": 14.78
      }
     }
    ]
@@ -2521,15 +2571,15 @@
     "cashAndSecurities": 983882000,
     "receivables": 82079000,
     "shares": 495903000,
-    "marketCap": 10078017975.028873,
+    "marketCap": 10286527964.993103,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.78,
     "debt": 0,
-    "cash": 9.76,
-    "receivables": 0.81
+    "cash": 9.56,
+    "receivables": 0.8
    },
    "pass": {
     "interest": true,
@@ -2551,12 +2601,12 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.78,
       "debt": 0,
-      "cash": 9.76,
-      "receivables": 0.81
+      "cash": 9.56,
+      "receivables": 0.8
      }
     }
    ]
@@ -2576,15 +2626,15 @@
     "cashAndSecurities": 740000000,
     "receivables": 2457000000,
     "shares": 357000000,
-    "marketCap": 19088162072.962864,
+    "marketCap": 19395034835.1698,
     "price": null
    },
    "marketCapSource": "Finnhub",
    "ratios": {
     "interest": 0.13,
-    "debt": 34.47,
-    "cash": 3.88,
-    "receivables": 12.87
+    "debt": 33.92,
+    "cash": 3.82,
+    "receivables": 12.67
    },
    "pass": {
     "interest": true,
@@ -2604,12 +2654,12 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-29",
+     "checked": "2026-10-30",
      "ratios": {
       "interest": 0.13,
-      "debt": 34.47,
-      "cash": 3.88,
-      "receivables": 12.87
+      "debt": 33.92,
+      "cash": 3.82,
+      "receivables": 12.67
      }
     }
    ]
