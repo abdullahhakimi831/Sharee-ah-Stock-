@@ -540,6 +540,23 @@ footer { text-align: center; color: var(--muted); font-size: 12px; padding-block
 @media (min-width: 641px) { .topbar { gap: 14px; } .feed-status { max-width: 170px; } }
 @media (max-width: 640px) { .choice-grid { grid-template-columns: 1fr; } .account-btn { max-width: 100%; } }
 
+/* ---------- Strict screening details ---------- */
+.method-pick { margin: 4px 0 8px; }
+.method-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 4px; }
+.fin-bar .near { background: var(--doubtful); }
+.ai-items { list-style: none; padding: 0; margin: 8px 0; display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.ai-items q { display: block; margin-top: 4px; color: var(--ink-2); font-style: italic; }
+.method-cards { grid-template-columns: 1fr 1fr; }
+.method-cards button { grid-template-columns: 1fr; }
+.method-cards button small { grid-column: 1; }
+.method-cards button.active { border-color: var(--halal); box-shadow: 0 0 0 3px var(--halal-bg); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--ink-2); margin-top: 12px; }
+
+/* Filing details run full width under the two columns, in two balanced columns of their own */
+.m-wide { margin-top: 20px; padding-top: 4px; border-top: 1px solid var(--line); columns: 2 340px; column-gap: 28px; }
+.m-wide > * { break-inside: avoid; }
+.m-wide h3.mt:first-child { margin-top: 16px; }
+
 /* ---------- Onyx skin: black and sleek, always dark ----------
    Declared last so it wins over the light/dark blocks above. */
 :root[data-skin="onyx"] {

@@ -17,7 +17,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -25,11 +25,16 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install the Anthropic SDK (used only when ANTHROPIC_API_KEY is set)
+        run: npm install --no-save --no-audit --no-fund @anthropic-ai/sdk@1.3.0 zod@4.6.7
+
       - name: Build data/shariah-ratios.json
         env:
-          # Optional repository secrets (Settings > Secrets and variables > Actions)
-          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+          # Repository secrets (Settings > Secrets and variables > Actions); all but SEC_USER_AGENT are optional
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
+          TWELVE_DATA_KEY: ${{ secrets.TWELVE_DATA_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/build-shariah-data.mjs
 
       - name: Commit if changed

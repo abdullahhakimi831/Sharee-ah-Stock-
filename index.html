@@ -225,7 +225,7 @@
         <div class="kpi"><span class="kpi-label">Total income</span><span class="kpi-value" id="incTotal">$0.00</span></div>
         <div class="kpi"><span class="kpi-label">This month</span><span class="kpi-value" id="incMonth">$0.00</span></div>
         <div class="kpi"><span class="kpi-label">Dividends</span><span class="kpi-value" id="incDiv">$0.00</span></div>
-        <div class="kpi"><span class="kpi-label">To purify (give to charity)</span><span class="kpi-value" id="incPurify">$0.00</span><span class="kpi-sub">impermissible share of dividends</span></div>
+        <div class="kpi"><span class="kpi-label">To purify (give to charity)</span><span class="kpi-value" id="incPurify">$0.00</span><span class="kpi-sub" id="incPurifySub">impermissible share of dividends</span></div>
       </div>
 
       <div class="grid-2">
@@ -327,6 +327,18 @@
         <h2>Account &amp; sync</h2>
         <p id="acctSummary">Log in to save your portfolio to your account and see it on your phone and computer.</p>
         <div class="btn-row" id="acctActions"></div>
+      </div>
+      <div class="card narrow">
+        <h2>Screening method</h2>
+        <p>Which Shariah standard decides halal or not. Every stock page also shows how it does under the others.</p>
+        <div class="skin-pick method-cards" id="methodPick" role="group" aria-label="Screening method">
+          <button data-m="aaoifi"><strong>AAOIFI</strong><small>Strictest. Debt and cash under 30% of today's market value.</small></button>
+          <button data-m="sp"><strong>S&amp;P Shariah</strong><small>Under 33% of the 36-month average market value; receivables under 49%.</small></button>
+          <button data-m="djim"><strong>Dow Jones Islamic</strong><small>Under 33% of the 24-month average market value, receivables included.</small></button>
+          <button data-m="msci"><strong>MSCI Islamic</strong><small>Under 33.33% of total assets, so it doesn't swing with the share price.</small></button>
+        </div>
+        <p class="hint">All methods: impermissible income under 5% of revenue. Missing data is treated as unverified (gold), and a ratio within 2 points of a limit is marked borderline (gold).</p>
+        <label class="check"><input type="checkbox" id="purifyGains"> Also purify capital gains (give the impermissible share of profits from sales to charity, as some scholars advise)</label>
       </div>
       <div class="card narrow">
         <h2>Appearance</h2>

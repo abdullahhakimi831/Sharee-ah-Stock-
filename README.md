@@ -18,11 +18,18 @@ A Shariah-compliant investment and income dashboard. It runs entirely in the bro
 - **Screener**: browse about 60 well-known stocks and Islamic ETFs, or check any ticker. Tickers not in the list are auto-classified from their company name and industry.
 - You can override any stock's status yourself. Data is saved in your browser, with export and import of a backup.
 
-## Real Shariah ratios (updates itself)
+## Strict Shariah screening (updates itself)
 
-`.github/workflows/shariah-data.yml` runs every night on GitHub's servers. It runs `scripts/build-shariah-data.mjs`, which downloads each company's official SEC filings, computes the AAOIFI-style financial screens (interest income, debt, cash and receivables ratios), and commits `data/shariah-ratios.json`. The site reads that file, so stock pages show real ratios with a link to the filing. Interest income in the halal/haram ratio comes from the filing; music, alcohol and similar income stay estimates.
+`.github/workflows/shariah-data.yml` runs every night on GitHub's servers and writes `data/shariah-ratios.json` with `scripts/build-shariah-data.mjs`:
 
-Optional repository secrets (Settings → Secrets and variables → Actions): `FINNHUB_KEY` for more reliable market values, and `SEC_USER_AGENT` (for example `Your Name you@example.com`), which the SEC asks for. Run it by hand from the Actions tab with **Run workflow**. Add more tickers in `data/extra-symbols.json` (a JSON list).
+- **Financial screens from SEC filings** under four published methods: AAOIFI (debt and cash under 30% of current market value), S&P Shariah (33% of the 36-month average market value, receivables 49%), Dow Jones Islamic (33% of the 24-month average, receivables included) and MSCI Islamic (33.33% of total assets). Interest income is kept separate from dividends where the filing allows.
+- **Missing data is never counted as zero.** A stock with a missing figure is shown as unverified (gold), and a ratio within 2 points of a limit as borderline (gold).
+- **Shariah fund confirmation** from the latest SEC N-PORT holdings of SPUS, HLAL and UMMA.
+- **Annual report review (optional):** with an `ANTHROPIC_API_KEY` secret, Claude reads each company's latest 10-K and lists revenue from alcohol, gambling, music and other impermissible activities, with quotes. It runs only when a company files a new 10-K.
+
+Choose the method in Settings → Screening method (AAOIFI, the strictest, by default). Settings can also add capital gains to the purification amount.
+
+Repository secrets (Settings → Secrets and variables → Actions): `SEC_USER_AGENT` (required, "Your Name you@example.com"), and optional `FINNHUB_KEY`, `TWELVE_DATA_KEY` (backup price history) and `ANTHROPIC_API_KEY`. Run it by hand from the Actions tab with **Run workflow**. Add more tickers in `data/extra-symbols.json` (a JSON list).
 
 ## Login and sync
 
