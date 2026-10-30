@@ -1,11 +1,66 @@
 {
- "generated": "2026-10-30T07:18:30.701Z",
- "method": "AAOIFI-style financial screens from SEC XBRL filings. Market value = current market capitalization.",
- "limits": {
-  "interest": 5,
-  "debt": 33,
-  "cash": 33,
-  "receivables": 49
+ "generated": "2026-10-30T08:11:56.424Z",
+ "method": "Financial screens from SEC XBRL filings under four published methodologies; fund holdings from SEC N-PORT filings; optional 10-K review by Claude.",
+ "methods": {
+  "aaoifi": {
+   "name": "AAOIFI",
+   "baseLabel": "current market value",
+   "limits": {
+    "interest": 5,
+    "debt": 30,
+    "cash": 30
+   }
+  },
+  "sp": {
+   "name": "S&P Shariah",
+   "baseLabel": "36-month average market value",
+   "limits": {
+    "interest": 5,
+    "debt": 33,
+    "cash": 33,
+    "receivables": 49
+   }
+  },
+  "djim": {
+   "name": "Dow Jones Islamic",
+   "baseLabel": "24-month average market value",
+   "limits": {
+    "interest": 5,
+    "debt": 33,
+    "cash": 33,
+    "receivables": 33
+   }
+  },
+  "msci": {
+   "name": "MSCI Islamic",
+   "baseLabel": "total assets",
+   "limits": {
+    "interest": 5,
+    "debt": 33.33,
+    "cash": 33.33,
+    "recCash": 33.33
+   }
+  }
+ },
+ "funds": {
+  "SPUS": {
+   "asOf": "2026-08-31",
+   "filed": "2026-10-26",
+   "url": "https://www.sec.gov/Archives/edgar/data/1742912/000200032426005927/primary_doc.xml",
+   "count": 219
+  },
+  "HLAL": {
+   "asOf": "2026-08-31",
+   "filed": "2026-10-21",
+   "url": "https://www.sec.gov/Archives/edgar/data/1683471/000119312526427557/primary_doc.xml",
+   "count": 211
+  },
+  "UMMA": {
+   "asOf": "2026-08-31",
+   "filed": "2026-10-21",
+   "url": "https://www.sec.gov/Archives/edgar/data/1683471/000119312526427560/primary_doc.xml",
+   "count": 95
+  }
  },
  "stocks": {
   "AAPL": {
@@ -22,24 +77,116 @@
     "debt": 84297000000,
     "cashAndSecurities": 146517000000,
     "receivables": 31398000000,
+    "totalAssets": 383266000000,
     "shares": 14594180000,
     "marketCap": 5092055035903.137,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 2.14,
-    "debt": 1.66,
-    "cash": 2.88,
-    "receivables": 0.62
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 2.14,
+      "debt": 1.66,
+      "cash": 2.88
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 5092055035903.137,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 2.14,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 2.14,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 2.14,
+      "debt": 21.99,
+      "cash": 38.23,
+      "recCash": 46.42
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": false,
+      "recCash": false
+     },
+     "base": "assets",
+     "baseValue": 383266000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt + CommercialPaper",
     "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent + MarketableSecuritiesNoncurrent",
@@ -47,16 +194,18 @@
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterestAndDividend"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2026-06-27",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 2.14,
-      "debt": 1.66,
-      "cash": 2.88,
-      "receivables": 0.62
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -75,24 +224,116 @@
     "debt": 35481000000,
     "cashAndSecurities": 64509000000,
     "receivables": 62084000000,
+    "totalAssets": 779403000000,
     "shares": 7426194552,
     "marketCap": 3937045694933.687,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.35,
-    "debt": 0.9,
-    "cash": 1.64,
-    "receivables": 1.58
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.35,
+      "debt": 0.9,
+      "cash": 1.64
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 3937045694933.687,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.35,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.35,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.35,
+      "debt": 4.55,
+      "cash": 8.28,
+      "recCash": 16.24
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 779403000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
@@ -100,7 +341,9 @@
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterestAndDividend"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2026-06-30",
@@ -115,11 +358,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.35,
-      "debt": 0.9,
-      "cash": 1.64,
-      "receivables": 1.58
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -138,24 +381,116 @@
     "debt": 33366000000,
     "cashAndSecurities": 22443000000,
     "receivables": 63059000000,
+    "totalAssets": 320272000000,
     "shares": 24100000000,
     "marketCap": 5149206116736.253,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.07,
-    "debt": 0.65,
-    "cash": 0.44,
-    "receivables": 1.22
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.07,
+      "debt": 0.65,
+      "cash": 0.44
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 5149206116736.253,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.07,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.07,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.07,
+      "debt": 10.42,
+      "cash": 7.01,
+      "recCash": 26.7
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 320272000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -168,11 +503,11 @@
     {
      "asOf": "2026-07-26",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.07,
-      "debt": 0.65,
-      "cash": 0.44,
-      "receivables": 1.22
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -191,24 +526,116 @@
     "debt": 7956000000,
     "cashAndSecurities": 45447000000,
     "receivables": 4636000000,
+    "totalAssets": 157517000000,
     "shares": 3952757946,
     "marketCap": 1594147329056.9097,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.77,
-    "debt": 0.5,
-    "cash": 2.85,
-    "receivables": 0.29
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.77,
+      "debt": 0.5,
+      "cash": 2.85
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 1594147329056.9097,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.77,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.77,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.77,
+      "debt": 5.05,
+      "cash": 28.85,
+      "recCash": 31.8
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 157517000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
@@ -221,11 +648,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.77,
-      "debt": 0.5,
-      "cash": 2.85,
-      "receivables": 0.29
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -244,24 +671,116 @@
     "debt": 3226000000,
     "cashAndSecurities": 13111000000,
     "receivables": 7281000000,
+    "totalAssets": 84464000000,
     "shares": 1632475042,
     "marketCap": 924666479573.647,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.01,
-    "debt": 0.35,
-    "cash": 1.42,
-    "receivables": 0.79
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.01,
+      "debt": 0.35,
+      "cash": 1.42
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 924666479573.647,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.01,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.01,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.01,
+      "debt": 3.82,
+      "cash": 15.52,
+      "recCash": 24.14
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 84464000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "DebtLongtermAndShorttermCombinedAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
@@ -274,14 +793,22 @@
     {
      "asOf": "2026-06-27",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.01,
-      "debt": 0.35,
-      "cash": 1.42,
-      "receivables": 0.79
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
+  },
+  "TSM": {
+   "name": "Taiwan Semiconductor Manufacturing Company Limited",
+   "cik": 1046179,
+   "heldBy": [
+    "UMMA"
+   ],
+   "noFilings": true
   },
   "ADBE": {
    "name": "ADOBE INC.",
@@ -297,24 +824,116 @@
     "debt": 4766000000,
     "cashAndSecurities": 5639000000,
     "receivables": 2081000000,
+    "totalAssets": 29981000000,
     "shares": 389200000,
     "marketCap": 96568304905.0181,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.11,
-    "debt": 4.94,
-    "cash": 5.84,
-    "receivables": 2.15
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.11,
+      "debt": 4.94,
+      "cash": 5.84
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 96568304905.0181,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.11,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.11,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.11,
+      "debt": 15.9,
+      "cash": 18.81,
+      "recCash": 25.75
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 29981000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
@@ -327,11 +946,11 @@
     {
      "asOf": "2026-08-28",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.11,
-      "debt": 4.94,
-      "cash": 5.84,
-      "receivables": 2.15
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -350,24 +969,116 @@
     "debt": 39288000000,
     "cashAndSecurities": 11403000000,
     "receivables": 6320000000,
+    "totalAssets": 109620000000,
     "shares": 823000000,
     "marketCap": 190030700478.75677,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.26,
-    "debt": 20.67,
-    "cash": 6,
-    "receivables": 3.33
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.26,
+      "debt": 20.67,
+      "cash": 6
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 190030700478.75677,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.26,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.26,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.26,
+      "debt": 35.84,
+      "cash": 10.4,
+      "recCash": 16.17
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 109620000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue + AvailableForSaleSecuritiesDebtSecuritiesCurrent",
@@ -380,11 +1091,11 @@
     {
      "asOf": "2026-07-31",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.26,
-      "debt": 20.67,
-      "cash": 6,
-      "receivables": 3.33
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -400,29 +1111,120 @@
    "values": {
     "revenue": 40653000000,
     "interestIncome": 398000000,
-    "debt": 83669000000,
+    "debt": 84000000000,
     "cashAndSecurities": 82449000000,
     "receivables": 22716000000,
+    "totalAssets": 478836000000,
     "shares": 2574000000,
     "marketCap": 1596423637570.936,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.98,
-    "debt": 5.24,
-    "cash": 5.16,
-    "receivables": 1.42
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.98,
+      "debt": 5.26,
+      "cash": 5.16
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 1596423637570.936,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.98,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.98,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.98,
+      "debt": 17.54,
+      "cash": 17.22,
+      "recCash": 21.96
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 478836000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
-    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "debt": "DebtInstrumentCarryingAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
     "receivables": "AccountsReceivableNetCurrent",
     "revenue": "Revenues",
@@ -433,11 +1235,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.98,
-      "debt": 5.24,
-      "cash": 5.16,
-      "receivables": 1.42
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -456,24 +1258,116 @@
     "debt": 44651000000,
     "cashAndSecurities": 17228000000,
     "receivables": 18987000000,
+    "totalAssets": 197425000000,
     "shares": 2407310266,
     "marketCap": 662491816198.0872,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.12,
-    "debt": 6.74,
-    "cash": 2.6,
-    "receivables": 2.87
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.12,
+      "debt": 6.74,
+      "cash": 2.6
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 662491816198.0872,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.12,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.12,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.12,
+      "debt": 22.62,
+      "cash": 8.73,
+      "recCash": 18.34
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 197425000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
@@ -486,11 +1380,11 @@
     {
      "asOf": "2026-09-27",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.12,
-      "debt": 6.74,
-      "cash": 2.6,
-      "receivables": 2.87
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -509,24 +1403,116 @@
     "debt": 46986000000,
     "cashAndSecurities": 4885000000,
     "receivables": 22089000000,
+    "totalAssets": 148072000000,
     "shares": 940745031,
     "marketCap": 1293142236377.6797,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.27,
-    "debt": 3.63,
-    "cash": 0.38,
-    "receivables": 1.71
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.27,
+      "debt": 3.63,
+      "cash": 0.38
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 1293142236377.6797,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.27,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.27,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.27,
+      "debt": 31.73,
+      "cash": 3.3,
+      "recCash": 18.22
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 148072000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -549,11 +1535,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.27,
-      "debt": 3.63,
-      "cash": 0.38,
-      "receivables": 1.71
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -572,24 +1558,115 @@
     "debt": 63100000000,
     "cashAndSecurities": 8257000000,
     "receivables": 12490000000,
+    "totalAssets": 201131000000,
     "shares": 5699673589,
     "marketCap": 170705220950.75214,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.96,
-    "debt": 36.96,
-    "cash": 4.84,
-    "receivables": 7.32
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.96,
+      "debt": 36.96,
+      "cash": 4.84
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 170705220950.75214,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.96,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.96,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.96,
+      "debt": 31.37,
+      "cash": 4.11,
+      "recCash": 10.32
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 201131000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
     "cash": "CashAndCashEquivalentsAtCarryingValue + AvailableForSaleSecuritiesDebtSecuritiesCurrent + AvailableForSaleSecuritiesDebtSecuritiesNoncurrent",
@@ -602,11 +1679,11 @@
     {
      "asOf": "2026-06-28",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.96,
-      "debt": 36.96,
-      "cash": 4.84,
-      "receivables": 7.32
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -625,28 +1702,122 @@
     "debt": 32229000000,
     "cashAndSecurities": 10588000000,
     "receivables": 60558000000,
+    "totalAssets": 464482000000,
     "shares": 4111911960,
     "marketCap": 753343390000,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": null,
-    "debt": 4.28,
-    "cash": 1.41,
-    "receivables": 8.04
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": 4.28,
+      "cash": 1.41
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 753343390000,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": 6.94,
+      "cash": 2.28,
+      "recCash": 15.32
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 464482000000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": null,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "revenue",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligations",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
     "receivables": "ReceivablesNetCurrent",
+    "revenue": null,
     "interest": null
    },
    "notes": [],
@@ -654,11 +1825,11 @@
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": null,
-      "debt": 4.28,
-      "cash": 1.41,
-      "receivables": 8.04
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -673,28 +1844,120 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/93410/000009341026000167/",
    "values": {
     "revenue": 189031000000,
-    "interestIncome": 0,
+    "interestIncome": null,
     "debt": 37075000000,
     "cashAndSecurities": 9582000000,
     "receivables": 22000000000,
+    "totalAssets": 330135000000,
     "shares": 1975771274,
     "marketCap": 457312005175.47437,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 8.11,
-    "cash": 2.1,
-    "receivables": 4.81
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": 8.11,
+      "cash": 2.1
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 457312005175.47437,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": 11.23,
+      "cash": 2.9,
+      "recCash": 9.57
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 330135000000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + ShortTermBorrowings",
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
@@ -702,18 +1965,16 @@
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 8.11,
-      "cash": 2.1,
-      "receivables": 4.81
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -732,24 +1993,116 @@
     "debt": 21897000000,
     "cashAndSecurities": 15365000000,
     "receivables": 6620000000,
+    "totalAssets": 133132000000,
     "shares": 2317783143,
     "marketCap": 372212791670.8394,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.49,
-    "debt": 5.88,
-    "cash": 4.13,
-    "receivables": 1.78
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.49,
+      "debt": 5.88,
+      "cash": 4.13
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 372212791670.8394,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.49,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.49,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.49,
+      "debt": 16.45,
+      "cash": 11.54,
+      "recCash": 16.51
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 133132000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent",
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
@@ -762,11 +2115,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.49,
-      "debt": 5.88,
-      "cash": 4.13,
-      "receivables": 1.78
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -785,24 +2138,115 @@
     "debt": 41546000000,
     "cashAndSecurities": 13454000000,
     "receivables": 3571000000,
+    "totalAssets": 107950000000,
     "shares": 4301902335,
     "marketCap": 399362596841.2791,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.64,
-    "debt": 10.4,
-    "cash": 3.37,
-    "receivables": 0.89
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.64,
+      "debt": 10.4,
+      "cash": 3.37
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 399362596841.2791,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.64,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.64,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.64,
+      "debt": 38.49,
+      "cash": 12.46,
+      "recCash": 15.77
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 107950000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -825,11 +2269,11 @@
     {
      "asOf": "2026-10-02",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.64,
-      "debt": 10.4,
-      "cash": 3.37,
-      "receivables": 0.89
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -848,24 +2292,115 @@
     "debt": 56681000000,
     "cashAndSecurities": 11163000000,
     "receivables": 13623000000,
+    "totalAssets": 111976000000,
     "shares": 1362741092,
     "marketCap": 182321136991.27878,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.07,
-    "debt": 31.09,
-    "cash": 6.12,
-    "receivables": 7.47
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.07,
+      "debt": 31.09,
+      "cash": 6.12
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 182321136991.27878,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.07,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.07,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.07,
+      "debt": 50.62,
+      "cash": 9.97,
+      "recCash": 22.14
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 111976000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligations + ShortTermBorrowings + CommercialPaper",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
@@ -878,11 +2413,11 @@
     {
      "asOf": "2026-09-05",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.07,
-      "debt": 31.09,
-      "cash": 6.12,
-      "receivables": 7.47
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -901,24 +2436,116 @@
     "debt": 7893000000,
     "cashAndSecurities": 6903000000,
     "receivables": 5242000000,
+    "totalAssets": 37794000000,
     "shares": 855351589,
     "marketCap": 57065570073.593544,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.6,
-    "debt": 13.83,
-    "cash": 12.1,
-    "receivables": 9.19
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": 13.83,
+      "cash": 12.1
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 57065570073.593544,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": 20.88,
+      "cash": 18.26,
+      "recCash": 32.13
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 37794000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -931,11 +2558,11 @@
     {
      "asOf": "2026-08-31",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.6,
-      "debt": 13.83,
-      "cash": 12.1,
-      "receivables": 9.19
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -951,44 +2578,137 @@
    "values": {
     "revenue": 66176000000,
     "interestIncome": 18000000,
-    "debt": 97801000000,
+    "debt": 49153000000,
     "cashAndSecurities": 2085000000,
     "receivables": 6963000000,
+    "totalAssets": 109384000000,
     "shares": 997689626,
     "marketCap": 328219934004.1727,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.03,
-    "debt": 29.8,
-    "cash": 0.64,
-    "receivables": 2.12
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": 14.98,
+      "cash": 0.64
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 328219934004.1727,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": 44.94,
+      "cash": 1.91,
+      "recCash": 8.27
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 109384000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS"
+   ],
+   "ai": null,
    "tags": {
-    "debt": "LongTermDebtAndCapitalLeaseObligations + LongTermDebtAndCapitalLeaseObligationsCurrent + SeniorNotes + CommercialPaper",
+    "debt": "SeniorNotes + CommercialPaper",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
     "receivables": "AccountsReceivableNetCurrent",
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterestAndDividend"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2026-08-02",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.03,
-      "debt": 29.8,
-      "cash": 0.64,
-      "receivables": 2.12
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -1003,48 +2723,137 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000047/",
    "values": {
     "revenue": 11556000000,
-    "interestIncome": 0,
-    "debt": 0,
+    "interestIncome": null,
+    "debt": null,
     "cashAndSecurities": 5472000000,
     "receivables": null,
+    "totalAssets": 14470000000,
     "shares": 1304953255,
     "marketCap": 214691475275.86557,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 0,
-    "cash": 2.55,
-    "receivables": null
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": 2.55
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 214691475275.86557,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": 37.82,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": false,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 14470000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": null
-   },
-   "financialPass": true,
+   "missing": [
+    "debt",
+    "receivables",
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "no debt reported",
+    "debt": null,
     "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent + MarketableSecuritiesNoncurrent",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No interest-bearing debt reported.",
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 0,
-      "cash": 2.55,
-      "receivables": null
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -1063,24 +2872,113 @@
     "debt": 133320000000,
     "cashAndSecurities": 122988000000,
     "receivables": 88092000000,
+    "totalAssets": 1095689000000,
     "shares": 10786313572,
     "marketCap": 2629595663566.473,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.61,
-    "debt": 5.07,
-    "cash": 4.68,
-    "receivables": 3.35
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.61,
+      "debt": 5.07,
+      "cash": 4.68
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 2629595663566.473,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.61,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.61,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.61,
+      "debt": 12.17,
+      "cash": 11.22,
+      "recCash": 19.26
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 1095689000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
@@ -1093,11 +2991,11 @@
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.61,
-      "debt": 5.07,
-      "cash": 4.68,
-      "receivables": 3.35
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -1113,29 +3011,121 @@
    "values": {
     "revenue": 402836000000,
     "interestIncome": 4337000000,
-    "debt": 126118000000,
+    "debt": 127485000000,
     "cashAndSecurities": 265098000000,
     "receivables": 72784000000,
+    "totalAssets": 1003312000000,
     "shares": 12230000000,
     "marketCap": 3471118600000,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.08,
-    "debt": 3.63,
-    "cash": 7.64,
-    "receivables": 2.1
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.08,
+      "debt": 3.67,
+      "cash": 7.64
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 3471118600000,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.08,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.08,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.08,
+      "debt": 12.71,
+      "cash": 26.42,
+      "recCash": 33.68
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": false
+     },
+     "base": "assets",
+     "baseValue": 1003312000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [
+    "SPUS",
+    "HLAL"
+   ],
+   "ai": null,
    "tags": {
-    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent + CommercialPaper",
+    "debt": "DebtInstrumentCarryingAmount + CommercialPaper",
     "cash": "CashAndCashEquivalentsAtCarryingValue + MarketableSecuritiesCurrent",
     "receivables": "AccountsReceivableNetCurrent",
     "revenue": "Revenues",
@@ -1156,11 +3146,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.08,
-      "debt": 3.63,
-      "cash": 7.64,
-      "receivables": 2.1
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -1179,24 +3169,113 @@
     "debt": 23976000000,
     "cashAndSecurities": 12404000000,
     "receivables": 3405000000,
+    "totalAssets": 95049000000,
     "shares": 469280842,
     "marketCap": 748966054647.9988,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 3.62,
-    "debt": 3.2,
-    "cash": 1.66,
-    "receivables": 0.45
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 3.62,
+      "debt": 3.2,
+      "cash": 1.66
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 748966054647.9988,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 3.62,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 3.62,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 3.62,
+      "debt": 25.22,
+      "cash": 13.05,
+      "recCash": 16.63
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 95049000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "DebtLongtermAndShorttermCombinedAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -1204,16 +3283,18 @@
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterestAndDividend"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2026-03-31",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 3.62,
-      "debt": 3.2,
-      "cash": 1.66,
-      "receivables": 0.45
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -1232,24 +3313,113 @@
     "debt": 23938000000,
     "cashAndSecurities": 10147000000,
     "receivables": 5258000000,
+    "totalAssets": 58149000000,
     "shares": 122530193,
     "marketCap": 556879514296.4092,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.15,
-    "debt": 4.3,
-    "cash": 1.82,
-    "receivables": 0.94
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.15,
+      "debt": 4.3,
+      "cash": 1.82
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 556879514296.4092,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.15,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.15,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.15,
+      "debt": 41.17,
+      "cash": 17.45,
+      "recCash": 26.49
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 58149000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "DebtLongtermAndShorttermCombinedAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue + HeldToMaturitySecurities",
@@ -1272,11 +3442,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.15,
-      "debt": 4.3,
-      "cash": 1.82,
-      "receivables": 0.94
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -1291,47 +3461,136 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/",
    "values": {
     "revenue": 275235000000,
-    "interestIncome": 0,
-    "debt": 6162000000,
+    "interestIncome": 589000000,
+    "debt": 6175000000,
     "cashAndSecurities": 21599000000,
     "receivables": 3959000000,
+    "totalAssets": 89045000000,
     "shares": 443129349,
     "marketCap": 441392257736.60333,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 1.4,
-    "cash": 4.89,
-    "receivables": 0.9
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.21,
+      "debt": 1.4,
+      "cash": 4.89
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 441392257736.60333,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.21,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.21,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.21,
+      "debt": 6.93,
+      "cash": 24.26,
+      "recCash": 28.7
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 89045000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
+    "debt": "DebtInstrumentCarryingAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments + HeldToMaturitySecurities",
     "receivables": "ReceivablesNetCurrent",
     "revenue": "Revenues",
-    "interest": null
+    "interest": "InterestAndOtherIncome"
    },
    "notes": [
-    "No separate interest income line found; treated as 0."
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
    ],
    "history": [
     {
      "asOf": "2026-08-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 1.4,
-      "cash": 4.89,
-      "receivables": 0.9
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -1350,24 +3609,113 @@
     "debt": 50411000000,
     "cashAndSecurities": 11529000000,
     "receivables": 11075000000,
+    "totalAssets": 293914000000,
     "shares": 7933746241,
     "marketCap": 951176840000,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.05,
-    "debt": 5.3,
-    "cash": 1.21,
-    "receivables": 1.16
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.05,
+      "debt": 5.3,
+      "cash": 1.21
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 951176840000,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.05,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.05,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.05,
+      "debt": 17.15,
+      "cash": 3.92,
+      "recCash": 7.69
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 293914000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "DebtLongtermAndShorttermCombinedAmount + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -1380,11 +3728,11 @@
     {
      "asOf": "2026-07-31",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.05,
-      "debt": 5.3,
-      "cash": 1.21,
-      "receivables": 1.16
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -1399,47 +3747,135 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000073/",
    "values": {
     "revenue": 26885000000,
-    "interestIncome": 0,
-    "debt": 39863000000,
+    "interestIncome": null,
+    "debt": 39900000000,
     "cashAndSecurities": 822000000,
     "receivables": 2485000000,
+    "totalAssets": 59920000000,
     "shares": 707641531,
     "marketCap": 182132763991.91193,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 21.89,
-    "cash": 0.45,
-    "receivables": 1.36
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": 21.91,
+      "cash": 0.45
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 182132763991.91193,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": 66.59,
+      "cash": 1.37,
+      "recCash": 5.52
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 59920000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "LongTermDebtNoncurrent",
+    "debt": "DebtInstrumentCarryingAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
     "receivables": "AccountsNotesAndLoansReceivableNetCurrent",
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 21.89,
-      "cash": 0.45,
-      "receivables": 1.36
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -1458,28 +3894,118 @@
     "debt": 532953000000,
     "cashAndSecurities": 309811000000,
     "receivables": null,
+    "totalAssets": 5015069000000,
     "shares": 2658186195,
     "marketCap": 913299608983.0795,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 15.36,
-    "debt": 58.35,
-    "cash": 33.92,
-    "receivables": null
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 15.36,
+      "debt": 58.35,
+      "cash": 33.92
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": false,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 913299608983.0795,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 15.36,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 15.36,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 15.36,
+      "debt": 10.63,
+      "cash": 6.18,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": false,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 5015069000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": false,
-    "debt": false,
-    "cash": false,
-    "receivables": null
-   },
-   "financialPass": false,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + ShortTermBorrowings",
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterest"
    },
@@ -1488,11 +4014,11 @@
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 15.36,
-      "debt": 58.35,
-      "cash": 33.92,
-      "receivables": null
+     "results": {
+      "aaoifi": "fail",
+      "sp": "fail",
+      "djim": "fail",
+      "msci": "fail"
      }
     }
    ]
@@ -1511,28 +4037,118 @@
     "debt": 339863000000,
     "cashAndSecurities": 229745000000,
     "receivables": null,
+    "totalAssets": 3499191000000,
     "shares": 6992748365,
     "marketCap": 354026627657.38007,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 18.06,
-    "debt": 96,
-    "cash": 64.89,
-    "receivables": null
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 18.06,
+      "debt": 96,
+      "cash": 64.89
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": false,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 354026627657.38007,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 18.06,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 18.06,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 18.06,
+      "debt": 9.71,
+      "cash": 6.57,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": false,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 3499191000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": false,
-    "debt": false,
-    "cash": false,
-    "receivables": null
-   },
-   "financialPass": false,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": "InterestIncomeOther"
    },
@@ -1541,11 +4157,11 @@
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 18.06,
-      "debt": 96,
-      "cash": 64.89,
-      "receivables": null
+     "results": {
+      "aaoifi": "fail",
+      "sp": "fail",
+      "djim": "fail",
+      "msci": "fail"
      }
     }
    ]
@@ -1564,28 +4180,118 @@
     "debt": 221043000000,
     "cashAndSecurities": 179360000000,
     "receivables": null,
+    "totalAssets": 2253291000000,
     "shares": 3001850317,
     "marketCap": 247301820000,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 6.03,
-    "debt": 89.38,
-    "cash": 72.53,
-    "receivables": null
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 6.03,
+      "debt": 89.38,
+      "cash": 72.53
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": false,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 247301820000,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 6.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 6.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 6.03,
+      "debt": 9.81,
+      "cash": 7.96,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": false,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 2253291000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": false,
-    "debt": false,
-    "cash": false,
-    "receivables": null
-   },
-   "financialPass": false,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt + ShortTermBorrowings",
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": "InterestIncomeOther"
    },
@@ -1604,11 +4310,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 6.03,
-      "debt": 89.38,
-      "cash": 72.53,
-      "receivables": null
+     "results": {
+      "aaoifi": "fail",
+      "sp": "fail",
+      "djim": "fail",
+      "msci": "fail"
      }
     }
    ]
@@ -1627,41 +4333,133 @@
     "debt": 387646000000,
     "cashAndSecurities": 349579000000,
     "receivables": null,
+    "totalAssets": 2657202000000,
     "shares": 1749319009,
     "marketCap": 210954448928.11606,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 167.63,
-    "debt": 183.76,
-    "cash": 165.71,
-    "receivables": null
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 167.63,
+      "debt": 183.76,
+      "cash": 165.71
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": false,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 210954448928.11606,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 167.63,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 167.63,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 167.63,
+      "debt": 14.59,
+      "cash": 13.16,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": false,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 2657202000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": false,
-    "debt": false,
-    "cash": false,
-    "receivables": null
-   },
-   "financialPass": false,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt + ShortTermBorrowings + CommercialPaper",
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": "InterestAndDividendIncomeOperating"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2025-12-31",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 167.63,
-      "debt": 183.76,
-      "cash": 165.71,
-      "receivables": null
+     "results": {
+      "aaoifi": "fail",
+      "sp": "fail",
+      "djim": "fail",
+      "msci": "fail"
      }
     }
    ]
@@ -1670,50 +4468,141 @@
    "name": "The Goldman Sachs Group, Inc.",
    "cik": 886982,
    "asOf": "2026-06-30",
-   "revenueYearEnd": null,
+   "revenueYearEnd": "2025-12-31",
    "form": "10-Q",
    "filed": "2026-08-03",
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/886982/000088698226000297/",
    "values": {
-    "revenue": null,
-    "interestIncome": null,
+    "revenue": 58283000000,
+    "interestIncome": 7597000000,
     "debt": 437874000000,
     "cashAndSecurities": 187266000000,
     "receivables": null,
+    "totalAssets": 2127711000000,
     "shares": 291171408,
     "marketCap": 270128453922.35468,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": null,
-    "debt": 162.1,
-    "cash": 69.32,
-    "receivables": null
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 13.03,
+      "debt": 162.1,
+      "cash": 69.32
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": false,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 270128453922.35468,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 13.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 13.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 13.03,
+      "debt": 20.58,
+      "cash": 8.8,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": false,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 2127711000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": null,
-    "debt": false,
-    "cash": false,
-    "receivables": null
-   },
-   "financialPass": false,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "DebtLongtermAndShorttermCombinedAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
-    "receivables": "",
-    "interest": null
+    "receivables": null,
+    "revenue": "RevenuesNetOfInterestExpense",
+    "interest": "InvestmentIncomeInterest"
    },
    "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": null,
-      "debt": 162.1,
-      "cash": 69.32,
-      "receivables": null
+     "results": {
+      "aaoifi": "fail",
+      "sp": "fail",
+      "djim": "fail",
+      "msci": "fail"
      }
     }
    ]
@@ -1728,45 +4617,135 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000212/",
    "values": {
     "revenue": 34275000000,
-    "interestIncome": 5413000000,
+    "interestIncome": 9761000000,
     "debt": 383156000000,
     "cashAndSecurities": 160135000000,
     "receivables": null,
+    "totalAssets": 1675057000000,
     "shares": 1570566292,
     "marketCap": 298407601657.8131,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 15.79,
-    "debt": 128.4,
-    "cash": 53.66,
-    "receivables": null
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 28.48,
+      "debt": 128.4,
+      "cash": 53.66
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": false,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 298407601657.8131,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 28.48,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 28.48,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": false,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "fail"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 28.48,
+      "debt": 22.87,
+      "cash": 9.56,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": false,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 1675057000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": false,
-    "debt": false,
-    "cash": false,
-    "receivables": null
-   },
-   "financialPass": false,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
-    "interest": "InterestAndDividendIncomeOperating"
+    "interest": "InterestIncomeOther"
    },
    "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 15.79,
-      "debt": 128.4,
-      "cash": 53.66,
-      "receivables": null
+     "results": {
+      "aaoifi": "fail",
+      "sp": "fail",
+      "djim": "fail",
+      "msci": "fail"
      }
     }
    ]
@@ -1781,48 +4760,137 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526341032/",
    "values": {
     "revenue": 371444000000,
-    "interestIncome": 0,
-    "debt": 0,
+    "interestIncome": null,
+    "debt": null,
     "cashAndSecurities": 41360000000,
     "receivables": null,
+    "totalAssets": 1263071000000,
     "shares": 941481,
     "marketCap": 1165328967080.9978,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 0,
-    "cash": 3.55,
-    "receivables": null
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": 3.55
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 1165328967080.9978,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": 3.27,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 1263071000000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": null
-   },
-   "financialPass": true,
+   "missing": [
+    "debt",
+    "receivables",
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "no debt reported",
+    "debt": null,
     "cash": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No interest-bearing debt reported.",
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 0,
-      "cash": 3.55,
-      "receivables": null
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -1841,24 +4909,113 @@
     "debt": 69501000000,
     "cashAndSecurities": 31944000000,
     "receivables": 21573000000,
+    "totalAssets": 309727000000,
     "shares": 897594847,
     "marketCap": 366896387853.7596,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.88,
-    "debt": 18.94,
-    "cash": 8.71,
-    "receivables": 5.88
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.88,
+      "debt": 18.94,
+      "cash": 8.71
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 366896387853.7596,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.88,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.88,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.88,
+      "debt": 22.44,
+      "cash": 10.31,
+      "recCash": 17.28
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 309727000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments + HeldToMaturitySecurities",
@@ -1866,16 +5023,18 @@
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterestAndDividend"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.88,
-      "debt": 18.94,
-      "cash": 8.71,
-      "receivables": 5.88
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -1890,28 +5049,118 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/1319161/000131916126000032/",
    "values": {
     "revenue": 4463000000,
-    "interestIncome": 0,
+    "interestIncome": null,
     "debt": 4710000000,
     "cashAndSecurities": 618000000,
     "receivables": 1607000000,
+    "totalAssets": 10727000000,
     "shares": 1069,
     "marketCap": 16143170000,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 29.18,
-    "cash": 3.83,
-    "receivables": 9.95
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": 29.18,
+      "cash": 3.83
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 16143170000,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": 43.91,
+      "cash": 5.76,
+      "recCash": 20.74
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 10727000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -1919,18 +5168,16 @@
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 29.18,
-      "cash": 3.83,
-      "receivables": 9.95
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -1945,28 +5192,117 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/908937/000090893726000028/",
    "values": {
     "revenue": 5425129000,
-    "interestIncome": -5375000,
+    "interestIncome": 0,
     "debt": 9323000000,
     "cashAndSecurities": 210000000,
     "receivables": 632000000,
+    "totalAssets": 27191000000,
     "shares": 336486715,
     "marketCap": 9663707758.547585,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 96.47,
-    "cash": 2.17,
-    "receivables": 6.54
+   "interestBasis": "includes dividends or other income",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0,
+      "debt": 96.47,
+      "cash": 2.17
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 9663707758.547585,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0,
+      "debt": 34.29,
+      "cash": 0.77,
+      "recCash": 3.1
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 27191000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -1974,7 +5310,9 @@
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterestAndDividend"
    },
-   "notes": [],
+   "notes": [
+    "Interest income is reported together with dividends or other income, so the interest share may be overstated."
+   ],
    "history": [
     {
      "asOf": "2026-06-30",
@@ -1989,11 +5327,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 96.47,
-      "cash": 2.17,
-      "receivables": 6.54
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2012,24 +5350,113 @@
     "debt": 9201465000,
     "cashAndSecurities": 9071949000,
     "receivables": 2885249000,
+    "totalAssets": 28180826000,
     "shares": 235633860,
     "marketCap": 41902770276.35026,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.6,
-    "debt": 21.96,
-    "cash": 21.65,
-    "receivables": 6.89
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": 21.96,
+      "cash": 21.65
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 41902770276.35026,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.6,
+      "debt": 32.65,
+      "cash": 32.19,
+      "recCash": 42.43
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": false
+     },
+     "base": "assets",
+     "baseValue": 28180826000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "DebtLongtermAndShorttermCombinedAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2042,11 +5469,11 @@
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.6,
-      "debt": 21.96,
-      "cash": 21.65,
-      "receivables": 6.89
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2061,28 +5488,118 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/1744489/000174448926000057/",
    "values": {
     "revenue": 94425000000,
-    "interestIncome": 0,
+    "interestIncome": null,
     "debt": 46041000000,
     "cashAndSecurities": 5185000000,
     "receivables": 14553000000,
+    "totalAssets": 204740000000,
     "shares": 1726686902,
     "marketCap": 191506844538.75165,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 24.04,
-    "cash": 2.71,
-    "receivables": 7.6
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": 24.04,
+      "cash": 2.71
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 191506844538.75165,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": 22.49,
+      "cash": 2.53,
+      "recCash": 9.64
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 204740000000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtNoncurrent + LongTermDebtCurrent",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2090,18 +5607,16 @@
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-27",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 24.04,
-      "cash": 2.71,
-      "receivables": 7.6
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -2117,31 +5632,121 @@
    "values": {
     "revenue": 45183036000,
     "interestIncome": 294000000,
-    "debt": 15132394000,
+    "debt": 17606796000,
     "cashAndSecurities": 8222953000,
     "receivables": null,
+    "totalAssets": 58681954000,
     "shares": 4106325903,
     "marketCap": 254797545863.9837,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.65,
-    "debt": 5.94,
-    "cash": 3.23,
-    "receivables": null
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.65,
+      "debt": 6.91,
+      "cash": 3.23
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 254797545863.9837,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.65,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.65,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.65,
+      "debt": 30,
+      "cash": 14.01,
+      "recCash": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": null
+     },
+     "base": "assets",
+     "baseValue": 58681954000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": null
-   },
-   "financialPass": true,
+   "missing": [
+    "receivables",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "LongTermDebtNoncurrent + ShortTermBorrowings",
+    "debt": "NotesPayable + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue + ShortTermInvestments",
-    "receivables": "",
+    "receivables": null,
     "revenue": "Revenues",
     "interest": "InterestIncomeOperating"
    },
@@ -2150,11 +5755,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.65,
-      "debt": 5.94,
-      "cash": 3.23,
-      "receivables": null
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -2173,24 +5778,114 @@
     "debt": 10315700000,
     "cashAndSecurities": 98500000,
     "receivables": 678100000,
+    "totalAssets": 22063700000,
     "shares": null,
     "marketCap": 22058042078.504234,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.13,
-    "debt": 46.77,
-    "cash": 0.45,
-    "receivables": 3.07
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": 46.77,
+      "cash": 0.45
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 22058042078.504234,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": 46.75,
+      "cash": 0.45,
+      "recCash": 3.52
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 22063700000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "shares outstanding",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2198,18 +5893,16 @@
     "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
     "interest": "InvestmentIncomeInterest"
    },
-   "notes": [
-    "Shares outstanding not found."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-08-31",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.13,
-      "debt": 46.77,
-      "cash": 0.45,
-      "receivables": 3.07
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2228,24 +5921,113 @@
     "debt": 7681800000,
     "cashAndSecurities": 2128100000,
     "receivables": 1004100000,
+    "totalAssets": 24359000000,
     "shares": 0,
     "marketCap": 7345245104.605505,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.03,
-    "debt": 104.58,
-    "cash": 28.97,
-    "receivables": 13.67
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": 104.58,
+      "cash": 28.97
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 7345245104.605505,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.03,
+      "debt": 31.54,
+      "cash": 8.74,
+      "recCash": 12.86
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 24359000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2258,11 +6040,11 @@
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.03,
-      "debt": 104.58,
-      "cash": 28.97,
-      "receivables": 13.67
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -2278,46 +6060,134 @@
    "values": {
     "revenue": 1964994000,
     "interestIncome": 54000,
-    "debt": 0,
+    "debt": null,
     "cashAndSecurities": 308072000,
     "receivables": 83032000,
+    "totalAssets": 1239388000,
     "shares": 10937000,
     "marketCap": 2014482070.1571565,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 0,
-    "cash": 15.29,
-    "receivables": 4.12
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0,
+      "debt": null,
+      "cash": 15.29
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 2014482070.1571565,
+     "result": "incomplete"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0,
+      "debt": null,
+      "cash": 24.86,
+      "recCash": 31.56
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 1239388000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "debt",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "no debt reported",
+    "debt": null,
     "cash": "CashAndCashEquivalentsAtCarryingValue",
     "receivables": "AccountsReceivableNetCurrent",
     "revenue": "Revenues",
     "interest": "InvestmentIncomeInterest"
    },
-   "notes": [
-    "No interest-bearing debt reported."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-09-26",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 0,
-      "cash": 15.29,
-      "receivables": 4.12
+     "results": {
+      "aaoifi": "incomplete",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -2336,24 +6206,113 @@
     "debt": 24061000000,
     "cashAndSecurities": 2697000000,
     "receivables": 342000000,
+    "totalAssets": 34478000000,
     "shares": 1663436915,
     "marketCap": 128152840304.01082,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.42,
-    "debt": 18.78,
-    "cash": 2.1,
-    "receivables": 0.27
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.42,
+      "debt": 18.78,
+      "cash": 2.1
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 128152840304.01082,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.42,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.42,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.42,
+      "debt": 69.79,
+      "cash": 7.82,
+      "recCash": 8.81
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 34478000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2376,11 +6335,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.42,
-      "debt": 18.78,
-      "cash": 2.1,
-      "receivables": 0.27
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2399,24 +6358,113 @@
     "debt": 47562000000,
     "cashAndSecurities": 6683000000,
     "receivables": 5156000000,
+    "totalAssets": 66730000000,
     "shares": 1558655629,
     "marketCap": 324979699887.8282,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 1.53,
-    "debt": 14.64,
-    "cash": 2.06,
-    "receivables": 1.59
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 1.53,
+      "debt": 14.64,
+      "cash": 2.06
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 324979699887.8282,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 1.53,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 1.53,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 1.53,
+      "debt": 71.28,
+      "cash": 10.01,
+      "recCash": 17.74
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 66730000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities + ShortTermBorrowings",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2429,11 +6477,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 1.53,
-      "debt": 14.64,
-      "cash": 2.06,
-      "receivables": 1.59
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2452,24 +6500,113 @@
     "debt": 15444000000,
     "cashAndSecurities": 2858000000,
     "receivables": 664000000,
+    "totalAssets": 19418000000,
     "shares": 626990133,
     "marketCap": 23223714542.416348,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.18,
-    "debt": 66.5,
-    "cash": 12.31,
-    "receivables": 2.86
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.18,
+      "debt": 66.5,
+      "cash": 12.31
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 23223714542.416348,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.18,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.18,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.18,
+      "debt": 79.53,
+      "cash": 14.72,
+      "recCash": 18.14
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 19418000000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligationsIncludingCurrentMaturities",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2482,11 +6619,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.18,
-      "debt": 66.5,
-      "cash": 12.31,
-      "receivables": 2.86
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2501,28 +6638,118 @@
    "filingUrl": "https://www.sec.gov/Archives/edgar/data/789570/000078957026000107/",
    "values": {
     "revenue": 9809663000,
-    "interestIncome": 0,
+    "interestIncome": null,
     "debt": 5668986000,
     "cashAndSecurities": 2395957000,
     "receivables": 1072242000,
+    "totalAssets": 39474072000,
     "shares": 253010547,
     "marketCap": 7253418900.566556,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0,
-    "debt": 78.16,
-    "cash": 33.03,
-    "receivables": 14.78
+   "interestBasis": null,
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": null,
+      "debt": 78.16,
+      "cash": 33.03
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": null,
+      "debt": false,
+      "cash": false
+     },
+     "base": "marketCap",
+     "baseValue": 7253418900.566556,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": null,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": null,
+      "debt": 14.36,
+      "cash": 6.07,
+      "recCash": 8.79
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": null,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 39474072000,
+     "result": "incomplete"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": false,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "interest income",
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebt",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2530,9 +6757,7 @@
     "revenue": "Revenues",
     "interest": null
    },
-   "notes": [
-    "No separate interest income line found; treated as 0."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
@@ -2547,11 +6772,11 @@
     {
      "asOf": "2026-09-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0,
-      "debt": 78.16,
-      "cash": 33.03,
-      "receivables": 14.78
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "incomplete"
      }
     }
    ]
@@ -2567,46 +6792,133 @@
    "values": {
     "revenue": 6054525000,
     "interestIncome": 47259000,
-    "debt": 0,
+    "debt": 1857537000,
     "cashAndSecurities": 983882000,
     "receivables": 82079000,
+    "totalAssets": 4277379000,
     "shares": 495903000,
     "marketCap": 10286527964.993103,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.78,
-    "debt": 0,
-    "cash": 9.56,
-    "receivables": 0.8
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.78,
+      "debt": 18.06,
+      "cash": 9.56
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 10286527964.993103,
+     "result": "pass"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.78,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.78,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.78,
+      "debt": 43.43,
+      "cash": 23,
+      "recCash": 24.92
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 4277379000,
+     "result": "fail"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": true,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": true,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
-    "debt": "no debt reported",
+    "debt": "DebtInstrumentCarryingAmount",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
     "receivables": "AccountsReceivableNetCurrent",
     "revenue": "RevenueFromContractWithCustomerExcludingAssessedTax",
     "interest": "InvestmentIncomeInterest"
    },
-   "notes": [
-    "No interest-bearing debt reported."
-   ],
+   "notes": [],
    "history": [
     {
      "asOf": "2026-06-30",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.78,
-      "debt": 0,
-      "cash": 9.56,
-      "receivables": 0.8
+     "results": {
+      "aaoifi": "pass",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "fail"
      }
     }
    ]
@@ -2625,24 +6937,113 @@
     "debt": 6579000000,
     "cashAndSecurities": 740000000,
     "receivables": 2457000000,
+    "totalAssets": 35612000000,
     "shares": 357000000,
     "marketCap": 19395034835.1698,
+    "avgMarketCap24": null,
+    "avgMarketCap36": null,
     "price": null
    },
-   "marketCapSource": "Finnhub",
-   "ratios": {
-    "interest": 0.13,
-    "debt": 33.92,
-    "cash": 3.82,
-    "receivables": 12.67
+   "interestBasis": "interest",
+   "methods": {
+    "aaoifi": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": 33.92,
+      "cash": 3.82
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 30,
+      "cash": 30
+     },
+     "pass": {
+      "interest": true,
+      "debt": false,
+      "cash": true
+     },
+     "base": "marketCap",
+     "baseValue": 19395034835.1698,
+     "result": "fail"
+    },
+    "sp": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 49
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg36",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "djim": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33,
+      "cash": 33,
+      "receivables": 33
+     },
+     "pass": {
+      "interest": true,
+      "debt": null,
+      "cash": null,
+      "receivables": null
+     },
+     "base": "avg24",
+     "baseValue": null,
+     "result": "incomplete"
+    },
+    "msci": {
+     "ratios": {
+      "interest": 0.13,
+      "debt": 18.47,
+      "cash": 2.08,
+      "recCash": 8.98
+     },
+     "limits": {
+      "interest": 5,
+      "debt": 33.33,
+      "cash": 33.33,
+      "recCash": 33.33
+     },
+     "pass": {
+      "interest": true,
+      "debt": true,
+      "cash": true,
+      "recCash": true
+     },
+     "base": "assets",
+     "baseValue": 35612000000,
+     "result": "pass"
+    }
    },
-   "pass": {
-    "interest": true,
-    "debt": false,
-    "cash": true,
-    "receivables": true
-   },
-   "financialPass": false,
+   "missing": [
+    "price history"
+   ],
+   "marketValueSources": [
+    "current value: Finnhub"
+   ],
+   "heldBy": [],
+   "ai": null,
    "tags": {
     "debt": "LongTermDebtAndCapitalLeaseObligations",
     "cash": "CashAndCashEquivalentsAtCarryingValue",
@@ -2655,11 +7056,11 @@
     {
      "asOf": "2026-06-27",
      "checked": "2026-10-30",
-     "ratios": {
-      "interest": 0.13,
-      "debt": 33.92,
-      "cash": 3.82,
-      "receivables": 12.67
+     "results": {
+      "aaoifi": "fail",
+      "sp": "incomplete",
+      "djim": "incomplete",
+      "msci": "pass"
      }
     }
    ]
@@ -2667,10 +7068,10 @@
  },
  "skipped": {
   "ASML": "No balance sheet in SEC data",
-  "TSM": "Files under IFRS (foreign company), not supported yet",
-  "SPOT": "Files under IFRS (foreign company), not supported yet",
+  "TSM": "Files under IFRS (foreign company), so its figures aren't in this format",
+  "SPOT": "Files under IFRS (foreign company), so its figures aren't in this format",
   "WBD": "Not in the SEC's company list",
-  "BUD": "Files under IFRS (foreign company), not supported yet",
+  "BUD": "Files under IFRS (foreign company), so its figures aren't in this format",
   "DEO": "No balance sheet in SEC data"
  }
 }
