@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T07:21:31.441Z",
+ "generated": "2026-11-01T07:32:22.215Z",
  "method": "Financial screens from SEC XBRL filings under four published methodologies; fund holdings from SEC N-PORT filings; optional 10-K review by Claude.",
  "methods": {
   "aaoifi": {
@@ -200,7 +200,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -357,7 +357,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -502,7 +502,7 @@
    "history": [
     {
      "asOf": "2026-07-26",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -647,7 +647,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -792,7 +792,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -953,7 +953,7 @@
    "history": [
     {
      "asOf": "2026-08-28",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1098,7 +1098,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1242,7 +1242,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1387,7 +1387,7 @@
    "history": [
     {
      "asOf": "2026-09-27",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1542,7 +1542,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1686,7 +1686,7 @@
    "history": [
     {
      "asOf": "2026-06-28",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -1832,7 +1832,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -1977,7 +1977,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -2122,7 +2122,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2276,7 +2276,7 @@
     },
     {
      "asOf": "2026-10-02",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2420,7 +2420,7 @@
    "history": [
     {
      "asOf": "2026-09-05",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -2565,7 +2565,7 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2711,7 +2711,7 @@
    "history": [
     {
      "asOf": "2026-08-02",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2856,7 +2856,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -3008,7 +3008,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3163,7 +3163,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3307,7 +3307,7 @@
    "history": [
     {
      "asOf": "2026-03-31",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3459,7 +3459,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3603,7 +3603,7 @@
    "history": [
     {
      "asOf": "2026-08-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3745,7 +3745,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3888,7 +3888,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -4031,7 +4031,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4184,7 +4184,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4337,7 +4337,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4482,7 +4482,7 @@
    "history": [
     {
      "asOf": "2025-12-31",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4625,7 +4625,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4768,7 +4768,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4913,7 +4913,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -5057,7 +5057,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -5200,7 +5200,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -5354,7 +5354,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -5496,7 +5496,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -5639,7 +5639,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -5782,7 +5782,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -5925,7 +5925,7 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6067,7 +6067,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6210,7 +6210,7 @@
    "history": [
     {
      "asOf": "2026-09-26",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -6362,7 +6362,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -6504,7 +6504,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -6646,7 +6646,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6799,7 +6799,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6941,7 +6941,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -7083,7 +7083,7 @@
    "history": [
     {
      "asOf": "2026-06-27",
-     "checked": "2026-10-31",
+     "checked": "2026-11-01",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
