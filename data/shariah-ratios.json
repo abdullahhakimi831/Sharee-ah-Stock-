@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-18T07:45:29.399Z",
+ "generated": "2026-11-19T07:48:05.410Z",
  "method": "Financial screens from SEC XBRL filings under four published methodologies; fund holdings from SEC N-PORT filings; optional 10-K review by Claude.",
  "methods": {
   "aaoifi": {
@@ -79,7 +79,7 @@
     "receivables": 43817000000,
     "totalAssets": 404548000000,
     "shares": 14532182000,
-    "marketCap": 5114020023456.405,
+    "marketCap": 5121867472538.601,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -89,8 +89,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 2.14,
-      "debt": 1.57,
-      "cash": 2.68
+      "debt": 1.56,
+      "cash": 2.67
      },
      "limits": {
       "interest": 5,
@@ -103,7 +103,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 5114020023456.405,
+     "baseValue": 5121867472538.601,
      "result": "pass"
     },
     "sp": {
@@ -210,7 +210,7 @@
     },
     {
      "asOf": "2026-09-26",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -236,7 +236,7 @@
     "receivables": 62084000000,
     "totalAssets": 779403000000,
     "shares": 7426194552,
-    "marketCap": 3759436549748.795,
+    "marketCap": 3774660246199.0005,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -247,7 +247,7 @@
      "ratios": {
       "interest": 1.35,
       "debt": 0.94,
-      "cash": 1.72
+      "cash": 1.71
      },
      "limits": {
       "interest": 5,
@@ -260,7 +260,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 3759436549748.795,
+     "baseValue": 3774660246199.0005,
      "result": "pass"
     },
     "sp": {
@@ -367,7 +367,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -393,7 +393,7 @@
     "receivables": 63059000000,
     "totalAssets": 320272000000,
     "shares": 24100000000,
-    "marketCap": 3746585985355.059,
+    "marketCap": 3638136157120.3643,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -403,8 +403,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 1.07,
-      "debt": 0.89,
-      "cash": 0.6
+      "debt": 0.92,
+      "cash": 0.62
      },
      "limits": {
       "interest": 5,
@@ -417,7 +417,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 3746585985355.059,
+     "baseValue": 3638136157120.3643,
      "result": "pass"
     },
     "sp": {
@@ -512,7 +512,7 @@
    "history": [
     {
      "asOf": "2026-07-26",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -657,7 +657,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -683,7 +683,7 @@
     "receivables": 9209000000,
     "totalAssets": 94812000000,
     "shares": 1640087251,
-    "marketCap": 825636335763.6167,
+    "marketCap": 869475877089.6439,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -693,8 +693,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.01,
-      "debt": 0.86,
-      "cash": 1.91
+      "debt": 0.81,
+      "cash": 1.81
      },
      "limits": {
       "interest": 5,
@@ -707,7 +707,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 825636335763.6167,
+     "baseValue": 869475877089.6439,
      "result": "pass"
     },
     "sp": {
@@ -812,7 +812,7 @@
     },
     {
      "asOf": "2026-09-26",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -854,7 +854,7 @@
     "receivables": 2081000000,
     "totalAssets": 29981000000,
     "shares": 389200000,
-    "marketCap": 91676062875.43353,
+    "marketCap": 88037043901.72191,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -864,8 +864,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 1.11,
-      "debt": 5.2,
-      "cash": 6.15
+      "debt": 5.41,
+      "cash": 6.41
      },
      "limits": {
       "interest": 5,
@@ -878,7 +878,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 91676062875.43353,
+     "baseValue": 88037043901.72191,
      "result": "pass"
     },
     "sp": {
@@ -973,7 +973,7 @@
    "history": [
     {
      "asOf": "2026-08-28",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -999,7 +999,7 @@
     "receivables": 6320000000,
     "totalAssets": 109620000000,
     "shares": 823000000,
-    "marketCap": 160089961364.5284,
+    "marketCap": 156699203441.5299,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -1009,8 +1009,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.26,
-      "debt": 24.54,
-      "cash": 7.12
+      "debt": 25.07,
+      "cash": 7.28
      },
      "limits": {
       "interest": 5,
@@ -1023,7 +1023,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 160089961364.5284,
+     "baseValue": 156699203441.5299,
      "result": "pass"
     },
     "sp": {
@@ -1118,7 +1118,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1144,7 +1144,7 @@
     "receivables": 22716000000,
     "totalAssets": 478836000000,
     "shares": 2574000000,
-    "marketCap": 1581980833247.3877,
+    "marketCap": 1575615848413.8374,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -1154,8 +1154,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.98,
-      "debt": 5.31,
-      "cash": 5.21
+      "debt": 5.33,
+      "cash": 5.23
      },
      "limits": {
       "interest": 5,
@@ -1168,7 +1168,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 1581980833247.3877,
+     "baseValue": 1575615848413.8374,
      "result": "pass"
     },
     "sp": {
@@ -1262,7 +1262,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1288,7 +1288,7 @@
     "receivables": 18987000000,
     "totalAssets": 197425000000,
     "shares": 2407310266,
-    "marketCap": 670917352385.8916,
+    "marketCap": 656473548308.9579,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -1298,8 +1298,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 1.12,
-      "debt": 6.66,
-      "cash": 2.57
+      "debt": 6.8,
+      "cash": 2.62
      },
      "limits": {
       "interest": 5,
@@ -1312,7 +1312,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 670917352385.8916,
+     "baseValue": 656473548308.9579,
      "result": "pass"
     },
     "sp": {
@@ -1407,7 +1407,7 @@
    "history": [
     {
      "asOf": "2026-09-27",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1433,7 +1433,7 @@
     "receivables": 22089000000,
     "totalAssets": 148072000000,
     "shares": 940745031,
-    "marketCap": 1331671618714.2222,
+    "marketCap": 1300815186868.79,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -1443,8 +1443,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.27,
-      "debt": 3.53,
-      "cash": 0.37
+      "debt": 3.61,
+      "cash": 0.38
      },
      "limits": {
       "interest": 5,
@@ -1457,7 +1457,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 1331671618714.2222,
+     "baseValue": 1300815186868.79,
      "result": "pass"
     },
     "sp": {
@@ -1562,7 +1562,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -1588,7 +1588,7 @@
     "receivables": 14192000000,
     "totalAssets": 204544000000,
     "shares": 5699853733,
-    "marketCap": 162274833021.8919,
+    "marketCap": 159937885790.95752,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -1598,8 +1598,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.96,
-      "debt": 38.58,
-      "cash": 6.74
+      "debt": 39.14,
+      "cash": 6.84
      },
      "limits": {
       "interest": 5,
@@ -1612,7 +1612,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 162274833021.8919,
+     "baseValue": 159937885790.95752,
      "result": "fail"
     },
     "sp": {
@@ -1716,7 +1716,7 @@
     },
     {
      "asOf": "2026-09-27",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -1872,7 +1872,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -1898,7 +1898,7 @@
     "receivables": 23400000000,
     "totalAssets": 333786000000,
     "shares": 1965421686,
-    "marketCap": 424786575883.4128,
+    "marketCap": 404641014502.58234,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -1908,8 +1908,8 @@
     "aaoifi": {
      "ratios": {
       "interest": null,
-      "debt": 7.89,
-      "cash": 3.28
+      "debt": 8.29,
+      "cash": 3.44
      },
      "limits": {
       "interest": 5,
@@ -1922,7 +1922,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 424786575883.4128,
+     "baseValue": 404641014502.58234,
      "result": "incomplete"
     },
     "sp": {
@@ -2027,7 +2027,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -2053,7 +2053,7 @@
     "receivables": 6620000000,
     "totalAssets": 133132000000,
     "shares": 2317783143,
-    "marketCap": 398009741468.5357,
+    "marketCap": 394695304465.9696,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2063,8 +2063,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.49,
-      "debt": 5.5,
-      "cash": 3.86
+      "debt": 5.55,
+      "cash": 3.89
      },
      "limits": {
       "interest": 5,
@@ -2077,7 +2077,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 398009741468.5357,
+     "baseValue": 394695304465.9696,
      "result": "pass"
     },
     "sp": {
@@ -2172,7 +2172,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2198,7 +2198,7 @@
     "receivables": 3571000000,
     "totalAssets": 107950000000,
     "shares": 4301902335,
-    "marketCap": 424984946879.6505,
+    "marketCap": 421973604809.4648,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2208,8 +2208,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 1.64,
-      "debt": 9.78,
-      "cash": 3.17
+      "debt": 9.85,
+      "cash": 3.19
      },
      "limits": {
       "interest": 5,
@@ -2222,7 +2222,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 424984946879.6505,
+     "baseValue": 421973604809.4648,
      "result": "pass"
     },
     "sp": {
@@ -2326,7 +2326,7 @@
     },
     {
      "asOf": "2026-10-02",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2352,7 +2352,7 @@
     "receivables": 13623000000,
     "totalAssets": 111976000000,
     "shares": 1362741092,
-    "marketCap": 193536479760.6859,
+    "marketCap": 193332084093.5207,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2362,7 +2362,7 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.07,
-      "debt": 29.29,
+      "debt": 29.32,
       "cash": 5.77
      },
      "limits": {
@@ -2376,7 +2376,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 193536479760.6859,
+     "baseValue": 193332084093.5207,
      "result": "pass"
     },
     "sp": {
@@ -2470,7 +2470,7 @@
    "history": [
     {
      "asOf": "2026-09-05",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2496,7 +2496,7 @@
     "receivables": 5242000000,
     "totalAssets": 37794000000,
     "shares": 855351589,
-    "marketCap": 53248321535.07319,
+    "marketCap": 53931563666.42232,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2506,8 +2506,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.6,
-      "debt": 14.82,
-      "cash": 12.96
+      "debt": 14.64,
+      "cash": 12.8
      },
      "limits": {
       "interest": 5,
@@ -2520,7 +2520,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 53248321535.07319,
+     "baseValue": 53931563666.42232,
      "result": "pass"
     },
     "sp": {
@@ -2615,7 +2615,7 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2641,7 +2641,7 @@
     "receivables": 6963000000,
     "totalAssets": 109384000000,
     "shares": 997689626,
-    "marketCap": 338226773083.71643,
+    "marketCap": 336859938480.98895,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2651,7 +2651,7 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.03,
-      "debt": 14.53,
+      "debt": 14.59,
       "cash": 0.62
      },
      "limits": {
@@ -2665,7 +2665,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 338226773083.71643,
+     "baseValue": 336859938480.98895,
      "result": "pass"
     },
     "sp": {
@@ -2761,7 +2761,7 @@
    "history": [
     {
      "asOf": "2026-08-02",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -2787,7 +2787,7 @@
     "receivables": null,
     "totalAssets": 14664000000,
     "shares": 1304953255,
-    "marketCap": 182557464650.30176,
+    "marketCap": 179366898047.66403,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2798,7 +2798,7 @@
      "ratios": {
       "interest": null,
       "debt": null,
-      "cash": 2.88
+      "cash": 2.93
      },
      "limits": {
       "interest": 5,
@@ -2811,7 +2811,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 182557464650.30176,
+     "baseValue": 179366898047.66403,
      "result": "incomplete"
     },
     "sp": {
@@ -2916,7 +2916,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -2942,7 +2942,7 @@
     "receivables": 98242000000,
     "totalAssets": 1243390000000,
     "shares": 10813138306,
-    "marketCap": 2788600080244.3438,
+    "marketCap": 2895109650988.692,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -2952,8 +2952,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.61,
-      "debt": 6.5,
-      "cash": 4.1
+      "debt": 6.26,
+      "cash": 3.95
      },
      "limits": {
       "interest": 5,
@@ -2966,7 +2966,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 2788600080244.3438,
+     "baseValue": 2895109650988.692,
      "result": "pass"
     },
     "sp": {
@@ -3068,7 +3068,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3094,7 +3094,7 @@
     "receivables": 72784000000,
     "totalAssets": 1003312000000,
     "shares": 12230000000,
-    "marketCap": 3444778800000,
+    "marketCap": 3472317360000,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -3104,8 +3104,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 1.08,
-      "debt": 3.7,
-      "cash": 7.7
+      "debt": 3.67,
+      "cash": 7.63
      },
      "limits": {
       "interest": 5,
@@ -3118,7 +3118,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 3444778800000,
+     "baseValue": 3472317360000,
      "result": "pass"
     },
     "sp": {
@@ -3223,7 +3223,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3377,7 +3377,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3403,7 +3403,7 @@
     "receivables": 5258000000,
     "totalAssets": 58149000000,
     "shares": 122530193,
-    "marketCap": 562544567862.0459,
+    "marketCap": 560488556610.7859,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -3413,8 +3413,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.15,
-      "debt": 4.26,
-      "cash": 1.8
+      "debt": 4.27,
+      "cash": 1.81
      },
      "limits": {
       "interest": 5,
@@ -3427,7 +3427,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 562544567862.0459,
+     "baseValue": 560488556610.7859,
      "result": "pass"
     },
     "sp": {
@@ -3529,7 +3529,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3555,7 +3555,7 @@
     "receivables": 3959000000,
     "totalAssets": 89045000000,
     "shares": 443129349,
-    "marketCap": 491909006214.6236,
+    "marketCap": 485944470461.2618,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -3565,8 +3565,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.21,
-      "debt": 1.26,
-      "cash": 4.39
+      "debt": 1.27,
+      "cash": 4.44
      },
      "limits": {
       "interest": 5,
@@ -3579,7 +3579,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 491909006214.6236,
+     "baseValue": 485944470461.2618,
      "result": "pass"
     },
     "sp": {
@@ -3673,7 +3673,7 @@
    "history": [
     {
      "asOf": "2026-08-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3815,7 +3815,7 @@
    "history": [
     {
      "asOf": "2026-07-31",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -3841,7 +3841,7 @@
     "receivables": 2483000000,
     "totalAssets": 60657000000,
     "shares": 705784744,
-    "marketCap": 194669553471.03522,
+    "marketCap": 193406194424.5366,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -3851,8 +3851,8 @@
     "aaoifi": {
      "ratios": {
       "interest": null,
-      "debt": 20.44,
-      "cash": 0.61
+      "debt": 20.58,
+      "cash": 0.62
      },
      "limits": {
       "interest": 5,
@@ -3865,7 +3865,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 194669553471.03522,
+     "baseValue": 193406194424.5366,
      "result": "incomplete"
     },
     "sp": {
@@ -3968,7 +3968,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -3994,7 +3994,7 @@
     "receivables": null,
     "totalAssets": 5091545000000,
     "shares": 2655609509,
-    "marketCap": 876244927793.6077,
+    "marketCap": 860709611370.337,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -4004,8 +4004,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 15.36,
-      "debt": 60.66,
-      "cash": 37.24
+      "debt": 61.75,
+      "cash": 37.91
      },
      "limits": {
       "interest": 5,
@@ -4018,7 +4018,7 @@
       "cash": false
      },
      "base": "marketCap",
-     "baseValue": 876244927793.6077,
+     "baseValue": 860709611370.337,
      "result": "fail"
     },
     "sp": {
@@ -4121,7 +4121,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4147,7 +4147,7 @@
     "receivables": null,
     "totalAssets": 3427704000000,
     "shares": 6900209006,
-    "marketCap": 341146344660.53674,
+    "marketCap": 337489212051.8592,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -4157,8 +4157,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 18.06,
-      "debt": 93.42,
-      "cash": 73.18
+      "debt": 94.43,
+      "cash": 73.97
      },
      "limits": {
       "interest": 5,
@@ -4171,7 +4171,7 @@
       "cash": false
      },
      "base": "marketCap",
-     "baseValue": 341146344660.53674,
+     "baseValue": 337489212051.8592,
      "result": "fail"
     },
     "sp": {
@@ -4274,7 +4274,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4427,7 +4427,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4453,7 +4453,7 @@
     "receivables": null,
     "totalAssets": 2657202000000,
     "shares": 1749319009,
-    "marketCap": 198525223365.2201,
+    "marketCap": 194221696202.18472,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -4463,8 +4463,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 167.63,
-      "debt": 195.26,
-      "cash": 176.09
+      "debt": 199.59,
+      "cash": 179.99
      },
      "limits": {
       "interest": 5,
@@ -4477,7 +4477,7 @@
       "cash": false
      },
      "base": "marketCap",
-     "baseValue": 198525223365.2201,
+     "baseValue": 194221696202.18472,
      "result": "fail"
     },
     "sp": {
@@ -4572,7 +4572,7 @@
    "history": [
     {
      "asOf": "2025-12-31",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4598,7 +4598,7 @@
     "receivables": null,
     "totalAssets": 2180426000000,
     "shares": 288434583,
-    "marketCap": 253107124682.0319,
+    "marketCap": 251855330358.5351,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -4608,8 +4608,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 13.03,
-      "debt": 175.74,
-      "cash": 69.84
+      "debt": 176.62,
+      "cash": 70.19
      },
      "limits": {
       "interest": 5,
@@ -4622,7 +4622,7 @@
       "cash": false
      },
      "base": "marketCap",
-     "baseValue": 253107124682.0319,
+     "baseValue": 251855330358.5351,
      "result": "fail"
     },
     "sp": {
@@ -4725,7 +4725,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4751,7 +4751,7 @@
     "receivables": null,
     "totalAssets": 1692027000000,
     "shares": 1563043865,
-    "marketCap": 286865444201.7369,
+    "marketCap": 283176647573.67865,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -4761,8 +4761,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 28.48,
-      "debt": 131.8,
-      "cash": 48.34
+      "debt": 133.52,
+      "cash": 48.97
      },
      "limits": {
       "interest": 5,
@@ -4775,7 +4775,7 @@
       "cash": false
      },
      "base": "marketCap",
-     "baseValue": 286865444201.7369,
+     "baseValue": 283176647573.67865,
      "result": "fail"
     },
     "sp": {
@@ -4878,7 +4878,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "fail",
@@ -4904,7 +4904,7 @@
     "receivables": null,
     "totalAssets": 1303907000000,
     "shares": 941481,
-    "marketCap": 1245884549962.7568,
+    "marketCap": 1224441843387.116,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -4915,7 +4915,7 @@
      "ratios": {
       "interest": null,
       "debt": null,
-      "cash": 3.34
+      "cash": 3.4
      },
      "limits": {
       "interest": 5,
@@ -4928,7 +4928,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 1245884549962.7568,
+     "baseValue": 1224441843387.116,
      "result": "incomplete"
     },
     "sp": {
@@ -5033,7 +5033,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -5187,7 +5187,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -5330,7 +5330,7 @@
    "history": [
     {
      "asOf": "2026-06-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -5356,7 +5356,7 @@
     "receivables": 632000000,
     "totalAssets": 27191000000,
     "shares": 336486715,
-    "marketCap": 10676723626.989056,
+    "marketCap": 10841602118.806177,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -5366,8 +5366,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0,
-      "debt": 87.32,
-      "cash": 1.97
+      "debt": 85.99,
+      "cash": 1.94
      },
      "limits": {
       "interest": 5,
@@ -5380,7 +5380,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 10676723626.989056,
+     "baseValue": 10841602118.806177,
      "result": "fail"
     },
     "sp": {
@@ -5484,7 +5484,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -5510,7 +5510,7 @@
     "receivables": 3289064000,
     "totalAssets": 27895903000,
     "shares": 235696543,
-    "marketCap": 41542248750.20993,
+    "marketCap": 42781685334.216446,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -5520,8 +5520,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.6,
-      "debt": 23.47,
-      "cash": 19.88
+      "debt": 22.79,
+      "cash": 19.3
      },
      "limits": {
       "interest": 5,
@@ -5534,7 +5534,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 41542248750.20993,
+     "baseValue": 42781685334.216446,
      "result": "pass"
     },
     "sp": {
@@ -5636,7 +5636,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -5662,7 +5662,7 @@
     "receivables": 13389000000,
     "totalAssets": 206138000000,
     "shares": 1708029668,
-    "marketCap": 201918759684.34778,
+    "marketCap": 211277412228.2774,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -5672,8 +5672,8 @@
     "aaoifi": {
      "ratios": {
       "interest": null,
-      "debt": 22.03,
-      "cash": 3.31
+      "debt": 21.05,
+      "cash": 3.16
      },
      "limits": {
       "interest": 5,
@@ -5686,7 +5686,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 201918759684.34778,
+     "baseValue": 211277412228.2774,
      "result": "incomplete"
     },
     "sp": {
@@ -5789,7 +5789,7 @@
     },
     {
      "asOf": "2026-10-03",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -5815,7 +5815,7 @@
     "receivables": null,
     "totalAssets": 58681954000,
     "shares": 4106325903,
-    "marketCap": 245065545937.1009,
+    "marketCap": 245640432858.003,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -5825,8 +5825,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.65,
-      "debt": 7.18,
-      "cash": 3.36
+      "debt": 7.17,
+      "cash": 3.35
      },
      "limits": {
       "interest": 5,
@@ -5839,7 +5839,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 245065545937.1009,
+     "baseValue": 245640432858.003,
      "result": "pass"
     },
     "sp": {
@@ -5932,7 +5932,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -5958,7 +5958,7 @@
     "receivables": 678100000,
     "totalAssets": 22063700000,
     "shares": null,
-    "marketCap": 24388224437.33179,
+    "marketCap": 24303611978.853596,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -5968,8 +5968,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.13,
-      "debt": 42.3,
-      "cash": 0.4
+      "debt": 42.45,
+      "cash": 0.41
      },
      "limits": {
       "interest": 5,
@@ -5982,7 +5982,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 24388224437.33179,
+     "baseValue": 24303611978.853596,
      "result": "fail"
     },
     "sp": {
@@ -6075,7 +6075,7 @@
    "history": [
     {
      "asOf": "2026-08-31",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6101,7 +6101,7 @@
     "receivables": 808100000,
     "totalAssets": 22601200000,
     "shares": 0,
-    "marketCap": 7594337232.198738,
+    "marketCap": 7634690629.758005,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6111,8 +6111,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.03,
-      "debt": 78.63,
-      "cash": 7.93
+      "debt": 78.21,
+      "cash": 7.89
      },
      "limits": {
       "interest": 5,
@@ -6125,7 +6125,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 7594337232.198738,
+     "baseValue": 7634690629.758005,
      "result": "fail"
     },
     "sp": {
@@ -6227,7 +6227,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6253,7 +6253,7 @@
     "receivables": 83032000,
     "totalAssets": 1239388000,
     "shares": 10937000,
-    "marketCap": 2280514952.1293387,
+    "marketCap": 2268334877.8509884,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6264,7 +6264,7 @@
      "ratios": {
       "interest": 0,
       "debt": null,
-      "cash": 13.51
+      "cash": 13.58
      },
      "limits": {
       "interest": 5,
@@ -6277,7 +6277,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 2280514952.1293387,
+     "baseValue": 2268334877.8509884,
      "result": "incomplete"
     },
     "sp": {
@@ -6370,7 +6370,7 @@
    "history": [
     {
      "asOf": "2026-09-26",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "incomplete",
       "sp": "incomplete",
@@ -6396,7 +6396,7 @@
     "receivables": 342000000,
     "totalAssets": 34478000000,
     "shares": 1663436915,
-    "marketCap": 128849823963.59007,
+    "marketCap": 126853695705.01859,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6406,8 +6406,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.42,
-      "debt": 18.67,
-      "cash": 2.09
+      "debt": 18.97,
+      "cash": 2.13
      },
      "limits": {
       "interest": 5,
@@ -6420,7 +6420,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 128849823963.59007,
+     "baseValue": 126853695705.01859,
      "result": "pass"
     },
     "sp": {
@@ -6522,7 +6522,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -6548,7 +6548,7 @@
     "receivables": 5156000000,
     "totalAssets": 66730000000,
     "shares": 1558655629,
-    "marketCap": 302971472858.7949,
+    "marketCap": 300399708974.9812,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6558,8 +6558,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 1.53,
-      "debt": 15.7,
-      "cash": 2.21
+      "debt": 15.83,
+      "cash": 2.22
      },
      "limits": {
       "interest": 5,
@@ -6572,7 +6572,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 302971472858.7949,
+     "baseValue": 300399708974.9812,
      "result": "pass"
     },
     "sp": {
@@ -6664,7 +6664,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -6690,7 +6690,7 @@
     "receivables": 664000000,
     "totalAssets": 19418000000,
     "shares": 626990133,
-    "marketCap": 24653251027.24561,
+    "marketCap": 24621901518.628693,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6700,8 +6700,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.18,
-      "debt": 62.64,
-      "cash": 11.59
+      "debt": 62.72,
+      "cash": 11.61
      },
      "limits": {
       "interest": 5,
@@ -6714,7 +6714,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 24653251027.24561,
+     "baseValue": 24621901518.628693,
      "result": "fail"
     },
     "sp": {
@@ -6806,7 +6806,7 @@
    "history": [
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6832,7 +6832,7 @@
     "receivables": 1072242000,
     "totalAssets": 39474072000,
     "shares": 253010547,
-    "marketCap": 8437901519.839003,
+    "marketCap": 8536575357.571215,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6842,8 +6842,8 @@
     "aaoifi": {
      "ratios": {
       "interest": null,
-      "debt": 67.18,
-      "cash": 28.4
+      "debt": 66.41,
+      "cash": 28.07
      },
      "limits": {
       "interest": 5,
@@ -6856,7 +6856,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 8437901519.839003,
+     "baseValue": 8536575357.571215,
      "result": "fail"
     },
     "sp": {
@@ -6959,7 +6959,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
@@ -6985,7 +6985,7 @@
     "receivables": 100449000,
     "totalAssets": 4611396000,
     "shares": 495903000,
-    "marketCap": 8936173316.286644,
+    "marketCap": 8896456953.315557,
     "avgMarketCap24": null,
     "avgMarketCap36": null,
     "price": null
@@ -6995,8 +6995,8 @@
     "aaoifi": {
      "ratios": {
       "interest": 0.78,
-      "debt": 25.02,
-      "cash": 12.32
+      "debt": 25.13,
+      "cash": 12.37
      },
      "limits": {
       "interest": 5,
@@ -7009,7 +7009,7 @@
       "cash": true
      },
      "base": "marketCap",
-     "baseValue": 8936173316.286644,
+     "baseValue": 8896456953.315557,
      "result": "pass"
     },
     "sp": {
@@ -7111,7 +7111,7 @@
     },
     {
      "asOf": "2026-09-30",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "pass",
       "sp": "incomplete",
@@ -7263,7 +7263,7 @@
     },
     {
      "asOf": "2026-10-03",
-     "checked": "2026-11-18",
+     "checked": "2026-11-19",
      "results": {
       "aaoifi": "fail",
       "sp": "incomplete",
